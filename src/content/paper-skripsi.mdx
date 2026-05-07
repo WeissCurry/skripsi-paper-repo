@@ -1,0 +1,395 @@
+# ABSTRAK
+
+Perkembangan ekosistem investasi digital menunjukkan pertumbuhan signifikan dengan dominasi aset kripto pada lanskap keuangan. Akan tetapi, peningkatan kuantitas adopsi ini tidak selalu diimbangi dengan kualitas mitigasi risiko dan pemenuhan kepatuhan syariah yang rasional serta terukur. Ekosistem <Glossary term="staking" definition="Proses mengunci aset kripto di jaringan Proof of Stake untuk mendapatkan imbal hasil sekaligus menjaga keamanan jaringan.">staking</Glossary> Ethereum, yang mayoritas dikuasai oleh pihak ketiga, menghadirkan pilihan prospektif yang kompleks dan memerlukan metode evaluasi yang objektif. Penelitian ini mengimplementasikan kerangka kerja *The Open Group Architecture Framework Architecture Development Method* (<Glossary term="TOGAF ADM" definition="Framework standar untuk pengembangan arsitektur enterprise yang bersifat iteratif dan terstruktur.">TOGAF ADM</Glossary>) untuk memberikan perancangan arsitektur manajemen risiko yang terstruktur. Pendekatan kualitatif deskriptif diterapkan untuk mengevaluasi mekanisme Solo Staking dan <Glossary term="Liquid Staking" definition="Protokol yang memungkinkan pengguna mengunci aset (stake) namun tetap mendapatkan token representatif yang bisa digunakan kembali (likuid).">Liquid Staking</Glossary> (Lido Finance) berdasarkan parameter Fikih Muamalah. Hasil penelitian menunjukkan bahwa protokol Liquid Staking konvensional melanggar kelayakan syariat akibat penerapan algoritma *<Glossary term="rebasing" definition="Mekanisme penyesuaian saldo token secara otomatis dalam dompet pengguna untuk merefleksikan imbal hasil atau penalti.">rebasing</Glossary>* yang memicu <Glossary term="Riba al-Nasi'ah" definition="Tambahan yang disyaratkan dalam transaksi pinjam-meminjam atau pertukaran barang ribawi karena penangguhan waktu pembayaran.">Riba al-Nasi'ah</Glossary> serta distribusi penalti (*slashing*) yang memicu <Glossary term="Zulm" definition="Kezaliman atau ketidakadilan; dalam konteks ini berarti distribusi penalti slashing yang tidak proporsional kepada investor yang tidak bersalah.">Zulm</Glossary>. Sebagai penyelesaian atas kompleksitas tersebut, penelitian ini merombak arsitektur bisnis dengan menerapkan model *Net Asset Value* (<Glossary term="NAV" definition="Net Asset Value; nilai bersih aset yang dihitung berdasarkan total nilai pasar aset dikurangi kewajiban, dibagi jumlah unit.">NAV</Glossary>) berbasis akad <Glossary term="Wakalah bil Istithmar" definition="Akad perwakilan untuk melakukan investasi, di mana agen bertindak atas nama pemilik dana untuk mengelola aset.">Wakalah bil Istithmar</Glossary>. Berdasarkan pengujian simulasi pada 10 kriteria risiko menggunakan data periode 25 April 2026, metode usulan terbukti efektif menghasilkan stabilitas kelayakan investasi pada peringkat *Speculative Grade* dengan nilai skor 14. Sebaliknya, alternatif pada protokol konvensional mendapatkan penalti Veto otomatis akibat ketidakpatuhan syariah. Kerangka kerja TOGAF ADM hingga Phase D terbukti mampu menghasilkan cetak biru yang rasional dan sistematis dalam mengintegrasikan keamanan *smart contract* dengan prinsip pelindungan harta (<Glossary term="Hifzul Mal" definition="Salah satu tujuan utama Maqasid Syariah yang menekankan pada perlindungan dan pelestarian harta benda.">Hifzul Mal</Glossary>) pada pasar terdesentralisasi.
+
+**Kata Kunci:** *Enterprise Architecture, Ethereum Staking, Hifzul Mal, Risk Analysis, Sharia Compliance, TOGAF ADM.*
+
+---
+
+# 1. PENDAHULUAN
+
+Teknologi blockchain telah mentransformasi lanskap keuangan global melalui aset kripto yang kini bergeser dari sekadar tren spekulatif menjadi instrumen investasi strategis. Di Indonesia, aset kripto memiliki kedudukan hukum spesifik sebagai komoditas yang sah diperdagangkan (Febrianto et al., 2025; Kindi, 2023). Adopsi aset kripto menunjukkan tren positif dengan menempati peringkat ke-7 dunia pada indeks adopsi global (Chainalysis Team, 2025), di mana demografi investornya didominasi oleh kelompok usia produktif 18-35 tahun (Shabrina & Sedayu, 2025). Akan tetapi, peningkatan adopsi ini seringkali memicu keraguan (syubhat) di kalangan investor muslim terkait kehalalan imbal hasil dari ekosistem digital (Rizieq & Baidhowi, 2025). Merespons dinamika tersebut, Majelis Tarjih dan Tajdid Pimpinan Pusat Muhammadiyah merilis fatwa pembaruan yang secara tegas mengklasifikasikan aset kripto berutilitas sebagai Māl Mutaqawwam atau harta yang bernilai (Majelis Tarjih dan Tajdid Pimpinan Pusat Muhammadiyah, 2026). Fatwa tersebut memberikan kepastian hukum bahwa inovasi keuangan digital pada dasarnya mubah, namun melarang keras skema transaksi yang memuat fasilitas utang berbunga (crypto lending) maupun manipulasi pasar.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="flex flex-wrap justify-center gap-4">
+    <img src="/content/paper-images/transaksi-kripto-vs-pasar-modal.png" alt="Gambar 1a" className="max-h-[300px] border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
+    <img src="/content/paper-images/demografi-penduduk.png" alt="Gambar 1b" className="max-h-[300px] border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 1 (a) Dominasi transaksi Kripto dan Pasar Modal (PT Kustodian Sentral Efek Indonesia, 2025), (b) Demografi penduduk Indonesia (Badan Pusat Statistik Indonesia, 2025)</figcaption>
+</figure>
+
+Kerangka manajemen risiko dalam Decentralized Finance (<Glossary term="DeFi" definition="Decentralized Finance; ekosistem layanan keuangan berbasis blockchain yang beroperasi tanpa perantara terpusat.">DeFi</Glossary>) menjadi krusial karena kerentanan validator terbagi ke dalam berbagai dimensi. Jika dikontekstualisasikan dengan prinsip syariah, manajemen risiko ini berhubungan erat dengan pelindungan harta (Hifzul Mal) dan risiko kepatuhan (Compliance Risks). Tanpa arsitektur mitigasi yang komprehensif, ekosistem staking rentan terhadap pelanggaran <Glossary term="Gharar" definition="Unsur ketidakpastian, spekulasi berlebihan, atau kurangnya kejelasan dalam suatu akad/transaksi.">Gharar</Glossary> (ketidakpastian) dan Zulm (kezaliman) dalam pendistribusian penalti operasional (Izadin, Mohd. Yusof, & Mazlan, 2025). Padahal secara intrinsik, partisipasi aktif validator dalam sistem PoS (seperti pada Solo Staking) memiliki karakteristik yang selaras dengan prinsip Islam, karena dapat direpresentasikan sebagai akad Ju'alah atau imbalan murni berbasis kinerja (Habib & Jawa, 2024).
+
+Beberapa studi literatur terdahulu telah mengkaji elemen-elemen di dalam ekosistem ini secara terpisah. Adamyk et al. (2025) telah memformulasikan kerangka kerja konseptual risiko DeFi yang memetakan kerentanan ke dalam dimensi teknologis, operasional, finansial, dan kepatuhan. Dari perspektif syariah, Habib & Jawa (2024) mengkaji keabsahan validasi transaksi PoS sebagai akad Ju'alah, sementara Izadin et al. (2025) menegaskan bahwa mitigasi portofolio digital sangat sejalan dengan prinsip Maqasid Syariah untuk menekan spekulasi. Pada aspek evaluasi kinerja protokol, Xiong et al. (2025) mengidentifikasi bahwa mekanisme Liquid Staking (seperti stETH Lido) rentan memicu risiko efek penularan likuidasi beruntun saat terjadi devaluasi aset. Untuk menjembatani kompleksitas sistem blockchain, penelitian dari Judijanto et al. (2023) dan Oak Kyaw Zaw et al. (2025) membuktikan bahwa penggunaan pendekatan Enterprise Architecture (EA) sangat efektif untuk menciptakan transparansi, menjamin integritas data, serta menerapkan standar keamanan pada sistem yang terdesentralisasi.
+
+Meskipun komponen-komponen literatur tersebut saling melengkapi, belum ada satu pun penelitian yang berhasil mengintegrasikan ketiga domain krusial yaitu tata kelola teknis teknologi blockchain, manajemen risiko komprehensif, dan standarisasi kepatuhan syariah—ke dalam satu cetak biru arsitektur sistem informasi yang utuh. Literatur yang ada cenderung murni berfokus pada analisis risiko teknis tanpa menawarkan perombakan arsitektural, atau sebaliknya, hanya berupa tinjauan Fikih Muamalah tanpa menjabarkan rancangan teknis yang dapat diimplementasikan ke dalam Smart Contract. Kekosongan ini menjadi celah penelitian (research gap) mendesak yang perlu dieksplorasi.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/posisi-penelitian.png" alt="Gambar 2" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 2 Posisi Penelitian.</figcaption>
+</figure>
+
+Beranjak dari permasalahan tersebut, penelitian ini bertujuan untuk merancang arsitektur manajemen risiko dan kepatuhan syariah yang komprehensif pada ekosistem staking Ethereum. Metode penelitian menggunakan kualitatif deskriptif melalui studi literatur (mengkaji parameter Fatwa DSN-MUI dan standar AAOIFI) serta observasi platform data on-chain secara aktual pada mainnet Ethereum (melalui Etherscan, Dune Analytics, dan Rated Network). Studi komparasi diterapkan pada dua mekanisme utama, yaitu Solo Staking secara mandiri dan Liquid Staking konvensional. Untuk menjembatani kebutuhan teologis normatif ke dalam eksekusi logika teknis sistem, penelitian ini mengadopsi metode perancangan The Open Group Architecture Framework Architecture Development Method (TOGAF ADM). Kerangka kerja iteratif ini diterapkan secara runut yang dibatasi mulai dari tahap inisiasi kelayakan syariah (Preliminary Phase), Visi Arsitektur (Phase A), Arsitektur Bisnis (Phase B), Arsitektur Sistem Informasi (Phase C), hingga Arsitektur Teknologi (Phase D).
+
+# METODE PENELITIAN
+
+Penelitian ini menggunakan metode kualitatif deskriptif dengan pendekatan Enterprise Architecture. Proses analisis didasarkan pada pengumpulan data sekunder tanpa interaksi langsung, mengingat objek penelitian merupakan protokol terdesentralisasi public. Adapun Gambar 3 menvisualisasikan Kerangka Penelitian.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/kerangka-penelitian.png" alt="Gambar 3" className="max-h-[500px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 3 Kerangka Penelitian.</figcaption>
+</figure>
+
+Tahapan Pengumpulan data dibagi menjadi dua tahapan teknis, yaitu studi literatur dan observasi sistem.
+
+Studi literatur dilakukan untuk menyusun parameter kepatuhan syariah dan matriks risiko. Referensi normatif ditarik dari Fatwa DSN-MUI (No. 116/2017 dan No. 52/2006) serta Standar Shari’ah AAOIFI No. 57 untuk menentukan batas toleransi spekulasi. Sementara itu, penyusunan parameter teknis didasarkan pada klausul identifikasi risiko ISO 31000:2018 dan kerangka kerja risiko tata kelola desentralisasi.
+
+Observasi dilakukan secara langsung terhadap dokumentasi teknis Whitepaper entitas protokol serta Ethereum Foundation. Pemantauan data eksekusi (on-chain) diterapkan menggunakan perangkat analitik publik, meliputi Etherscan untuk melacak jejak transaksi, Dune Analytics dan Rated Network untuk menarik data historis tingkat ketersediaan (uptime) validator, serta DefiLlama untuk mengukur rasio sentralisasi aset.
+
+# HASIL DAN PEMBAHASAN
+
+## 3.1. Fase Pendahuluan dan Visi Arsitektur
+
+Fase inisiasi (Preliminary Phase) difokuskan pada penyelarasan kebutuhan mitigasi risiko teknis ekosistem staking dengan parameter syariah. Katalog prinsip ditetapkan sebagai pedoman operasional utama yang memuat aturan pelindungan harta (Hifzul Mal) dan pelarangan ketidakpastian administratif (Gharar). Selanjutnya, pada fase Visi Arsitektur (Phase A), pemetaan pemangku kepentingan dan pemodelan rantai nilai (Value Chain) dilakukan untuk mengidentifikasi batasan peran masing-masing entitas guna mencegah terjadinya dominasi terpusat pada jaringan.
+
+
+**Tabel 1. Principles Catalogue**
+
+<div className="overflow-x-auto my-8">
+  <table className="min-w-full border-[3px] border-black dark:border-white border-collapse">
+    <thead>
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Prinsip Arsitektur</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Tujuan Prinsip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Kejelasan Akad dan Perlindungan Harta</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">• Memastikan operasional staking berlandaskan akad yang sah dan terhindar dari entitas spekulatif.<br/>• Menghindari pencampuran aset dengan protokol pinjaman ribawi untuk menyesuaikan prinsip Hifzul Mal.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Transparansi Data Terdesentralisasi</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">• Menghilangkan unsur penipuan atau Gharar dengan mewajibkan transparansi pencatatan log validator.<br/>• Mewajibkan penarikan data transaksi jaringan secara langsung dan aktual.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Otomatisasi Peringatan Dini</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">• Menyediakan kemampuan deteksi anomali aktual untuk memantau pelanggaran batas toleransi risiko.<br/>• Memberikan peringatan bahaya otomatis agar institusi dapat mengeksekusi tindakan penyelamatan aset.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Ketahanan Infrastruktur</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">• Menjamin ketersediaan sistem melalui topologi jaringan cadangan dan pemisahan kunci kriptografi secara ketat.<br/>• Mencegah denda pemotongan massal dengan mewajibkan penerapan keragaman perangkat lunak klien.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+**Tabel 2. Analisis 5W + 1H**
+
+<div className="overflow-x-auto my-8">
+  <table className="min-w-full border-[3px] border-black dark:border-white border-collapse">
+    <thead>
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Elemen</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Deskripsi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>What</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Perancangan cetak biru (*blueprint*) Arsitektur Manajemen Risiko dan Kepatuhan Syariah, dilengkapi dengan prototipe antarmuka peringatan dini (*early warning system*).</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Who</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Institusi Keuangan Syariah (Manajer Investasi/Bank Syariah), Investor Muslim (Muwakkil), Node Operator (Wakil), dan Auditor/Dewan Pengawas Syariah.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Where</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Diimplementasikan pada ekosistem blockchain Ethereum Mainnet, dengan lokus observasi pada mekanisme Solo Staking dan protokol Liquid Staking (Lido Finance).</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>When</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Berjalan secara *real-time* dan berkesinambungan selama aset digital terkunci (*staked*) di dalam Smart Contract.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Why</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Menjembatani celah antara risiko teknis terdesentralisasi (seperti *slashing* dan *smart contract bugs*) dengan kewajiban mematuhi batasan Syariah, menciptakan ekosistem investasi yang aman dan halal.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>How</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Menggunakan Enterprise Architecture berbasis kerangka kerja TOGAF ADM, mengintegrasikan matriks ISO 31000:2018 dan parameter Fikih Muamalah.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/value-chain-staking.png" alt="Gambar 4" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 4 Value Chain Staking</figcaption>
+</figure>
+
+## 3.2. Arsitektur Bisnis
+
+Pemodelan proses bisnis diterapkan untuk mengevaluasi mekanisme operasional saat ini dan merancang target usulan. Hasil evaluasi terhadap arsitektur dasar menunjukkan bahwa mekanisme Solo Staking secara mendasar memenuhi kaidah syariat melalui penerapan akad Ju'alah yang murni berbasis pada kinerja riil pengamanan jaringan.
+
+Sebaliknya, analisis terhadap Liquid Staking pada protokol Lido Finance mengidentifikasi adanya pelanggaran syariah akibat modifikasi algoritma distribusi hasil. Algoritma otomatisasi penambahan token (Positive Rebase) memicu praktik Riba al-Nasi'ah melalui penciptaan nilai fiktif tanpa underlying pertukaran. Selain itu, eksekusi pemotongan merata (Negative Rebase) memicu praktik Zulm (kezaliman) karena mendistribusikan sanksi denda operasional (slashing) kepada seluruh penyumbang dana tanpa memandang letak kesalahan.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="flex flex-wrap justify-center gap-4">
+    <div className="p-2 border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <img src="/content/paper-images/skema-solo-staking.png" alt="Gambar 5a" className="max-h-[400px]" />
+    </div>
+    <div className="p-2 border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <img src="/content/paper-images/skema-liquid-staking.png" alt="Gambar 5b" className="max-h-[400px]" />
+    </div>
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 5. (a) Skema Interaksi Solo Staking, (b) Skema Interaksi Liquid Staking Lido Finance.</figcaption>
+</figure>
+
+Target usulan merekonstruksi tata kelola tersebut dengan menerapkan model Net Asset Value (NAV) berlandaskan akad Wakalah bil Istithmar. Pada arsitektur ini, algoritma manipulasi kuantitas saldo diganti dengan mekanisme pembaruan nilai valuasi aset dasar. Kerugian maupun keuntungan direfleksikan secara proporsional pada rasio harga token, sehingga eksekusi sanksi denda tidak merugikan sisa anggota secara sepihak di dalam unit pengumpulan dana (pool).
+
+
+**Tabel 3. Narasi Interaksi dan Analisis Syariah Liquid Staking Usulan**
+
+<div className="overflow-x-auto my-8">
+  <table className="min-w-full border-[3px] border-black dark:border-white border-collapse">
+    <thead>
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Interaksi</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Deskripsi</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Analisis Akad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>1. Pemilihan Kuota & Setoran ETH</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Pengguna menganalisis ketersediaan kuota dan menyetujui E-Contract sebelum deposit.</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Pembatasan kuota memastikan ketersediaan *underlying asset* yang jelas untuk memitigasi Gharar. Akad yang mengikat adalah <strong>Wakalah bil Istithmar</strong>.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>2. Penerbitan LST</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Protokol menghitung NAV pool saat itu, lalu mencetak token LST sebagai representasi proporsional aset pengguna.</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Token LST diposisikan secara mutlak sebagai bukti kepemilikan atau *'Ayn*, bebas dari *Sarf* rasio tetap yang manipulatif.</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>3 & 4. Operasi Validasi Blok</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Kumpulan aset dikunci di Beacon Chain dan Validator menjalankan tugas otentikasi jaringan secara rutin.</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Dana digunakan murni untuk validasi jaringan. Validator bertindak sebagai kepanjangan tangan protokol untuk menjaga aset (*Hifzul Mal*).</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>5 & 6. Distribusi Hasil & Pembaruan NAV</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Reward dan slashing dari jaringan diakumulasi, secara otomatis menaikkan atau menurunkan nilai tukar NAV token LST tanpa menambah jumlah token.</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Mengganti penambahan *Rebase* dengan kenaikan valuasi aset menghapus <strong>Riba al-Nasi'ah</strong>. Kerugian juga terefleksi pada penurunan valuasi secara adil tanpa mencuri (<strong>Bebas Zulm</strong>).</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>7. Penarikan Dana (Burn LST)</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Pengguna mengajukan *burn* token LST. Protokol menghitung nilai pencairan berdasarkan rasio NAV terakhir.</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Likuidasi transparan sesuai performa aktual. Pengembalian pokok dan margin pertumbuhan mencerminkan keadilan distribusi.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/skema-staking-usulan.png" alt="Gambar 6" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 6. Skema Interaksi Liquid Staking Usulan</figcaption>
+</figure>
+
+## 3.3. Arsitektur Sistem Informasi dan Teknologi
+
+Pada perancangan arsitektur data (Phase C), struktur informasi dikonfigurasi dalam basis data Smart Contract untuk mencatat nilai aset dasar tanpa memanipulasi jumlah token yang beredar. Lapisan aplikasi dirancang ke dalam empat bagian, mencakup antarmuka pengguna, layanan luar jaringan (off-chain), smart contract dalam jaringan (on-chain), dan infrastruktur peladen validator.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/conceptual-data-model.jpeg" alt="Gambar 7" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 7. Conceptual Data Model</figcaption>
+</figure>
+
+Selanjutnya, perancangan arsitektur teknologi (Phase D) mendekomposisi platform ke dalam dua zona operasional yang diisolasi. Lingkungan komputasi awan diposisikan untuk menangani antarmuka analitik, sedangkan lingkungan blockchain berbasis peladen fisik (bare-metal) difokuskan secara eksklusif untuk proses otentikasi. Pemisahan ini ditujukan untuk menjaga stabilitas operasional peladen dan mengakomodasi standar keragaman perangkat lunak (client diversity) guna menghindari kelumpuhan jaringan massal.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/lapisan-aplikasi.jpeg" alt="Gambar 8" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 8. Lapisan Aplikasi</figcaption>
+</figure>
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/platform-decomposition-diagram.jpeg" alt="Gambar 9" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 9. Diagram dekomposisi platform</figcaption>
+</figure>
+
+## 3.4. Cetak Biru Manajemen Risiko
+
+Cetak biru arsitektur disusun berdasarkan integrasi parameter fikih dan indikator ISO 31000:2018. Taksonomi risiko diklasifikasikan ke dalam empat dimensi pokok (Kepatuhan, Operasional, Teknologi, dan Finansial) yang kemudian diturunkan menjadi 10 metrik standar penilaian numerik.
+
+
+**Tabel 4. Matriks Indikator dan Standar Penilaian Risiko**
+
+<div className="overflow-x-auto my-8">
+  <table className="min-w-full border-[3px] border-black dark:border-white border-collapse">
+    <thead>
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Kategori</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Indikator</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Sumber Data</th>
+        <th className="border-[2px] border-black dark:border-white p-3 text-left font-black">Standar Penilaian</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Compliance Risks</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Mekanisme Akad</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Smart Contract & Whitepaper</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Boolean Gatekeeper:</strong><br/>• Yes (Wajib E-Contract Wakalah) = Skor 0<br/>• No (Tanpa akad eksplisit) = Skor 1 (VETO)</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Potensi Riba</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Arsitektur Token & Ekosistem</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Boolean Gatekeeper:</strong><br/>• No (Murni model NAV) = Skor 0<br/>• Yes (*Rebase* / Lending) = Skor 1 (VETO)</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Potensi Gharar</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Ketersediaan API Publik</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Boolean Gatekeeper:</strong><br/>• No (Data metrik transparan) = Skor 0<br/>• Yes (Tertutup) = Skor 1 (VETO)</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Operational Risks</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Uptime</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Rated.Network API</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>RAVER Scale:</strong><br/>• Great = 1, Good = 2, Moderate = 3, Low = 4</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Slashing History</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Beaconcha.in API</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Slashed Flag API:</strong><br/>• False (Bersih / Tidak pernah) = 1<br/>• True (Pernah terkena denda) = 2</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Client Diversity</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Dune / ClientDiversity.org</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Market Share:</strong><br/>• Great (&lt; 33% Dominasi) = 1<br/>• Cautions (33% - 66%) = 2<br/>• Danger (&gt; 66%) = 3</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Technological Risks</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Smart Contract Security</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Etherscan / Audit Reports</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Audit Status:</strong><br/>• Verified & Audited = 1<br/>• Verified / Not Audited = 2<br/>• Unverified / No Audit = 3</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Key Management</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Spesifikasi Infrastruktur</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Arsitektur Kunci:</strong><br/>• Multisig / DVT = 1<br/>• Single-Signature = 2</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Infrastructure Redundancy</td>
+        <td className="border-[2px] border-black dark:border-white p-3">Spesifikasi Peladen</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Topologi Failover:</strong><br/>• Multi-Node (Peladen cadangan) = 1<br/>• Single-Node = 2</td>
+      </tr>
+      <tr className="border-b-[2px] border-black dark:border-white">
+        <td className="border-[2px] border-black dark:border-white p-3 font-bold bg-gray-50/50 dark:bg-gray-900/50"><strong>Financial Risks</strong></td>
+        <td className="border-[2px] border-black dark:border-white p-3">Liquidity Constraint</td>
+        <td className="border-[2px] border-black dark:border-white p-3">ValidatorQueue API</td>
+        <td className="border-[2px] border-black dark:border-white p-3"><strong>Network Exit Queue Time:</strong><br/>• Safe (antrean &lt; 2 Hari) = 1<br/>• Warning (antrean 2 - 7 Hari) = 2<br/>• Danger (antrean &gt; 7 Hari) = 3</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="p-2 border-[3px] border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <img src="/content/paper-images/manajemen-risiko.png" alt="Gambar 10" className="max-h-[400px]" />
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 10. Cetak biru manajemen risiko</figcaption>
+</figure>
+
+Pengujian komparasi dilakukan menggunakan sampel data aktual jaringan pada tanggal 25 April 2026. Hasil perhitungan membuktikan bahwa alternatif protokol Liquid Staking konvensional mendapatkan penalti Veto otomatis dengan status peringkat Tidak Patuh Syariah akibat terdeteksinya mekanisme rebasing dan pendelegasian pihak ketiga yang tertutup. Sebaliknya, metode operasional pada arsitektur usulan berhasil mencapai nilai akumulasi sebesar 14, yang merepresentasikan tingkat stabilitas kelayakan investasi pada peringkat Speculative Grade (Zona Kuning). Rancangan ini juga menghasilkan prototipe antarmuka dasbor peringatan dini yang menampilkan visualisasi kalkulasi batas toleransi risiko secara aktual.
+
+<figure className="my-8 flex flex-col items-center text-center">
+  <div className="flex flex-wrap justify-center gap-4">
+    <div className="p-2 border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <img src="/content/paper-images/ui-solo-staking.png" alt="Gambar 11a" className="max-h-[400px]" />
+    </div>
+    <div className="p-2 border-[3px] border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <img src="/content/paper-images/ui-liquid-staking.png" alt="Gambar 11b" className="max-h-[400px]" />
+    </div>
+  </div>
+  <figcaption className="mt-3 text-sm text-gray-600 dark:text-gray-400 italic font-medium">Gambar 11. (a) Antarmuka Risiko Solo Staking, (b) Antarmuka Risiko Liquid Staking Lido Finance.</figcaption>
+</figure>
+
+# KESIMPULAN
+
+Berdasarkan hasil analisis dan perancangan yang telah diuraikan, disimpulkan bahwa mekanisme Solo Staking memenuhi prinsip syariat melalui penerapan akad Ju'alah yang murni didasarkan pada pekerjaan validasi data riil. Sebaliknya, protokol Liquid Staking konvensional teridentifikasi melanggar ketentuan fikih. Pelanggaran tersebut bersumber dari implementasi algoritma otomatisasi penambahan saldo yang memicu praktik Riba al-Nasi'ah, serta mekanisme distribusi penalti operasional merata yang memicu Zulm karena merugikan pihak di luar entitas pelanggar.
+
+Penerapan arsitektur usulan menggunakan model Net Asset Value (NAV) yang dilandaskan pada akad Wakalah bil Istithmar terbukti efektif menyelesaikan pelanggaran tersebut secara fundamental. Modifikasi mekanisme menuju pembaruan valuasi aset organik berhasil mencegah manipulasi saldo, sehingga prinsip pelindungan harta (Hifzul Mal) dapat diimplementasikan ke dalam logika smart contract. Melalui integrasi dasbor Risk Explorer dan pemaksaan E-Contract, arsitektur ini menghasilkan tata kelola risiko yang lebih transparan dan terukur.
+
+Penelitian ini memiliki batasan pada penerapan siklus TOGAF ADM yang diakhiri pada Phase D (Technology Architecture). Selain itu, parameter keamanan pada smart contract usulan masih berstatus Verified Code dan belum melalui tahapan audit oleh firma pihak ketiga. Data metrik yang digunakan untuk simulasi penilaian risiko juga bersifat statis berdasarkan snapshot rentang waktu observasi tertentu. Oleh karena itu, penelitian lanjutan disarankan untuk melakukan uji coba lapangan (stress testing) secara langsung pada jaringan pengujian (Testnet), melaksanakan audit keamanan kode secara menyeluruh, serta melanjutkan tahapan arsitektur menuju Phase E (Opportunities & Solutions) hingga Phase G (Implementation Governance) untuk menghasilkan panduan migrasi infrastruktur fisik secara lengkap.
+
+# DAFTAR PUSTAKA
+
+<div className="mt-8">
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">ADAMYK, B., BENSON, V., ADAMYK, O. dan LIASHENKO, O., 2025. Risk management in DeFi: Analyses of the innovative tools and platforms for tracking DeFi transactions. Journal of Risk and Financial Management, 18(1), p.38.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">AL HAMMADI, M., JIMBER-DEL RÍO, J.A., OCHOA-RICO, M.S., MONTERO, O.A. dan VERGARA-ROMERO, A., 2024. Risk management in Islamic banking: The impact of financial technologies through empirical insights from the UAE. Risks, 12(2), p.17.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">BADAN PUSAT STATISTIK INDONESIA, 2025. Jumlah Penduduk Menurut Kelompok Umur dan Jenis Kelamin, 2025 - Tabel Statistik.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">BEWASANA, D.A.D., SIDABUTAR, J., SUNARINGTYAS, S.U. dan YULITA, T., 2024. Designing Information Security Risk Management Policies in an e-Government System Using TOGAF Enterprise Architecture. 2024 12th International Conference on Cyber and IT Service Management (CITSM), pp.1-5.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">BOURVEAU, T., BRENDEL, J. dan SCHOENFELD, J., 2024. Decentralized Finance (DeFi) assurance: early evidence. Review of Accounting Studies, 29(3), pp.2209-2253.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">BUTERIN, V. dkk., 2013. Ethereum white paper. GitHub Repository, 1(22-23), pp.5-7.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">CHAINALYSIS TEAM, 2025. The Chainalysis 2025 Global Adoption Index.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">CHEN, C.C. dan GOLAB, W., 2024. A game theoretic analysis of validator strategies in Ethereum 2.0. Proceedings of the 6th ACM International Symposium on Blockchain and Secure Critical Infrastructure, pp.1-14.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">DE WETERING, R., KURNIA, S. dan KOTUSEV, S., 2021. The role of enterprise architecture for digital transformations. Dalam: Sustainability, 13(4), p.2237. MDPI.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">DEFILLAMA, 2025. Total Value Locked All Chains.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">DHILLON, V., METCALF, D. dan HOOPER, M., 2025. Unpacking ethereum. Dalam: AI Frameworks Enabled by Blockchain: Creating Trustworthy and Responsible AI Using Distributed Ledger Technology. Springer, pp.201-256.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">ETHEREUM IMPROVEMENT PROPOSALS, 2021. Ethereum Improvement Proposals (EIP-1).</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">ETHEREUM IMPROVEMENT PROPOSALS, 2023. Ethereum Improvement Proposals (EIP-7251).</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">FAWWAZIE, M.H.H., PRADANA, F.P. dan PAKAJA, F., 2025. Applying TOGAF ADM for Developing an IT-Based Hedge Fund. International Journal of Information Systems and Technology, 1(3), pp.135-146.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">FEBRIANTO, A., IRYANI, D. dkk., 2025. KEPASTIAN HUKUM CRYPTOCURRENCY SEBAGAI ALAT PEMBAYARAN DI INDONESIA. The Juris, 9(2), pp.430-439.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">HABIB, F. dan JAWA, A., 2024. Crypto staking from the Shariah perspective. Dalam: Islamic Finance in the Digital Age. Edward Elgar Publishing, pp.150-164.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">HASHKEY CAPITAL, 2025. Is This Time Different for Ethereum? A Closer Look at Its Current Landscape and Challenges. Medium.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">HUTCHINS, G., 2018. ISO 31000: 2018 enterprise risk management. Greg Hutchins.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">ISLAMIC CORPORATION FOR THE DEVELOPMENT OF THE PRIVATE SECTOR dan LONDON STOCK EXCHANGE GROUP, 2025. Islamic Finance Development Report 2025: 50 Years of Exponential Growth.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">IZADIN, A.A.I., MOHD. YUSOF, R. dan MAZLAN, A.R., 2025. The integration of Maqasid Shariah in evaluating stablecoins and traditional cryptocurrencies for Islamic portfolios diversification. International Journal of Islamic and Middle Eastern Finance and Management, 18(3), pp.577-597.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">JIN, M., ZHANG, X., YUE, X., ZUO, Q. dan NIE, J., 2025. Consensus mechanism selection in Web 3.0 blockchain platforms: Proof of Work vs. Proof of Stake. Transportation Research Part E: Logistics and Transportation Review, 200, p.104173.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">JUDIJANTO, L., HINDARTO, D. dkk., 2023. Edge of enterprise architecture in addressing cyber security threats and business risks.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">KALININ, M., RYAN, D. dan BUTERIN, V., 2021. Eip-3675: Upgrade consensus to proof-of-stake. Ethereum Improvement Proposals.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">KINDI, A., 2023. Perlindungan Hukum Pelanggan Aset Kripto Terhadap Investasi Aset Kripto Asixv2v Berdasarkan Peraturan Bappebti Nomor 4 Tahun 2023. Universitas Islam Indonesia.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">LIDO FINANCE, 2025. Lido Poolside Recap: Tokenholder Update, August 2025.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">MAJELIS TARJIH DAN TAJDID PIMPINAN PUSAT MUHAMMADIYAH, 2026. Fatwa Majelis Tarjih dan Tajdid Pimpinan Pusat Muhammadiyah tentang Kripto Sebagai Aset Keuangan Digital.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">MUBAROK, A.B., WITRO, D., NURJAMAN, M.I., PITRIANI, P., HIBATUROHMAN, I. dan HIDA, M., 2025. Comparative Study of Sukuk in the Sharia Capital Market: Evidence in Indonesia. Al-’Aqdu: Journal of Islamic Economics Law.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">NATHANIA, D.A., FEBRIADI, S.R. dan ANSHORI, A.R., 2025. Tinjauan Keputusan Ijtima Ulama Komisi Fatwa MUI No. VII Tahun 2021 tentang Kelayakan Cryptocurrency sebagai Instrumen Pembayaran Zakat. Bandung Conference Series: Sharia Economic Law, 5(2), pp.113-120.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">NYALE, D. dan KARUME, S., 2023. Examining the synergies and differences between enterprise architecture frameworks: A comparative review.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">OAK KYAW ZAW, T., ANBANANTHEN, K.S.M., MUTHAIYAH, S., BALASUBRAMANIAM, B., KANNAN, R., KALID, K.S. dkk., 2025. A Systematic TOGAF Driven Framework for Blockchain-Based Food Traceability with Access Control Lists. HighTech and Innovation Journal, 6(2), pp.461-475.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">OTORITAS JASA KEUANGAN, 2025. Statistik Berkala Penyelenggara Perdagangan Aset Keuangan Digital termasuk Aset Kripto (AKD AK) Periode Agustus 2025.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">OUYANG, Z., SHAO, J. dan ZENG, Y., 2021. PoW and PoS and related applications. 2021 International Conference on Electronic Information Engineering and Computer Science (EIECS), pp.59-62.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">PROSPER, J., 2025. Governance and Risk Management Through Enterprise Architecture Frameworks.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">PT KUSTODIAN SENTRAL EFEK INDONESIA, 2025. Statistik Pasar Modal Indonesia.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">RAHARDJA, U., HIDAYANTO, A.N., LUTFIANI, N., FEBIANI, D.A. dan AINI, Q., 2021. Immutability of distributed hash model on blockchain node storage. Sci. J. Informatics, 8(1), pp.137-143.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">RAHIMIAN, R. dan CLARK, J., 2021. TokenHook: Secure ERC-20 smart contract.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">RATED NETWORK, 2025. Rated Explorer: Mainnet Validator Pools Performance.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">RIZIEQ, M. dan BAIDHOWI, B., 2025. Keabsahan Kripto dalam Perspektif Hukum Ekonomi Syariah: Studi Kasus Fatwa DSN-MUI terhadap Aset Kripto. Jurnal Multidisiplin Ilmu Akademik, 2(4), pp.61-72.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">SHABRINA, D. dan SEDAYU, A., 2025. Transaksi Kripto Naik 104 Persen. Dalam: Tempo.co. PT Tempo Inti Media.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">SHEN, Z., QU, Q. dan CHEN, X.-B., 2025. Blockchain Consensus Mechanisms: A Comprehensive Review and Performance Analysis Framework. Electronics, 14(17), p.3567.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">SITEPU, N.I. dan MAISYURA, S., 2023. Kesesuaian Akad Wakalah bi al-Istitsmar pada Sukuk Tabungan ST009: Ditinjau dari Fatwa DSN-MUI No. 127/DSN-MUI/VII/2019. PERAN FATWA, 1(1), p.227.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">THE OPEN GROUP, 2018. The TOGAF® Standard, Version 9.2.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">VPADMIN, 2023. Demystifying TOGAF ADM: Architectural Artifacts by Phase.</div>
+<div className="pl-8 -indent-8 mb-4 text-gray-800 dark:text-gray-200">XIONG, X., WANG, Z., CHEN, X., KNOTTENBELT, W. dan HUTH, M., 2025. Leverage Staking with Liquid Staking Derivatives (LSDs): Opportunities and Risks. 2025 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), pp.1-9.</div>
+</div>

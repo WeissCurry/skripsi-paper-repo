@@ -1,0 +1,97 @@
+---
+title: "Rancangan Arsitektur Manajemen Risiko dan Kepatuhan Syariah pada Staking Ethereum"
+authors: ["Maulana Asykari Muhammad"]
+date: "2026-05-07"
+tags: ["Thesis", "Blockchain", "TOGAF", "Shariah", "Manajemen Risiko"]
+abstract: "Penelitian ini mengusulkan solusi arsitektur untuk mengatasi problematika Riba dan Zulm pada protokol Liquid Staking konvensional melalui model operasional Nilai Aktiva Bersih (NAV). Menggunakan kerangka kerja TOGAF ADM, penelitian ini mentransformasikan prinsip syariah yang normatif (seperti Hifzul Mal dan pelarangan Gharar) menjadi spesifikasi teknis pada smart contract. Inovasi utama terletak pada penghapusan algoritma Rebasing yang manipulatif dan menggantinya dengan perhitungan valuasi aset organik berbasis NAV. Hasil perancangan mencakup arsitektur bisnis yang transparan, model data Conceptual yang memitigasi Inflation Attack melalui mekanisme desimal offset, serta sistem peringatan dini (Emergency Pause) pada dasbor Risk Explorer. Implementasi arsitektur ini membuktikan bahwa teknologi blockchain dapat berjalan selaras dengan prinsip ekonomi Islam, memberikan keadilan distribusi hasil, dan perlindungan aset yang maksimal bagi investor muslim di Indonesia."
+---
+
+# 1. Introduction
+
+Teknologi blockchain telah mentransformasi lanskap keuangan global, namun di Indonesia, adopsi *staking* Ethereum menghadapi tantangan ganda: risiko teknis-finansial dan ketidakpastian kepatuhan syariah. Berdasarkan Fatwa Majelis Tarjih PP Muhammadiyah (2026), aset kripto diakui sebagai *Māl Mutaqawwam*, namun praktik *yield generation* yang mengandung unsur bunga tetap dilarang.
+
+Permasalahan utama pada protokol *Liquid Staking* konvensional (seperti Lido) adalah penggunaan algoritma **Rebasing**. Mekanisme ini menambah saldo token pengguna secara otomatis tanpa adanya pertukaran nilai yang mendasari (*underlying asset exchange*), yang secara substansial menyerupai praktik **Riba Nasi'ah**. Selain itu, pembagian denda (*socialized penalty*) tanpa melihat kesalahan individu berpotensi menimbulkan **Zulm** (kezaliman).
+
+# 2. Methodology: TOGAF ADM
+
+Penelitian ini mengadopsi kerangka kerja **TOGAF ADM** (Preliminary hingga Phase D) untuk menyelaraskan tujuan strategis bisnis dengan infrastruktur teknologi.
+
+![TOGAF ADM Framework](/content/proposal-images/image18.png)
+*Gambar: Penerapan Siklus TOGAF ADM dalam Perancangan Sistem*
+
+1.  **Preliminary Phase**: Menetapkan prinsip *Hifzul Mal* (Perlindungan Harta) dan transparansi data.
+2.  **Phase A (Architecture Vision)**: Menetapkan visi sistem manajemen risiko yang terintegrasi.
+3.  **Phase B (Business Architecture)**: Merancang ulang alur kerja staking dari model *Rebase* ke *NAV*.
+4.  **Phase C (Information Systems Architecture)**: Mendefinisikan struktur data smart contract dan komponen aplikasi.
+5.  **Phase D (Technology Architecture)**: Menentukan infrastruktur node validator dan lingkungan cloud.
+
+# 3. Proposed Architecture: The NAV Model
+
+## 3.1 Business Architecture (Phase B)
+Solusi utama yang diusulkan adalah penggunaan model **Nilai Aktiva Bersih (NAV)** selayaknya instrumen reksadana syariah.
+
+![BPMN Inisiasi NAV](/content/proposal-images/image35.png)
+*Gambar: BPMN Fase Inisiasi Berbasis NAV dan Akad Wakalah*
+
+Dalam model ini:
+*   **Penerbitan LST**: Protokol menghitung NAV pool saat deposit dan mencetak token bukti kepemilikan (*Shares*).
+*   **Distribusi Hasil**: Imbal hasil atau hukuman (*slashing*) dari jaringan Ethereum diakumulasi ke dalam pool, yang secara otomatis menaikkan atau menurunkan harga tukar (NAV) token, **bukan menambah jumlah token**.
+
+![BPMN Reward & Penalty](/content/proposal-images/image36.png)
+*Gambar: Mekanisme Distribusi Hasil Organik untuk Mengeliminasi Riba*
+
+## 3.2 Information Systems Architecture (Phase C)
+### 3.2.1 Conceptual Data Model
+Model data dirancang untuk memisahkan antara entitas Staker, Vault (Pool), dan metrik risiko.
+
+![Conceptual Data Model](/content/proposal-images/image38.png)
+*Gambar: Rancangan Struktur Data Smart Contract Kepatuhan Syariah*
+
+Komponen kunci pada Data Entity:
+*   **Vault_Status (paused)**: Mendukung mekanisme *Emergency Pause*.
+*   **Exchange_Rate (convertToAssets)**: Logika utama perhitungan NAV sesuai standar ERC-4626.
+*   **Purification Data**: Pencatatan untuk pembersihan harta dari imbal hasil yang tidak sesuai.
+
+### 3.2.2 Application Component Diagram
+Aplikasi dibagi menjadi empat lapisan utama: User Interface, Off-Chain Services (Scoring Engine), On-Chain (Smart Contract), dan Infrastructure.
+
+![Application Component Diagram](/content/proposal-images/image40.png)
+*Gambar: Struktur Komponen Aplikasi Manajemen Risiko*
+
+# 4. Risk Management & Shariah Compliance
+
+## 4.1 Parameter Penilaian & Hak Veto
+Sistem menggunakan **Risk & Compliance Scoring Engine** untuk mengevaluasi validator berdasarkan 10 indikator.
+
+| Kategori | Indikator | Standar Penilaian |
+| :--- | :--- | :--- |
+| **Compliance** | Mekanisme Akad | Boolean Gatekeeper: Yes (Wakalah) = 0, No = 1 (VETO) |
+| | Potensi Riba | Boolean Gatekeeper: No (NAV) = 0, Yes (Rebase) = 1 (VETO) |
+| **Operational** | Uptime | Skala RAVER (Great = 1, Low = 4) |
+| **Technological**| Security Status | Verified & Audited = 1, Unverified = 3 |
+| **Financial** | Liquidity | Antrean Exit Queue (Safe < 2 hari, Danger > 7 hari) |
+
+## 4.2 Mitigasi Serangan & Perlindungan Aset
+*   **Emergency Pause**: Jika *Scoring Engine* mendeteksi anomali pada *Client Diversity* (ancaman sentralisasi), sistem otomatis mengunci *Vault* untuk menyelamatkan aset.
+*   **Inflation Attack Mitigation**: Implementasi mekanisme *decimal offset* untuk mencegah manipulasi setoran awal oleh penyerang, memastikan keadilan bagi investor ritel.
+
+# 5. Risk Explorer Interface
+
+Antarmuka dirancang untuk memberikan transparansi total kepada investor (*Muwakkil*).
+
+![Risk Explorer UI](/content/proposal-images/image42.png)
+*Gambar: Dasbor Risk Explorer dengan Radar Chart 10 Indikator Risiko*
+
+Fitur unggulan:
+*   **NAV Calculator**: Alat transparansi untuk melihat nilai tukar aktual ETH-LST secara organik.
+*   **Syariah Status Badge**: Penanda kepatuhan berdasarkan hasil audit otomatis sistem.
+
+![NAV Calculator UI](/content/proposal-images/image43.png)
+*Gambar: Visualisasi Kalkulator Konversi NAV dan Estimasi Waktu Antrean*
+
+# 6. Conclusion
+
+Arsitektur usulan dengan model **Nilai Aktiva Bersih (NAV)** terbukti secara fundamental mampu mengeliminasi titik kritis **Riba** dan **Zulm**. Dengan mengganti manipulasi saldo menjadi kenaikan valuasi aset organik, inovasi teknologi blockchain kini dapat berjalan selaras dengan prinsip syariah. Penggunaan TOGAF ADM memastikan bahwa setiap aspek teknis sistem tetap berada dalam koridor perlindungan harta (*Hifzul Mal*) dan keadilan bagi seluruh pemangku kepentingan.
+
+---
+*Dokumen ini merupakan ringkasan teknis dari Proposal Tugas Akhir Maulana Asykari Muhammad (11220930000058).*
