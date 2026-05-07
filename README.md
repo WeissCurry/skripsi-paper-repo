@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# 🎓 MualSkripsi
+### Repositori Skripsi & Presentasi Digital — Maulana Asykari Muhammad
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Version](https://img.shields.io/badge/version-1.0.0-black?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Vite%20%7C%20Tailwind-blue?style=for-the-badge)
+![Aesthetic](https://img.shields.io/badge/Design-Neo--Brutalist-yellow?style=for-the-badge)
 
-Currently, two official plugins are available:
+Repositori ini berisi naskah lengkap skripsi dan slide presentasi interaktif untuk penelitian berjudul:
+**"Rancangan Arsitektur Manajemen Risiko & Kepatuhan Syariah pada Staking Ethereum menggunakan Pendekatan TOGAF ADM"**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Fitur Utama
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **📄 MDX-Powered Paper**: Naskah skripsi yang ditulis menggunakan MDX (Markdown + React), memungkinkan integrasi komponen interaktif seperti glosarium dan diagram di dalam teks.
+- **🖼️ Interactive Slides**: Dek presentasi sinematik yang dibangun dengan Framer Motion, mendukung mode fullscreen dan zoom gambar untuk detail teknis.
+- **🎨 Neo-Brutalist UI**: Desain antarmuka modern dengan kontras tinggi, border tebal, dan tipografi tegas yang memberikan kesan profesional sekaligus progresif.
+- **🔍 Sharia-Technical Integration**: Visualisasi yang memadukan parameter teknis blockchain dengan indikator kepatuhan syariah (Hifzul Mal, Akad Wakalah, dll).
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Content**: [MDX](https://mdxjs.com/) (Markdown for the component era)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Routing**: React Router 7
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📁 Struktur Proyek
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+skripsi-paper-repo/
+├── public/
+│   └── content/            # Aset statis (Gambar Paper & Slides)
+├── src/
+│   ├── components/         # Komponen UI Reusable
+│   ├── content/            # Naskah Skripsi (.mdx)
+│   ├── pages/              # Halaman Utama (Home, Slides, PaperDetail)
+│   └── main.tsx            # Entry point aplikasi
+├── index.html              # Template HTML utama
+└── tailwind.config.js      # Konfigurasi desain Neo-Brutalist
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🏃 Cara Menjalankan
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Persyaratan
+- Node.js (Versi 18 ke atas)
+- pnpm (Direkomendasikan) atau npm
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Instalasi
+1. Clone repositori ini
+2. Install dependensi:
+   ```bash
+   pnpm install
+   ```
+
+### Jalankan Development
+```bash
+pnpm run dev
 ```
+Buka `http://localhost:5173` di browser Anda.
+
+### Build untuk Produksi
+```bash
+pnpm run build
+```
+Hasil build akan berada di folder `dist/`.
+
+---
+
+## 📝 Lisensi
+Proyek ini dibuat khusus untuk keperluan Sidang Skripsi di **UIN Syarif Hidayatullah Jakarta**. Seluruh konten intelektual mengenai manajemen risiko dan analisis syariah adalah milik penulis.
+
+---
+
+> **Maulana Asykari Muhammad**  
+> *Sistem Informasi • UIN Syarif Hidayatullah Jakarta*  
+> [LinkedIn](https://linkedin.com/in/maulanasykari) • [Website](https://mualskripsi.netlify.app/)
