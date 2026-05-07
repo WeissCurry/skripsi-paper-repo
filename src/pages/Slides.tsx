@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ChevronLeft, ChevronRight, X, Maximize2, Minimize2, CheckCircle2, 
-  AlertTriangle, ShieldCheck, Zap, TrendingUp, HardDrive, 
-  Code2, Database, Layout as LayoutIcon, Settings,
-  CheckCircle, ArrowRightCircle, Target, BookOpen
+  Zap, HardDrive, 
+  Code2, Layout as LayoutIcon, Settings,
+  Target
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -29,56 +29,26 @@ const SlideContainer: React.FC<SlideProps> = ({ content }) => {
   );
 };
 
+interface ImageWithZoomProps {
+  src: string;
+  alt: string;
+  className?: string;
+  onClick: (src: string) => void;
+}
+
+const ImageWithZoom = ({ src, alt, className = "", onClick }: ImageWithZoomProps) => (
+  <div className={`relative group cursor-zoom-in ${className}`} onClick={() => onClick(src)}>
+    <div className="absolute inset-0 bg-brand-emerald/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+      <Maximize2 className="text-white drop-shadow-md" size={32} />
+    </div>
+    <img src={src} alt={alt} className="w-full h-full object-contain" />
+  </div>
+);
+
 export default function Slides() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
-
-  const nextSlide = useCallback(() => {
-    if (currentSlide < slides.length - 1) {
-      setCurrentSlide(s => s + 1);
-      setZoomedImage(null);
-    }
-  }, [currentSlide]);
-
-  const prevSlide = useCallback(() => {
-    if (currentSlide > 0) {
-      setCurrentSlide(s => s - 1);
-      setZoomedImage(null);
-    }
-  }, [currentSlide]);
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-      });
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
-      if (e.key === 'Escape' && isFullscreen) setIsFullscreen(false);
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide, isFullscreen]);
-
-  const ImageWithZoom = ({ src, alt, className = "" }: { src: string, alt: string, className?: string }) => (
-    <div className={`relative group cursor-zoom-in ${className}`} onClick={() => setZoomedImage(src)}>
-      <div className="absolute inset-0 bg-brand-emerald/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
-        <Maximize2 className="text-white drop-shadow-md" size={32} />
-      </div>
-      <img src={src} alt={alt} className="w-full h-full object-contain" />
-    </div>
-  );
 
   const slides = [
     // Slide 1: Title
@@ -143,7 +113,7 @@ export default function Slides() {
             </div>
             <div className="space-y-4">
               <div className="brutal-box p-1 bg-white rotate-2 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
-                <ImageWithZoom src="/content/paper-images/transaksi-kripto-vs-pasar-modal.png" alt="Market share" />
+                <ImageWithZoom src="/content/paper-images/transaksi-kripto-vs-pasar-modal.png" alt="Market share" onClick={setZoomedImage} />
               </div>
               <p className="text-xs font-black uppercase tracking-widest text-gray-400 text-right italic">Gbr: Pertumbuhan Transaksi Kripto di Indonesia</p>
             </div>
@@ -159,7 +129,7 @@ export default function Slides() {
           <h2 className="text-4xl md:text-6xl font-black font-serif uppercase tracking-tight text-left italic">Dominasi <span className="text-brand-blue">Market Share</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
              <div className="brutal-box p-1 bg-white -rotate-1 shadow-[12px_12px_0px_0px_rgba(59,130,246,1)]">
-                <ImageWithZoom src="/content/paper-images/skema-liquid-staking.png" alt="Liquid Staking Scheme" />
+                <ImageWithZoom src="/content/paper-images/skema-liquid-staking.png" alt="Liquid Staking Scheme" onClick={setZoomedImage} />
              </div>
              <div className="text-left space-y-8">
                 <div className="space-y-4">
@@ -203,7 +173,7 @@ export default function Slides() {
                    <li>• Mekanisme Slashing</li>
                    <li>• Smart Contract Bug</li>
                    <li>• Centralization Risk</li>
-                </ul>
+                 </ul>
              </div>
              <div className="brutal-box p-8 bg-white border-brand-emerald shadow-[8px_8px_0px_0px_rgba(16,185,129,1)] text-left">
                 <h4 className="text-xl font-black uppercase text-brand-emerald mb-4 italic border-b-2 border-green-100 pb-2">Kepatuhan Syariah</h4>
@@ -316,7 +286,7 @@ export default function Slides() {
           <h2 className="text-5xl md:text-7xl font-black font-serif uppercase leading-none">Metode <span className="text-brand-emerald italic">Penelitian</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
              <div className="brutal-box p-1 bg-white rotate-1 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-                <ImageWithZoom src="/content/paper-images/kerangka-penelitian.png" alt="Metodologi" />
+                <ImageWithZoom src="/content/paper-images/kerangka-penelitian.png" alt="Metodologi" onClick={setZoomedImage} />
              </div>
              <div className="text-left space-y-6">
                 <div className="space-y-4">
@@ -422,7 +392,7 @@ export default function Slides() {
                 </div>
              </div>
              <div className="brutal-box p-1 bg-white -rotate-1 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
-                <ImageWithZoom src="/content/paper-images/skema-staking-usulan.png" alt="Skema Staking Usulan" />
+                <ImageWithZoom src="/content/paper-images/skema-staking-usulan.png" alt="Skema Staking Usulan" onClick={setZoomedImage} />
              </div>
           </div>
         </div>
@@ -436,7 +406,7 @@ export default function Slides() {
           <h2 className="text-4xl md:text-6xl font-black font-serif uppercase tracking-tight text-left">Phase C: <span className="text-brand-blue italic">Information Systems</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
              <div className="brutal-box p-1 bg-white rotate-1 shadow-[59,130,246,1)]">
-                <ImageWithZoom src="/content/paper-images/conceptual-data-model.jpeg" alt="Data Model" />
+                <ImageWithZoom src="/content/paper-images/conceptual-data-model.jpeg" alt="Data Model" onClick={setZoomedImage} />
              </div>
              <div className="text-left space-y-8">
                 <div className="bg-brand-blue/10 border-[4px] border-brand-blue p-8 shadow-[8px_8px_0px_0px_rgba(59,130,246,1)]">
@@ -483,7 +453,7 @@ export default function Slides() {
                 </div>
              </div>
              <div className="brutal-box p-1 bg-white -rotate-1 shadow-[12px_12px_0px_0px_rgba(16,185,129,1)] order-1 md:order-2">
-                <ImageWithZoom src="/content/paper-images/lapisan-aplikasi.jpeg" alt="Lapisan Aplikasi" />
+                <ImageWithZoom src="/content/paper-images/lapisan-aplikasi.jpeg" alt="Lapisan Aplikasi" onClick={setZoomedImage} />
              </div>
           </div>
         </div>
@@ -497,7 +467,7 @@ export default function Slides() {
           <h2 className="text-5xl font-black font-serif uppercase italic underline decoration-brand-emerald decoration-8 underline-offset-8">Risk & Compliance <span className="text-brand-emerald italic">Indicators</span></h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
              <div className="brutal-box p-1 bg-white rotate-1 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-                <ImageWithZoom src="/content/paper-images/manajemen-risiko.png" alt="Manajemen Risiko" />
+                <ImageWithZoom src="/content/paper-images/manajemen-risiko.png" alt="Manajemen Risiko" onClick={setZoomedImage} />
              </div>
              <div className="text-left space-y-6">
                 <h4 className="text-2xl font-black uppercase italic text-brand-emerald">Matriks Manajemen Risiko:</h4>
@@ -521,7 +491,7 @@ export default function Slides() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
              <div className="space-y-4">
                 <div className="brutal-box p-1 bg-white shadow-[10px_10px_0px_0px_rgba(59,130,246,1)]">
-                   <ImageWithZoom src="/content/paper-images/ui-solo-staking.png" alt="Explorer Dashboard" />
+                   <ImageWithZoom src="/content/paper-images/ui-solo-staking.png" alt="Explorer Dashboard" onClick={setZoomedImage} />
                 </div>
                 <p className="font-black uppercase text-xs tracking-[0.3em] text-gray-400 italic text-center">Validator Risk Ranking</p>
              </div>
@@ -590,6 +560,44 @@ export default function Slides() {
       )
     }
   ];
+
+
+  const nextSlide = useCallback(() => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(s => s + 1);
+      setZoomedImage(null);
+    }
+  }, [currentSlide, slides.length]);
+
+  const prevSlide = useCallback(() => {
+    if (currentSlide > 0) {
+      setCurrentSlide(s => s - 1);
+      setZoomedImage(null);
+    }
+  }, [currentSlide]);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+      });
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      if (e.key === 'Escape' && isFullscreen) setIsFullscreen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextSlide, prevSlide, isFullscreen]);
 
   return (
     <div className="fixed inset-0 z-[1000] bg-background overflow-hidden flex flex-col selection:bg-brand-emerald selection:text-white">
