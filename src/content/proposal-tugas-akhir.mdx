@@ -10,7 +10,7 @@ abstract: "Penelitian ini mengusulkan solusi arsitektur untuk mengatasi problema
 
 Teknologi blockchain telah mentransformasi lanskap keuangan global, namun di Indonesia, adopsi *staking* Ethereum menghadapi tantangan ganda: risiko teknis-finansial dan ketidakpastian kepatuhan syariah. Berdasarkan Fatwa Majelis Tarjih PP Muhammadiyah (2026), aset kripto diakui sebagai *Māl Mutaqawwam*, namun praktik *yield generation* yang mengandung unsur bunga tetap dilarang.
 
-Permasalahan utama pada protokol *Liquid Staking* konvensional (seperti Lido) adalah penggunaan algoritma **Rebasing**. Mekanisme ini menambah saldo token pengguna secara otomatis tanpa adanya pertukaran nilai yang mendasari (*underlying asset exchange*), yang secara substansial menyerupai praktik **Riba Nasi'ah**. Selain itu, pembagian denda (*socialized penalty*) tanpa melihat kesalahan individu berpotensi menimbulkan **Zulm** (kezaliman).
+Permasalahan utama pada protokol *Liquid Staking* konvensional (seperti Lido) adalah penggunaan algoritma **Rebasing**. Mekanisme ini menambah saldo token pengguna secara otomatis tanpa adanya pertukaran nilai yang mendasari (<Glossary term="Underlying Asset" definition="Aset dasar yang menjamin nilai dari sebuah instrumen keuangan atau derivatif digital.">underlying asset exchange</Glossary>), yang secara substansial menyerupai praktik **Riba Nasi'ah**. Selain itu, pembagian denda (*socialized penalty*) tanpa melihat kesalahan individu berpotensi menimbulkan **<Glossary term="Zulm" definition="Kezaliman atau ketidakadilan; dalam konteks ini berarti distribusi penalti slashing yang tidak proporsional kepada investor yang tidak bersalah.">Zulm</Glossary>** (kezaliman).
 
 # 2. Methodology: TOGAF ADM
 
@@ -49,7 +49,7 @@ Model data dirancang untuk memisahkan antara entitas Staker, Vault (Pool), dan m
 
 Komponen kunci pada Data Entity:
 *   **Vault_Status (paused)**: Mendukung mekanisme *Emergency Pause*.
-*   **Exchange_Rate (convertToAssets)**: Logika utama perhitungan NAV sesuai standar ERC-4626.
+*   **Exchange_Rate (convertToAssets)**: Logika utama perhitungan NAV sesuai standar <Glossary term="ERC-4626" definition="Standar token Ethereum yang dioptimalkan untuk 'Yield-bearing Vaults' agar memiliki interoperabilitas yang tinggi.">ERC-4626</Glossary>.
 *   **Purification Data**: Pencatatan untuk pembersihan harta dari imbal hasil yang tidak sesuai.
 
 ### 3.2.2 Application Component Diagram
@@ -63,17 +63,19 @@ Aplikasi dibagi menjadi empat lapisan utama: User Interface, Off-Chain Services 
 ## 4.1 Parameter Penilaian & Hak Veto
 Sistem menggunakan **Risk & Compliance Scoring Engine** untuk mengevaluasi validator berdasarkan 10 indikator.
 
+<div className="overflow-x-auto my-8">
 | Kategori | Indikator | Standar Penilaian |
 | :--- | :--- | :--- |
 | **Compliance** | Mekanisme Akad | Boolean Gatekeeper: Yes (Wakalah) = 0, No = 1 (VETO) |
-| | Potensi Riba | Boolean Gatekeeper: No (NAV) = 0, Yes (Rebase) = 1 (VETO) |
+| | Potensi <Glossary term="Riba" definition="Tambahan atau kelebihan yang diambil dalam transaksi utang-piutang atau pertukaran barang ribawi tanpa adanya imbalan yang dibenarkan syariah.">Riba</Glossary> | Boolean Gatekeeper: No (NAV) = 0, Yes (Rebase) = 1 (VETO) |
 | **Operational** | Uptime | Skala RAVER (Great = 1, Low = 4) |
 | **Technological**| Security Status | Verified & Audited = 1, Unverified = 3 |
 | **Financial** | Liquidity | Antrean Exit Queue (Safe < 2 hari, Danger > 7 hari) |
+</div>
 
 ## 4.2 Mitigasi Serangan & Perlindungan Aset
 *   **Emergency Pause**: Jika *Scoring Engine* mendeteksi anomali pada *Client Diversity* (ancaman sentralisasi), sistem otomatis mengunci *Vault* untuk menyelamatkan aset.
-*   **Inflation Attack Mitigation**: Implementasi mekanisme *decimal offset* untuk mencegah manipulasi setoran awal oleh penyerang, memastikan keadilan bagi investor ritel.
+*   **<Glossary term="Inflation Attack" definition="Serangan pada smart contract pool di mana penyerang memanipulasi rasio exchange rate melalui setoran kecil di awal untuk mencuri dana investor berikutnya.">Inflation Attack</Glossary> Mitigation**: Implementasi mekanisme *decimal offset* untuk mencegah manipulasi setoran awal oleh penyerang, memastikan keadilan bagi investor ritel.
 
 # 5. Risk Explorer Interface
 

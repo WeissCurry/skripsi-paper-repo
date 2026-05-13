@@ -13,7 +13,7 @@ Repositori ini berisi naskah lengkap skripsi dan slide presentasi interaktif unt
 ## 🚀 Fitur Utama
 
 - **📄 MDX-Powered Paper**: Naskah skripsi yang ditulis menggunakan MDX (Markdown + React), memungkinkan integrasi komponen interaktif seperti glosarium dan diagram di dalam teks.
-- **🖼️ Interactive Slides**: Dek presentasi sinematik yang dibangun dengan Framer Motion, mendukung mode fullscreen dan zoom gambar untuk detail teknis.
+- **🖼️ Canva Presentation**: Dek presentasi komprehensif yang dihosting di Canva, diakses langsung melalui tombol integrasi di website untuk pengalaman visual yang optimal.
 - **🎨 Neo-Brutalist UI**: Desain antarmuka modern dengan kontras tinggi, border tebal, dan tipografi tegas yang memberikan kesan profesional sekaligus progresif.
 - **🔍 Sharia-Technical Integration**: Visualisasi yang memadukan parameter teknis blockchain dengan indikator kepatuhan syariah (Hifzul Mal, Akad Wakalah, dll).
 
@@ -35,7 +35,7 @@ skripsi-paper-repo/
 ├── src/
 │   ├── components/         # Komponen UI Reusable
 │   ├── content/            # Naskah Skripsi (.mdx)
-│   ├── pages/              # Halaman Utama (Home, Slides, PaperDetail)
+│   ├── pages/              # Halaman Utama (Home, PaperDetail)
 │   └── main.tsx            # Entry point aplikasi
 ├── index.html              # Template HTML utama
 └── tailwind.config.js      # Konfigurasi desain Neo-Brutalist

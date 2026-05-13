@@ -6,17 +6,17 @@ export default function Home() {
     {
       id: "slides",
       title: "Slides",
-      description: "Presentasi komprehensif mengenai arsitektur manajemen risiko staking Ethereum berbasis kepatuhan syariah.",
+      // description: "Presentasi Seminar Hasil Skripsi yang berjudul: \"Rancangan Arsitektur Manajemen Risiko dan Kepatuhan Syariah pada Staking Ethereum Menggunakan Pendekatan TOGAF ADM\"",
       icon: <Presentation size={48} className="text-brand-emerald" />,
       color: "bg-white",
-      link: "/slides",
+      link: "https://canva.link/61gja8sos0zt711",
       buttonText: "View Presentation",
-      external: false
+      external: true
     },
     {
       id: "paper",
       title: "Paper",
-      description: "Naskah lengkap skripsi dengan pendekatan TOGAF ADM, analisis risiko, dan standarisasi kepatuhan syariah.",
+      // description: "Naskah lengkap skripsi dengan pendekatan TOGAF ADM, analisis risiko, dan standarisasi kepatuhan syariah.",
       icon: <FileText size={48} className="text-brand-blue" />,
       color: "bg-white",
       link: "/paper/paper-skripsi",
@@ -26,7 +26,7 @@ export default function Home() {
     {
       id: "website",
       title: "Website",
-      description: "Dashboard Web3 interaktif untuk eksplorasi metrik risiko, skor kepatuhan, dan integrasi smart contract.",
+      // description: "Dashboard Web3 interaktif untuk eksplorasi metrik risiko, skor kepatuhan, dan integrasi smart contract.",
       icon: <Globe size={48} className="text-brand-yellow" />,
       color: "bg-white",
       link: "https://skripsistaking.netlify.app/",
@@ -52,9 +52,9 @@ export default function Home() {
               {card.title}
             </h3>
             
-            <p className="text-gray-600 dark:text-gray-400 font-medium mb-8 flex-grow leading-relaxed">
+            {/* <p className="text-gray-600 dark:text-gray-400 font-medium mb-8 flex-grow leading-relaxed">
               {card.description}
-            </p>
+            </p> */}
             
             {card.external ? (
               <a 

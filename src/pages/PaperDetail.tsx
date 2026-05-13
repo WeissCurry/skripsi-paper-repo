@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { Download, GitBranch as Github, ExternalLink, Calendar, MapPin } from "lucide-react";
+import { Download, ExternalLink, Calendar, MapPin, Presentation } from "lucide-react";
 import React, { Suspense } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import GlossaryTerm from "../components/GlossaryTerm";
@@ -109,19 +109,31 @@ export default function PaperDetail() {
             </h3>
             
             <a 
-              href="#" 
+              href="https://canva.link/61gja8sos0zt711" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 bg-brand-yellow text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
             >
-              <Download size={20} />
-              <span>Download PDF</span>
+              <Presentation size={20} />
+              <span>View Slides</span>
             </a>
 
             <a 
               href="#" 
               className="flex items-center gap-3 bg-white text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
             >
-              <Github size={20} />
-              <span>View GitHub Repo</span>
+              <Download size={20} />
+              <span>Download PDF</span>
+            </a>
+
+            <a 
+              href="https://www.linkedin.com/in/maulanasykari/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-white text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+            >
+              <ExternalLink size={20} className="text-blue-600" />
+              <span>Know More</span>
             </a>
 
             <a 
