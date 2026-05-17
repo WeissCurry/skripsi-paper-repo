@@ -17,10 +17,13 @@ function Layout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when route changes
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  // Close menu when route changes (during render to avoid cascading renders)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setIsMenuOpen(false);
-  }, [pathname]);
+  }
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-background selection:bg-brand-emerald selection:text-white">

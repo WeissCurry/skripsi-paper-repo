@@ -13,6 +13,8 @@ interface PaperData {
   authors: string;
   institution: string;
   date: string;
+  pdfUrl?: string;
+  slidesUrl?: string;
 }
 
 const getPaperData = (slug: string): PaperData | null => {
@@ -22,12 +24,15 @@ const getPaperData = (slug: string): PaperData | null => {
       authors: "Maulana Asykari Muhammad, Fitroh, Rinda Hesti Kusumaningtyas",
       institution: "UIN Syarif Hidayatullah Jakarta",
       date: "May 2026",
+      pdfUrl: "https://docs.google.com/document/d/1b82a7xmzJcRtoX7VOKTB-BXLAVfWLlwSiHxHAMicOrg/edit?usp=sharing",
+      slidesUrl: "https://canva.link/61gja8sos0zt711",
     },
     "proposal-tugas-akhir": {
       title: "Proposal: Rancangan Arsitektur Manajemen Risiko dan Kepatuhan Syariah pada Staking Ethereum",
       authors: "Maulana Asykari Muhammad",
       institution: "UIN Syarif Hidayatullah Jakarta",
       date: "May 2026",
+      slidesUrl: "https://canva.link/61gja8sos0zt711",
     }
   };
   return data[slug] || null;
@@ -108,23 +113,29 @@ export default function PaperDetail() {
               Resources & Links
             </h3>
             
-            <a 
-              href="https://canva.link/61gja8sos0zt711" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-brand-yellow text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
-            >
-              <Presentation size={20} />
-              <span>View Slides</span>
-            </a>
+            {paper.slidesUrl && (
+              <a 
+                href={paper.slidesUrl} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-brand-yellow text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+              >
+                <Presentation size={20} />
+                <span>View Slides</span>
+              </a>
+            )}
 
-            <a 
-              href="#" 
-              className="flex items-center gap-3 bg-white text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
-            >
-              <Download size={20} />
-              <span>Download PDF</span>
-            </a>
+            {paper.pdfUrl && (
+              <a 
+                href={paper.pdfUrl} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-white text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+              >
+                <Download size={20} />
+                <span>Download PDF</span>
+              </a>
+            )}
 
             <a 
               href="https://www.linkedin.com/in/maulanasykari/" 
