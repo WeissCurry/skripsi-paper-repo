@@ -141,6 +141,25 @@ export default function Perjalanan() {
     setCurrentIndex((prev) => (prev === lightboxImages.length - 1 ? 0 : prev + 1));
   };
 
+  // Touch swipe support for lightbox on mobile
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (diff > 50) {
+      handleNextImage();
+    } else if (diff < -50) {
+      handlePrevImage();
+    }
+    setTouchStartX(null);
+  };
+
   // Keyboard navigation for lightbox
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -566,50 +585,92 @@ export default function Perjalanan() {
 
       {/* FULLSCREEN LIGHTBOX MODAL */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4">
-          {/* Close Button */}
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-5 right-5 p-3 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-red-500 hover:text-white transition-all rounded-lg cursor-pointer z-50"
-            aria-label="Tutup"
-          >
-            <X size={24} />
-          </button>
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-between p-4 sm:p-6 select-none"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setLightboxOpen(false);
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Top Bar: Counter & Close Button */}
+          <div className="w-full flex items-center justify-between max-w-5xl z-50">
+            <div className="text-white/80 font-mono text-xs sm:text-sm bg-white/10 px-3 py-1.5 rounded-full border border-white/20">
+              {lightboxImages.length > 1 ? `${currentIndex + 1} / ${lightboxImages.length}` : 'Dokumentasi'}
+            </div>
 
-          {/* Navigation Prev */}
+            <button
+              onClick={() => setLightboxOpen(false)}
+              className="p-2.5 sm:p-3 bg-white text-black border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-red-500 hover:text-white transition-all rounded-xl cursor-pointer"
+              aria-label="Tutup"
+            >
+              <X size={22} className="sm:w-6 sm:h-6" />
+            </button>
+          </div>
+
+          {/* Desktop Navigation Prev (Hidden on Mobile) */}
           {lightboxImages.length > 1 && (
             <button
               onClick={handlePrevImage}
-              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald transition-all rounded-lg cursor-pointer z-50"
+              className="hidden sm:flex absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-3.5 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald transition-all rounded-xl cursor-pointer z-50 active:translate-x-[2px] active:translate-y-[2px]"
               aria-label="Foto Sebelumnya"
             >
               <ChevronLeft size={28} />
             </button>
           )}
 
-          {/* Current Image */}
-          <div className="max-w-4xl max-h-[85vh] flex flex-col items-center justify-center">
+          {/* Image Display Area */}
+          <div className="relative flex-1 w-full max-w-5xl flex items-center justify-center my-2 sm:my-4 min-h-0">
             <img
               src={lightboxImages[currentIndex]}
               alt={`Dokumentasi ${currentIndex + 1}`}
-              className="max-w-full max-h-[80vh] object-contain border-2 border-white/20 shadow-2xl rounded"
+              className="max-w-full max-h-[68vh] sm:max-h-[78vh] object-contain border-2 border-white/20 shadow-2xl rounded-xl"
             />
-            {lightboxImages.length > 1 && (
-              <div className="mt-4 bg-white/10 backdrop-blur-md text-white font-mono text-xs px-4 py-1.5 rounded-full border border-white/20">
-                {currentIndex + 1} / {lightboxImages.length}
-              </div>
-            )}
           </div>
 
-          {/* Navigation Next */}
+          {/* Desktop Navigation Next (Hidden on Mobile) */}
           {lightboxImages.length > 1 && (
             <button
               onClick={handleNextImage}
-              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald transition-all rounded-lg cursor-pointer z-50"
+              className="hidden sm:flex absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-3.5 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald transition-all rounded-xl cursor-pointer z-50 active:translate-x-[2px] active:translate-y-[2px]"
               aria-label="Foto Selanjutnya"
             >
               <ChevronRight size={28} />
             </button>
+          )}
+
+          {/* Mobile Bottom Pagination Controls (Below photo, never covers the photo) */}
+          {lightboxImages.length > 1 && (
+            <div className="w-full flex sm:hidden items-center justify-center gap-4 py-2 z-50">
+              <button
+                onClick={handlePrevImage}
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
+                aria-label="Foto Sebelumnya"
+              >
+                <ChevronLeft size={18} />
+                <span>Prev</span>
+              </button>
+
+              <div className="bg-white/15 backdrop-blur-md text-white font-mono text-xs px-3.5 py-2 rounded-xl border border-white/25">
+                {currentIndex + 1} / {lightboxImages.length}
+              </div>
+
+              <button
+                onClick={handleNextImage}
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
+                aria-label="Foto Selanjutnya"
+              >
+                <span>Next</span>
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          )}
+
+          {/* Desktop Bottom Helper Text */}
+          {lightboxImages.length > 1 && (
+            <p className="hidden sm:block text-xs font-mono text-white/50 text-center pb-1">
+              Gunakan keyboard ← / → atau tombol di samping untuk navigasi
+            </p>
           )}
         </div>
       )}

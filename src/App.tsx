@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
-import { Sun, Moon, GitBranch, Menu, X, GraduationCap, Presentation, Sparkles } from 'lucide-react';
+import { Sun, Moon, GitBranch, Menu, X, GraduationCap, Presentation, Sparkles, BookOpen, ExternalLink, Home as HomeIcon } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -54,23 +54,38 @@ function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-2 md:gap-4">
-            <a
-              href="https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent"
-              title="Google Scholar Profile"
+          <nav className="hidden lg:flex items-center gap-1.5 md:gap-2">
+            <Link
+              to="/kiat-skripsi"
+              className={`flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg transition-all border-2 ${pathname === '/kiat-skripsi'
+                ? 'bg-brand-emerald text-white border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-800 border-transparent text-gray-800 dark:text-gray-200'
+                }`}
+              title="Kiat & Tips Skripsi"
             >
-              <GraduationCap size={18} className="text-brand-emerald" />
-              <span>Scholar</span>
-            </a>
+              <BookOpen size={18} className={pathname === '/kiat-skripsi' ? 'text-white' : 'text-brand-emerald'} />
+              <span>Kiat Skripsi</span>
+            </Link>
+
+            <Link
+              to="/perjalanan"
+              className={`flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg transition-all border-2 ${pathname === '/perjalanan'
+                ? 'bg-brand-yellow text-black border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-800 border-transparent text-gray-800 dark:text-gray-200'
+                }`}
+              title="Perjalanan Skripsi"
+            >
+              <Sparkles size={18} className="text-amber-500" />
+              <span>Roadmap</span>
+            </Link>
+
+            <div className="h-6 w-[2px] bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
             <a
               href="https://skripsistaking.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent"
+              className="flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
               title="Web3 Staking Dashboard"
             >
               <GitBranch size={18} className="text-brand-blue" />
@@ -81,24 +96,23 @@ function Layout({ children }: { children: React.ReactNode }) {
               href="https://canva.link/61gja8sos0zt711"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent"
+              className="flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
               title="Slides Presentasi Sidang"
             >
               <Presentation size={18} className="text-amber-500" />
               <span>Slides</span>
             </a>
 
-            <Link
-              to="/perjalanan"
-              className={`flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg transition-all border-2 ${pathname === '/perjalanan'
-                  ? 'bg-brand-yellow text-black border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
-                  : 'hover:bg-gray-100 dark:hover:bg-gray-800 border-transparent'
-                }`}
-              title="Perjalanan Skripsi"
+            <a
+              href="https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
+              title="Google Scholar Profile"
             >
-              <Sparkles size={18} className="text-amber-500" />
-              <span>Roadmap</span>
-            </Link>
+              <GraduationCap size={18} className="text-brand-emerald" />
+              <span>Scholar</span>
+            </a>
 
             <div className="h-6 w-[2px] bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
@@ -133,43 +147,82 @@ function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Dropdown Menu */}
           <div className={`absolute top-[calc(100%+12px)] left-0 w-full bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] rounded-2xl p-4 flex flex-col gap-2 transition-all duration-300 origin-top lg:hidden ${isMenuOpen ? 'scale-y-100 opacity-100 visible' : 'scale-y-95 opacity-0 invisible'}`}>
-            <a
-              href="https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 p-3.5 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-2 pt-1">Halaman</p>
+
+            <Link
+              to="/"
+              className={`flex items-center gap-3.5 p-3 font-bold rounded-xl transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] ${pathname === '/'
+                ? 'bg-brand-yellow text-black'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
             >
-              <GraduationCap size={22} className="text-brand-emerald" />
-              <span className="text-base">Google Scholar Profile</span>
-            </a>
+              <HomeIcon size={20} className="text-black dark:text-white" />
+              <span className="text-base">Beranda</span>
+            </Link>
+
+            <Link
+              to="/kiat-skripsi"
+              className={`flex items-center gap-3.5 p-3 font-bold rounded-xl transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] ${pathname === '/kiat-skripsi'
+                ? 'bg-brand-emerald text-white'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+            >
+              <BookOpen size={20} className={pathname === '/kiat-skripsi' ? 'text-white' : 'text-brand-emerald'} />
+              <span className="text-base">Kiat & Tips Skripsi</span>
+            </Link>
+
+            <Link
+              to="/perjalanan"
+              className={`flex items-center gap-3.5 p-3 font-bold rounded-xl transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] ${pathname === '/perjalanan'
+                ? 'bg-brand-yellow text-black'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+            >
+              <Sparkles size={20} className="text-amber-500" />
+              <span className="text-base">Roadmap</span>
+            </Link>
+
+            <div className="h-[2px] bg-gray-200 dark:bg-gray-700 my-1"></div>
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-2">Tautan Eksternal</p>
 
             <a
               href="https://skripsistaking.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-3.5 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
+              className="flex items-center justify-between p-3 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
             >
-              <GitBranch size={22} className="text-brand-blue" />
-              <span className="text-base">Web3 Staking Dashboard</span>
+              <div className="flex items-center gap-3.5">
+                <GitBranch size={20} className="text-brand-blue" />
+                <span className="text-base">Prototype</span>
+              </div>
+              <ExternalLink size={16} className="text-gray-400" />
             </a>
 
             <a
               href="https://canva.link/61gja8sos0zt711"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-3.5 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
+              className="flex items-center justify-between p-3 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
             >
-              <Presentation size={22} className="text-amber-500" />
-              <span className="text-base">Presentation Slides (Canva)</span>
+              <div className="flex items-center gap-3.5">
+                <Presentation size={20} className="text-amber-500" />
+                <span className="text-base">Slides</span>
+              </div>
+              <ExternalLink size={16} className="text-gray-400" />
             </a>
 
-            <Link
-              to="/perjalanan"
-              className="flex items-center gap-4 p-3.5 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
+            <a
+              href="https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
             >
-              <Sparkles size={22} className="text-amber-500" />
-              <span className="text-base">Perjalanan Skripsi</span>
-            </Link>
+              <div className="flex items-center gap-3.5">
+                <GraduationCap size={20} className="text-brand-emerald" />
+                <span className="text-base">Google Scholar</span>
+              </div>
+              <ExternalLink size={16} className="text-gray-400" />
+            </a>
           </div>
         </div>
       </header>
@@ -181,7 +234,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <footer className="border-t-[3px] border-black dark:border-white py-10 px-4 md:px-8 mt-16 bg-white dark:bg-gray-900">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
-            <h3 className="font-serif font-black text-lg">MualSkripsi · Repositori Publikasi Ilmiah</h3>
+            <h3 className="font-serif font-black text-lg">MualSkripsi</h3>
             <p className="text-sm mt-1 text-gray-600 dark:text-gray-400">
               Karya Penulisan & Skripsi oleh <strong>Maulana Asykari Muhammad</strong> · UIN Syarif Hidayatullah Jakarta
             </p>
