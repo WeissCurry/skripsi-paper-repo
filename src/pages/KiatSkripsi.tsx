@@ -137,12 +137,12 @@ export default function KiatSkripsi() {
         <div className="flex flex-wrap items-center gap-2.5 mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-emerald text-black text-xs font-black uppercase tracking-wider rounded-md border-2 border-black">
             <BookOpen size={14} />
-            Kiat kiat
+            jembatan keledai
           </div>
         </div>
 
         <h1 className="text-3xl md:text-5xl font-serif font-black tracking-tight leading-tight mb-4">
-          Kiat & Tips Sukses Skripsi
+          Kiat-kiat Skripsi
         </h1>
 
         <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 max-w-3xl leading-relaxed mb-6">
