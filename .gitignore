@@ -15,6 +15,7 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -41,3 +42,7 @@ out/
 extracted_images/
 draft_images/
 tmp_docx_images/
+
+# Private Documents (Full thesis kept off public git repo)
+public/Documents/Maulana Asykari Muhammad_11220930000058_Skripsi Final.pdf
+
