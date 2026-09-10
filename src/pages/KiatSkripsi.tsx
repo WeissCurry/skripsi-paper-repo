@@ -137,12 +137,8 @@ export default function KiatSkripsi() {
         <div className="flex flex-wrap items-center gap-2.5 mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-emerald text-black text-xs font-black uppercase tracking-wider rounded-md border-2 border-black">
             <BookOpen size={14} />
-            Knowledge Hub & Panduan Praktis
+            Kiat kiat
           </div>
-
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 text-xs font-bold rounded-md border border-blue-300 dark:border-blue-700">
-            ⭐ Dokumen Resmi Google Docs
-          </span>
         </div>
 
         <h1 className="text-3xl md:text-5xl font-serif font-black tracking-tight leading-tight mb-4">
