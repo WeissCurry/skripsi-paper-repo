@@ -46,7 +46,7 @@ function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col">
             <h1 className="text-xl md:text-2xl font-black font-serif tracking-tight leading-none">
               <Link to="/" className="hover:text-brand-emerald transition-colors flex items-center gap-2">
-                <span className="bg-black text-white px-2 py-0.5 rounded-sm transform -rotate-1">Mual</span>
+                <span className="bg-black text-white px-2.5 py-0.5 rounded-md transform -rotate-1">Mual</span>
                 <span className="text-black dark:text-white">Skripsi</span>
               </Link>
             </h1>

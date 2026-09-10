@@ -42,6 +42,7 @@ body {
   background-color: var(--card-bg);
   border: 3px solid var(--brutal-border);
   box-shadow: 6px 6px 0px var(--brutal-shadow);
+  border-radius: 1rem;
   transition: all 0.2s ease-in-out;
 }
 

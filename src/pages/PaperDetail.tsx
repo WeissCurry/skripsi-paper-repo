@@ -61,7 +61,7 @@ export default function PaperDetail() {
     return (
       <div className="text-center py-24 flex flex-col items-center gap-6">
         <h2 className="text-4xl font-black">Paper Not Found</h2>
-        <Link to="/" className="bg-black text-white px-6 py-3 font-bold border-2 border-black">
+        <Link to="/" className="bg-black text-white px-6 py-3 font-bold border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
           Back Home
         </Link>
       </div>
@@ -72,11 +72,14 @@ export default function PaperDetail() {
   const Content = slug ? PaperContentMap[slug] : null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 md:px-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 md:px-8 font-sans">
       {/* Header Article */}
       <header className="mb-12 border-b-[3px] border-black dark:border-white pb-8">
-        <Link to="/" className="inline-block mb-6 font-bold text-brand-emerald hover:underline underline-offset-4">
-          &larr; Back to Publications
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 font-black text-sm px-4 py-2 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg mb-6"
+        >
+          &larr; <span>Kembali ke Beranda</span>
         </Link>
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-serif mb-6 leading-tight">
           {paper.title}
@@ -106,7 +109,7 @@ export default function PaperDetail() {
 
         {/* Main Content Area (MDX) */}
         <div className="lg:col-span-8 xl:col-span-9 order-2 lg:order-1">
-          <article className="prose dark:prose-invert prose-p:text-justify prose-headings:font-serif prose-headings:font-bold prose-a:text-brand-emerald prose-a:font-bold hover:prose-a:underline prose-img:border-[3px] prose-img:border-black dark:prose-img:border-white prose-table:border-[3px] prose-table:border-black dark:prose-table:border-white max-w-none">
+          <article className="prose dark:prose-invert prose-p:text-justify prose-headings:font-serif prose-headings:font-bold prose-a:text-brand-emerald prose-a:font-bold hover:prose-a:underline prose-img:border-[3px] prose-img:border-black dark:prose-img:border-white prose-img:rounded-2xl prose-table:border-[3px] prose-table:border-black dark:prose-table:border-white prose-table:rounded-xl max-w-none">
             <Suspense fallback={<div className="animate-pulse py-12">Loading content...</div>}>
               <MDXProvider components={components}>
                 {Content ? <Content /> : <div className="py-12 text-center">Loading content...</div>}
@@ -125,7 +128,7 @@ export default function PaperDetail() {
             {paper.requestThesis && (
               <button
                 onClick={() => setIsRequestModalOpen(true)}
-                className="flex items-center gap-3 bg-brand-emerald text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer text-left"
+                className="flex items-center gap-3 bg-brand-emerald text-black font-black px-4 py-3 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer text-left"
               >
                 <Mail size={20} />
                 <span>Request (PDF)</span>
@@ -138,7 +141,7 @@ export default function PaperDetail() {
                 download={paper.pdfDownloadName}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-brand-emerald text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+                className="flex items-center gap-3 bg-brand-emerald text-black font-black px-4 py-3 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
                 <Download size={20} />
                 <span>Unduh PDF Naskah</span>
@@ -150,7 +153,7 @@ export default function PaperDetail() {
                 href={paper.slidesUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-brand-yellow text-black font-black px-4 py-3 border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+                className="flex items-center gap-3 bg-brand-yellow text-black font-black px-4 py-3 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
                 <Presentation size={20} />
                 <span>Slides</span>
@@ -162,7 +165,7 @@ export default function PaperDetail() {
                 href={paper.scholarUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-4 py-3 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+                className="flex items-center gap-3 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-4 py-3 border-[3px] border-black dark:border-white rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
                 <GraduationCap size={20} className="text-brand-emerald" />
                 <span>Google Scholar</span>
@@ -173,7 +176,7 @@ export default function PaperDetail() {
               href="https://skripsistaking.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-brand-blue text-white font-black px-4 py-3 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+              className="flex items-center gap-3 bg-brand-blue text-white font-black px-4 py-3 border-[3px] border-black dark:border-white rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
             >
               <ExternalLink size={20} />
               <span>Prototype</span>
@@ -183,7 +186,7 @@ export default function PaperDetail() {
               href="https://www.linkedin.com/in/maulanasykari/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-4 py-3 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+              className="flex items-center gap-3 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-4 py-3 border-[3px] border-black dark:border-white rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
             >
               <ExternalLink size={20} className="text-blue-600" />
               <span>Learn More</span>

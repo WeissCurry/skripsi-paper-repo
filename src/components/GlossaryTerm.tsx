@@ -21,7 +21,7 @@ const GlossaryTerm: React.FC<GlossaryTermProps> = ({ term, definition, children 
       </button>
       
       {isOpen && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 p-4 bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] z-[999] text-sm leading-relaxed pointer-events-none animate-in fade-in zoom-in duration-200">
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 p-4 bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white rounded-xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] z-[999] text-sm leading-relaxed pointer-events-none animate-in fade-in zoom-in duration-200">
           <div className="font-black mb-1 uppercase tracking-wider text-xs text-brand-emerald">Glossary</div>
           <div className="font-bold mb-2 text-black dark:text-white border-b border-gray-200 dark:border-gray-700 pb-1">{term}</div>
           <div className="text-gray-700 dark:text-gray-300 font-medium">

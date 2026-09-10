@@ -186,12 +186,12 @@ export default function Perjalanan() {
   const row5Photos = SURVIVE_PHOTOS.slice(55);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-24">
+    <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8 font-sans pb-24">
       {/* Back Link */}
       <div className="mb-6">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 font-black text-sm bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 border-[2.5px] border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
+          className="inline-flex items-center gap-2 font-black text-sm bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
         >
           <ArrowLeft size={16} />
           <span>Kembali ke Beranda</span>
@@ -199,12 +199,12 @@ export default function Perjalanan() {
       </div>
 
       {/* Header Banner */}
-      <section className="bg-white dark:bg-gray-800 border-[3.5px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 sm:p-10 mb-16 relative overflow-hidden">
+      <section className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 md:p-10 rounded-2xl mb-12 relative overflow-hidden">
         <div className="absolute top-0 right-0 translate-x-8 -translate-y-8 w-44 h-44 bg-brand-yellow/30 dark:bg-brand-yellow/10 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 -translate-x-8 translate-y-8 w-44 h-44 bg-brand-emerald/30 dark:bg-brand-emerald/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 bg-brand-yellow text-black font-black text-xs md:text-sm px-3.5 py-1.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] mb-4">
+          <div className="inline-flex items-center gap-2 bg-brand-yellow text-black font-black text-xs md:text-sm px-3.5 py-1.5 border-2 border-black rounded-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-4">
             <Sparkles size={16} />
             <span>Jejak halusinasi</span>
           </div>
@@ -218,11 +218,11 @@ export default function Perjalanan() {
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-black">
-            <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-700 px-3 py-1.5 border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+            <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 border-2 border-black dark:border-white rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
               <Calendar size={14} className="text-brand-blue" />
               <span>Nov 2025 — Jul 2026</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-700 px-3 py-1.5 border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+            <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 border-2 border-black dark:border-white rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
               <Award size={14} className="text-brand-emerald" />
               <span>8 Tahapan Milestone</span>
             </div>
@@ -274,19 +274,19 @@ export default function Perjalanan() {
                       }`}
                   >
                     <div
-                      className={`bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white p-5 sm:p-6 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,1)] transition-all duration-200 relative ${isHovered ? "ring-2 ring-brand-emerald -translate-y-1" : ""
+                      className={`bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white p-5 sm:p-6 rounded-2xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] transition-all duration-200 relative ${isHovered ? "ring-2 ring-brand-emerald -translate-y-1" : ""
                         }`}
                     >
                       {/* Top Badges */}
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-black font-mono bg-black text-white dark:bg-white dark:text-black px-2.5 py-1">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-black font-mono bg-black text-white dark:bg-white dark:text-black px-2.5 py-1 rounded-md">
                           <Clock size={12} />
                           {milestone.displayDate}
                         </span>
 
                         {milestone.tag && (
                           <span
-                            className={`text-[11px] font-black px-2.5 py-0.5 border-2 border-black ${milestone.tagColor || "bg-gray-100 text-black"
+                            className={`text-[11px] font-black px-2.5 py-0.5 border-2 border-black rounded-md ${milestone.tagColor || "bg-gray-100 text-black"
                               }`}
                           >
                             {milestone.tag}
@@ -319,7 +319,7 @@ export default function Perjalanan() {
                                   setActiveMilestoneId(milestone.id);
                                 }
                               }}
-                              className="inline-flex items-center gap-2 text-xs font-black bg-brand-emerald text-black px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-emerald-400 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
+                              className="inline-flex items-center gap-2 text-xs font-black bg-brand-emerald text-black px-3.5 py-2 border-2 border-black rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-emerald-400 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
                             >
                               <Camera size={14} />
                               <span>Lihat Dokumentasi ({milestone.photos.length} Foto)</span>
@@ -342,7 +342,7 @@ export default function Perjalanan() {
                                 <div
                                   key={pIdx}
                                   onClick={() => openLightbox(milestone.photos!, pIdx)}
-                                  className="group/img relative flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded border-2 border-black dark:border-white overflow-hidden cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:scale-105 transition-transform"
+                                  className="group/img relative flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl border-2 border-black dark:border-white overflow-hidden cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:scale-105 transition-transform"
                                   title="Klik untuk perbesar foto"
                                 >
                                   <img
@@ -371,10 +371,10 @@ export default function Perjalanan() {
 
       {/* SECTION 2: THOSE WHO HELPED ME SURVIVE */}
       <section className="mb-24">
-        <div className="bg-white dark:bg-gray-800 border-[3.5px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 sm:p-8 mb-6">
+        <div className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 md:p-8 rounded-2xl mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300 font-black text-xs px-3 py-1 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-2">
+              <div className="inline-flex items-center gap-2 bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300 font-black text-xs px-3 py-1 border-2 border-black rounded-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-2">
                 <Heart size={14} className="fill-current text-red-500" />
                 <span>Special Gratitude</span>
               </div>
@@ -382,7 +382,7 @@ export default function Perjalanan() {
                 Those who help me Survive Ceklipci!!!
               </h2>
             </div>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-black text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 px-4 py-3 border-2 border-black dark:border-white self-start md:self-auto shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-colors">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-black text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 px-4 py-3 border-2 border-black dark:border-white rounded-xl self-start md:self-auto shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-colors">
               <span>{SURVIVE_PHOTOS.length} Foto Dokumentasi</span>
               <span className="hidden sm:inline">•</span>
               <span>Arahkan kursor untuk pause</span>
@@ -408,7 +408,7 @@ export default function Perjalanan() {
                 <div
                   key={`r1-${idx}`}
                   onClick={() => openLightbox(SURVIVE_PHOTOS, idx % row1Photos.length)}
-                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform"
+                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-all"
                 >
                   <img
                     src={photo}
@@ -431,7 +431,7 @@ export default function Perjalanan() {
                 <div
                   key={`r2-${idx}`}
                   onClick={() => openLightbox(SURVIVE_PHOTOS, 14 + (idx % row2Photos.length))}
-                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform"
+                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-all"
                 >
                   <img
                     src={photo}
@@ -457,7 +457,7 @@ export default function Perjalanan() {
                     key={`r3-${idx}`}
                     ref={isTargetPhoto ? (el) => { specialPhotoRefs.current[idx] = el; } : undefined}
                     onClick={() => openLightbox(SURVIVE_PHOTOS, 28 + (idx % row3Photos.length))}
-                    className={`relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-800 overflow-hidden cursor-pointer hover:-translate-y-1 transition-all duration-300 ${isTargetPhoto
+                    className={`relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-all duration-300 ${isTargetPhoto
                       ? isSpecialPassing
                         ? "border-[3.5px] border-brand-yellow ring-4 ring-brand-yellow/60 shadow-[6px_6px_0px_0px_rgba(253,224,71,1)] scale-[1.03]"
                         : "border-[3px] border-brand-yellow shadow-[5px_5px_0px_0px_rgba(253,224,71,0.9)]"
@@ -472,7 +472,7 @@ export default function Perjalanan() {
                     />
                     {isTargetPhoto && (
                       <div className="absolute top-2 left-2 z-10">
-                        <span className="bg-brand-yellow text-black font-black text-[10px] px-1.5 py-0.5 border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+                        <span className="bg-brand-yellow text-black font-black text-[10px] px-1.5 py-0.5 border border-black rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
                           Special ✨
                         </span>
                       </div>
@@ -493,7 +493,7 @@ export default function Perjalanan() {
                 <div
                   key={`r4-${idx}`}
                   onClick={() => openLightbox(SURVIVE_PHOTOS, 42 + (idx % row4Photos.length))}
-                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform"
+                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-all"
                 >
                   <img
                     src={photo}
@@ -516,7 +516,7 @@ export default function Perjalanan() {
                 <div
                   key={`r5-${idx}`}
                   onClick={() => openLightbox(SURVIVE_PHOTOS, 55 + (idx % row5Photos.length))}
-                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-800 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform"
+                  className="relative group w-48 sm:w-60 h-36 sm:h-44 flex-shrink-0 bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-all"
                 >
                   <img
                     src={photo}
@@ -545,17 +545,17 @@ export default function Perjalanan() {
         >
           <div
             onClick={() => openLightbox([THE_MOST_IMPORTANT_PHOTO], 0)}
-            className="group relative bg-white dark:bg-gray-800 border-[4px] border-black dark:border-white shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] dark:shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] p-3 sm:p-4 rounded-xl cursor-pointer hover:-translate-y-2 transition-transform duration-300"
+            className="group relative bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] p-3 sm:p-4 rounded-2xl cursor-pointer hover:-translate-y-2 transition-transform duration-300"
           >
-            <div className="overflow-hidden rounded-lg">
+            <div className="overflow-hidden rounded-xl">
               <img
                 src={THE_MOST_IMPORTANT_PHOTO}
                 alt="The most Important"
-                className="w-full h-auto max-h-[75vh] object-contain rounded-lg group-hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-auto max-h-[75vh] object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500"
               />
             </div>
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-xl">
-              <span className="bg-black/80 text-white font-bold text-xs px-3 py-1.5 rounded flex items-center gap-1.5 backdrop-blur-sm">
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-2xl">
+              <span className="bg-black/80 text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 backdrop-blur-sm">
                 <Maximize2 size={14} />
                 <span>Lihat Ukuran Penuh</span>
               </span>

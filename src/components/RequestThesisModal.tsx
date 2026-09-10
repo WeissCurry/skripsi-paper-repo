@@ -52,13 +52,13 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
       <div
-        className="relative w-full max-w-2xl bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-2xl bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 md:p-8 rounded-2xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black border-2 border-black dark:border-white transition-colors cursor-pointer"
+          className="absolute top-4 right-4 p-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black border-2 border-black dark:border-white rounded-xl transition-colors cursor-pointer"
           aria-label="Tutup dialog"
         >
           <X size={20} />
@@ -66,7 +66,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
 
         {/* Modal Header */}
         <div className="flex items-center gap-2 mb-2">
-          <span className="p-1.5 bg-brand-yellow text-black border-2 border-black">
+          <span className="p-1.5 bg-brand-yellow text-black border-2 border-black rounded-md">
             <ShieldAlert size={20} />
           </span>
           <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-400">
@@ -85,17 +85,17 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
         {/* Options Grid */}
         <div className="space-y-4">
           {/* Option 1: Email */}
-          <div className="p-5 border-[3px] border-black dark:border-white bg-gray-50 dark:bg-gray-800/80 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+          <div className="p-5 border-[3px] border-black dark:border-white bg-gray-50 dark:bg-gray-800/80 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-brand-emerald text-black flex items-center justify-center border-2 border-black font-black">
+                <div className="w-8 h-8 bg-brand-emerald text-black flex items-center justify-center border-2 border-black rounded-lg font-black">
                   <Mail size={16} />
                 </div>
                 <h4 className="font-serif font-black text-base md:text-lg">
                   Opsi 1: Kirim Email (Format Otomatis)
                 </h4>
               </div>
-              <span className="text-xs font-bold uppercase px-2 py-0.5 bg-brand-emerald/30 border border-brand-emerald text-emerald-900 dark:text-emerald-300">
+              <span className="text-xs font-bold uppercase px-2 py-0.5 bg-brand-emerald/30 border border-brand-emerald text-emerald-900 dark:text-emerald-300 rounded-md">
                 Direkomendasikan
               </span>
             </div>
@@ -107,7 +107,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href={mailtoLink}
-                className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
+                className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
               >
                 <Send size={16} />
                 <span>Buka Aplikasi Email & Kirim</span>
@@ -115,7 +115,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
 
               <button
                 onClick={() => copyToClipboard(authorEmail, 'email')}
-                className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
+                className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
               >
                 {copiedType === 'email' ? (
                   <>
@@ -133,9 +133,9 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
           </div>
 
           {/* Option 2: LinkedIn */}
-          <div className="p-5 border-[3px] border-black dark:border-white bg-gray-50 dark:bg-gray-800/80 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+          <div className="p-5 border-[3px] border-black dark:border-white bg-gray-50 dark:bg-gray-800/80 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-blue-600 text-white flex items-center justify-center border-2 border-black font-black">
+              <div className="w-8 h-8 bg-blue-600 text-white flex items-center justify-center border-2 border-black rounded-lg font-black">
                 <LinkedInIcon size={18} />
               </div>
               <h4 className="font-serif font-black text-base md:text-lg">
@@ -148,7 +148,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
             </p>
 
             {/* Template Box */}
-            <div className="bg-white dark:bg-gray-900 border-2 border-dashed border-gray-400 dark:border-gray-600 p-3 mb-4 rounded text-xs text-gray-700 dark:text-gray-300 font-mono leading-relaxed">
+            <div className="bg-white dark:bg-gray-900 border-2 border-dashed border-gray-400 dark:border-gray-600 p-3 mb-4 rounded-xl text-xs text-gray-700 dark:text-gray-300 font-mono leading-relaxed">
               "{linkedInMessage}"
             </div>
 
@@ -157,7 +157,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
                 href={linkedinProfileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-blue-600 text-white font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
+                className="flex items-center gap-2 bg-blue-600 text-white font-black px-4 py-2.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
               >
                 <LinkedInIcon size={16} />
                 <span>Buka LinkedIn Penulis</span>
@@ -166,7 +166,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
 
               <button
                 onClick={() => copyToClipboard(linkedInMessage, 'linkedin')}
-                className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
+                className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
               >
                 {copiedType === 'linkedin' ? (
                   <>
