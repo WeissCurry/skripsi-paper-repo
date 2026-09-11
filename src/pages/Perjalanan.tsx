@@ -204,8 +204,7 @@ export default function Perjalanan() {
         <div className="absolute bottom-0 left-0 -translate-x-8 translate-y-8 w-44 h-44 bg-brand-emerald/30 dark:bg-brand-emerald/10 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 bg-brand-yellow text-black font-black text-xs md:text-sm px-3.5 py-1.5 border-2 border-black rounded-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-4">
-            <Sparkles size={16} />
+          <div className="inline-flex items-center bg-brand-yellow text-black font-black text-xs md:text-sm px-3.5 py-1.5 border-2 border-black rounded-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-4">
             <span>Jejak halusinasi</span>
           </div>
 
