@@ -32,13 +32,13 @@ export const dashboardUrl = "https://skripsistaking.netlify.app/";
 export const slidesUrl = "https://canva.link/61gja8sos0zt711";
 
 export const advisors = [
-  { name: "Fitroh, M.Kom.", role: "Pembimbing 1" },
-  { name: "Rinda Hesti Kusumaningtyas, M.M.S.I.", role: "Pembimbing 2" }
+  { name: "Fitroh, M.Kom.", role: "1" },
+  { name: "Rinda Hesti Kusumaningtyas, M.M.S.I.", role: "2" }
 ];
 
 export const examiners = [
-  { name: "Nur Aeni Hidayah, S.E., M.M.S.I.", role: "Penguji 1" },
-  { name: "Sarip Hidayatuloh, M.M.S.I.", role: "Penguji 2" }
+  { name: "Nur Aeni Hidayah, S.E., M.M.S.I.", role: "1" },
+  { name: "Sarip Hidayatuloh, M.M.S.I.", role: "2" }
 ];
 
 export const publications: Publication[] = [
