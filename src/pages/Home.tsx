@@ -11,7 +11,7 @@ import {
   BookOpen,
   ChevronDown,
   ChevronUp,
-  UserCheck,
+  // UserCheck,
   Laptop
 } from "lucide-react";
 import {
@@ -115,7 +115,7 @@ export default function Home() {
           {/* Pembimbing */}
           <div className="p-4 border-2 border-black dark:border-white bg-white dark:bg-gray-800 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center gap-2 mb-2">
-              <UserCheck size={16} className="text-brand-emerald" />
+              {/* <UserCheck size={16} className="text-brand-emerald" /> */}
               <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-300">
                 Dosen Pembimbing
               </span>
@@ -135,7 +135,7 @@ export default function Home() {
           {/* Penguji */}
           <div className="p-4 border-2 border-black dark:border-white bg-white dark:bg-gray-800 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center gap-2 mb-2">
-              <UserCheck size={16} className="text-brand-blue" />
+              {/* <UserCheck size={16} className="text-brand-blue" /> */}
               <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-300">
                 Dosen Penguji
               </span>
