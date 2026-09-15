@@ -2,6 +2,8 @@ import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { Sun, Moon, Menu, X, GraduationCap } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 
+import ScrollToTop from './components/ScrollToTop';
+
 const Home = lazy(() => import('./pages/Home'));
 const PaperDetail = lazy(() => import('./pages/PaperDetail'));
 const Perjalanan = lazy(() => import('./pages/Perjalanan'));
@@ -263,6 +265,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Suspense fallback={<div className="flex justify-center items-center py-20 font-bold text-xl">Loading...</div>}>
         <Routes>
           {/* Routes WITH Layout */}
