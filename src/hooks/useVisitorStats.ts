@@ -112,9 +112,14 @@ export function useVisitorStats({
           return;
         }
 
-        if (!totalRes.ok || !thirtyDaysRes.ok || !pageRes.ok) {
+        const isOkOr404 = (res: Response) => res.ok || res.status === 404;
+
+        if (!isOkOr404(totalRes) || !isOkOr404(thirtyDaysRes) || !isOkOr404(pageRes)) {
+          let failedStatus = totalRes.status;
+          if (!isOkOr404(thirtyDaysRes)) failedStatus = thirtyDaysRes.status;
+          if (!isOkOr404(pageRes)) failedStatus = pageRes.status;
           throw new Error(
-            `Gagal mengambil data dari GoatCounter (Status: ${totalRes.status})`
+            `Gagal mengambil data dari GoatCounter (Status: ${failedStatus})`
           );
         }
 
