@@ -77,15 +77,16 @@ export function useVisitorStats({
         .split('T')[0];
 
       try {
+        const t = Date.now();
         // Fetch 1: Lifetime total
-        const totalPromise = fetch(`${baseUrl}/TOTAL.json`);
+        const totalPromise = fetch(`${baseUrl}/TOTAL.json?_t=${t}`);
 
         // Fetch 2: 30 days total
-        const thirtyDaysPromise = fetch(`${baseUrl}/TOTAL.json?start=${thirtyDaysAgo}`);
+        const thirtyDaysPromise = fetch(`${baseUrl}/TOTAL.json?start=${thirtyDaysAgo}&_t=${t}`);
 
         // Fetch 3: Specific pageviews (if pagePath provided) or site total
         const targetPage = pagePath ? encodeURIComponent(pagePath) : 'TOTAL';
-        const pageviewsPromise = fetch(`${baseUrl}/${targetPage}.json`);
+        const pageviewsPromise = fetch(`${baseUrl}/${targetPage}.json?_t=${t}`);
 
         const [totalRes, thirtyDaysRes, pageRes] = await Promise.all([
           totalPromise,
