@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 
 import ScrollToTop from './components/ScrollToTop';
 import PageLoader from './components/PageLoader';
+import AnalyticsTracker from './components/AnalyticsTracker';
 
 const lazyWithMinDelay = <P extends object>(
   factory: () => Promise<{ default: React.ComponentType<P> }>,
@@ -280,6 +281,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
+      <AnalyticsTracker />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Routes WITH Layout */}

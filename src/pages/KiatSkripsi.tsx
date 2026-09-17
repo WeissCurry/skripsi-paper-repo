@@ -28,6 +28,7 @@ import {
   CONTOH_NOTES_BIMBINGAN,
   GOOGLE_DOC_URL,
 } from '../data/kiatSkripsi';
+import VisitorStats from '../components/VisitorStats';
 
 const GoogleDocsIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -688,6 +689,13 @@ export default function KiatSkripsi() {
           </div>
         </div>
       </section>
+
+      {/* Visitor Stats Widget */}
+      <VisitorStats
+        pagePath="/kiat-skripsi"
+        pageLabel="Kiat Skripsi"
+        className="mb-14"
+      />
 
       {/* Bottom Big Banner & CTAs */}
       <section className="bg-gradient-to-r from-brand-emerald/20 via-brand-yellow/20 to-brand-blue/20 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-8 md:p-12 rounded-2xl text-center">

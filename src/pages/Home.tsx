@@ -24,6 +24,7 @@ import {
   examiners
 } from "../data/publications";
 import RequestThesisModal from "../components/RequestThesisModal";
+import VisitorStats from "../components/VisitorStats";
 
 const getTagColor = (tag: OutputTag) => {
   switch (tag) {
@@ -152,7 +153,6 @@ export default function Home() {
             </ul>
           </div>
         </div>
-
       </section>
 
       {/* Output Feed with Categories Filter & Search */}
@@ -471,6 +471,11 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      {/* Site Visitor Stats */}
+      <VisitorStats
+        pageLabel="Seluruh Situs"
+      />
 
       {/* Modal Permintaan Naskah Skripsi */}
       <RequestThesisModal
