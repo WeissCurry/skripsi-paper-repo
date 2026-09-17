@@ -3,11 +3,25 @@ import { Sun, Moon, Menu, X, GraduationCap } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 
 import ScrollToTop from './components/ScrollToTop';
+import PageLoader from './components/PageLoader';
 
-const Home = lazy(() => import('./pages/Home'));
-const PaperDetail = lazy(() => import('./pages/PaperDetail'));
-const Perjalanan = lazy(() => import('./pages/Perjalanan'));
-const KiatSkripsi = lazy(() => import('./pages/KiatSkripsi'));
+const lazyWithMinDelay = <P extends object>(
+  factory: () => Promise<{ default: React.ComponentType<P> }>,
+  minDelay = 650
+) => {
+  return lazy(() =>
+    Promise.all([
+      factory(),
+      new Promise((resolve) => setTimeout(resolve, minDelay)),
+    ]).then(([moduleExports]) => moduleExports)
+  );
+};
+
+const Home = lazyWithMinDelay(() => import('./pages/Home'));
+const PaperDetail = lazyWithMinDelay(() => import('./pages/PaperDetail'));
+const Perjalanan = lazyWithMinDelay(() => import('./pages/Perjalanan'));
+const KiatSkripsi = lazyWithMinDelay(() => import('./pages/KiatSkripsi'));
+const NotFound = lazyWithMinDelay(() => import('./pages/NotFound'));
 
 const LinkedinIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -266,13 +280,16 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Suspense fallback={<div className="flex justify-center items-center py-20 font-bold text-xl">Loading...</div>}>
+      <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Routes WITH Layout */}
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/paper/:slug" element={<Layout><PaperDetail /></Layout>} />
           <Route path="/perjalanan" element={<Layout><Perjalanan /></Layout>} />
           <Route path="/kiat-skripsi" element={<Layout><KiatSkripsi /></Layout>} />
+
+          {/* Catch-all 404 Route with Auto-Redirect */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Router>
