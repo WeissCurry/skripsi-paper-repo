@@ -98,9 +98,6 @@ export default function VisitorStats({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
             </div>
-            <p className="text-[11px] text-gray-500 dark:text-gray-400 font-medium">
-              Data analitik terintegrasi via GoatCounter (privasi aman, tanpa cookie)
-            </p>
           </div>
         </div>
 
@@ -263,7 +260,7 @@ export default function VisitorStats({
       <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex flex-wrap items-center justify-between text-[11px] text-gray-500 dark:text-gray-400 gap-2">
         <div className="flex items-center gap-1.5">
           <Clock size={12} />
-          <span>GoatCounter memperbarui cache data setiap ~4 jam</span>
+          <span>cache data setiap ~4 jam</span>
         </div>
         {lastUpdated && (
           <span className="sm:hidden font-mono">
