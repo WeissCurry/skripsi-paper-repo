@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import ScrollToTop from './components/ScrollToTop';
 import PageLoader from './components/PageLoader';
 import AnalyticsTracker from './components/AnalyticsTracker';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import GermanFallbackNotice from './components/GermanFallbackNotice';
+import { useT } from './i18n/strings';
 
 const lazyWithMinDelay = <P extends object>(
   factory: () => Promise<{ default: React.ComponentType<P> }>,
@@ -39,6 +42,7 @@ const GithubIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 
 function Layout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
+  const { t } = useT();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -58,7 +62,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-background selection:bg-brand-emerald selection:text-white">
-      <header className={`fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-300 ${isScrolled ? 'top-2' : 'top-4'}`}>
+      <header className={`fixed left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-300 ${isScrolled ? 'top-2' : 'top-4'}`}>
         <div className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] py-3 px-6 md:px-8 flex justify-between items-center rounded-2xl relative">
           <div className="flex flex-col">
             <h1 className="text-xl md:text-2xl font-black font-serif tracking-tight leading-none">
@@ -67,7 +71,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 <span className="text-black dark:text-white">Skripsi</span>
               </Link>
             </h1>
-            <p className="hidden md:block text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 mt-1">Skripsi Maulana Asykari Muhammad</p>
+            <p className="hidden md:block text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 mt-1">{t('brand_subtitle')}</p>
           </div>
 
           {/* Desktop Navigation */}
@@ -78,9 +82,9 @@ function Layout({ children }: { children: React.ReactNode }) {
                 ? 'bg-brand-emerald text-white border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]'
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800 border-transparent text-gray-800 dark:text-gray-200'
                 }`}
-              title="Kiat & Tips Skripsi"
+              title={t('tt_tips')}
             >
-              <span>Kiat Skripsi</span>
+              <span>{t('nav_tips')}</span>
             </Link>
 
             <Link
@@ -89,7 +93,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 ? 'bg-brand-yellow text-black border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800 border-transparent text-gray-800 dark:text-gray-200'
                 }`}
-              title="Perjalanan Skripsi"
+              title={t('tt_roadmap')}
             >
               <span>Roadmap</span>
             </Link>
@@ -101,7 +105,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               className="px-3.5 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
-              title="Web3 Staking Dashboard"
+              title={t('tt_dashboard')}
             >
               <span>Dashboard</span>
             </a>
@@ -111,7 +115,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               className="px-3.5 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
-              title="Slides Presentasi Sidang"
+              title={t('tt_slides')}
             >
               <span>Slides</span>
             </a>
@@ -121,17 +125,19 @@ function Layout({ children }: { children: React.ReactNode }) {
               target="_blank"
               rel="noopener noreferrer"
               className="px-3.5 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
-              title="Google Scholar Profile"
+              title={t('tt_scholar')}
             >
               <span>Scholar</span>
             </a>
 
             <div className="h-6 w-[2px] bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
+            <LanguageSwitcher />
+
             <button
               onClick={() => document.documentElement.classList.toggle('dark')}
               className="p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 transition-all rounded-lg cursor-pointer"
-              title="Toggle Dark Mode"
+              title={t('tt_dark')}
             >
               <Moon size={20} className="dark:hidden" />
               <Sun size={20} className="hidden dark:block" />
@@ -140,6 +146,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Actions */}
           <div className="flex lg:hidden items-center gap-3">
+            <LanguageSwitcher />
+
             <button
               onClick={() => document.documentElement.classList.toggle('dark')}
               className="p-2.5 border-2 border-black dark:border-white bg-white dark:bg-gray-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg cursor-pointer"
@@ -159,7 +167,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Dropdown Menu */}
           <div className={`absolute top-[calc(100%+12px)] left-0 w-full bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] dark:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] rounded-2xl p-4 flex flex-col gap-2 transition-all duration-300 origin-top lg:hidden ${isMenuOpen ? 'scale-y-100 opacity-100 visible' : 'scale-y-95 opacity-0 invisible'}`}>
-            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-2 pt-1">Halaman</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-2 pt-1">{t('menu_pages')}</p>
 
             <Link
               to="/"
@@ -168,7 +176,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
             >
-              <span className="text-base">Beranda</span>
+              <span className="text-base">{t('menu_home')}</span>
             </Link>
 
             <Link
@@ -178,7 +186,7 @@ function Layout({ children }: { children: React.ReactNode }) {
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
             >
-              <span className="text-base">Kiat & Tips Skripsi</span>
+              <span className="text-base">{t('tt_tips')}</span>
             </Link>
 
             <Link
@@ -192,7 +200,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             </Link>
 
             <div className="h-[2px] bg-gray-200 dark:bg-gray-700 my-1"></div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-2">Tautan Eksternal</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 px-2">{t('menu_external')}</p>
 
             <a
               href="https://skripsistaking.netlify.app/"
@@ -228,12 +236,14 @@ function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
+      <GermanFallbackNotice />
+
       <footer className="border-t-[3px] border-black dark:border-white py-10 px-4 md:px-8 mt-16 bg-white dark:bg-gray-900">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
             <h3 className="font-serif font-black text-lg">MualSkripsi</h3>
             <p className="text-sm mt-1 text-gray-600 dark:text-gray-400">
-              Karya Penulisan & Skripsi oleh <strong>Maulana Asykari Muhammad</strong> · UIN Syarif Hidayatullah Jakarta
+              {t('footer_by')} <strong>Maulana Asykari Muhammad</strong> · UIN Syarif Hidayatullah Jakarta
             </p>
           </div>
 

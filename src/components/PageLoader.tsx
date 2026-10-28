@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Loader2, HardDriveDownload, Activity } from 'lucide-react';
+import { useT } from '../i18n/strings';
 
 export default function PageLoader() {
+  const { t } = useT();
   const [bytesLoaded, setBytesLoaded] = useState<number>(0);
   const [resourceCount, setResourceCount] = useState<number>(0);
 
@@ -70,7 +72,7 @@ export default function PageLoader() {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Memuat Halaman"
+      aria-label={t('pl_aria')}
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
     >
       <div className="w-full max-w-sm bg-white dark:bg-gray-900 border-[3.5px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] rounded-2xl p-6 sm:p-7 text-center relative overflow-hidden">
@@ -91,12 +93,12 @@ export default function PageLoader() {
         <div className="flex items-center justify-center gap-2.5 mb-2 text-brand-emerald dark:text-emerald-400">
           <Loader2 className="w-5 h-5 animate-spin" strokeWidth={3} />
           <span className="text-base font-black tracking-tight text-gray-900 dark:text-white">
-            Memuat Halaman...
+            {t('pl_loading')}
           </span>
         </div>
 
         <p className="text-xs text-gray-600 dark:text-gray-400 font-medium mb-5">
-          Mengunduh komponen, visual & data karya ilmiah...
+          {t('pl_sub')}
         </p>
 
         {/* Indeterminate Progress Bar */}
@@ -104,10 +106,10 @@ export default function PageLoader() {
           <div className="flex justify-between items-center text-xs font-bold mb-1.5">
             <span className="text-gray-700 dark:text-gray-300 flex items-center gap-1">
               <Activity size={13} className="text-brand-yellow" />
-              <span>Status Jaringan</span>
+              <span>{t('pl_network')}</span>
             </span>
             <span className="font-mono text-brand-emerald dark:text-emerald-400 font-bold">
-              Aktif
+              {t('pl_active')}
             </span>
           </div>
 
@@ -132,7 +134,7 @@ export default function PageLoader() {
             </div>
             <div>
               <div className="text-[10px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
-                Aset Aktual Diunduh
+                {t('pl_downloaded')}
               </div>
               <div className="text-xs font-mono font-bold text-gray-900 dark:text-gray-100">
                 {formatSize(bytesLoaded)}
@@ -142,10 +144,10 @@ export default function PageLoader() {
 
           <div className="text-right">
             <div className="text-[10px] font-black uppercase tracking-wider text-gray-500 dark:text-gray-400">
-              Total Berkas
+              {t('pl_total_files')}
             </div>
             <div className="text-xs font-mono font-bold text-gray-800 dark:text-gray-200">
-              {resourceCount} file
+              {resourceCount} {t('pl_files')}
             </div>
           </div>
         </div>

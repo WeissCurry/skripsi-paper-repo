@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useVisitorStats } from '../hooks/useVisitorStats';
+import { useT } from '../i18n/strings';
 
 interface VisitorStatsProps {
   pagePath?: string;
@@ -46,10 +47,12 @@ function AnimatedNumber({ value }: { value: number }) {
 
 export default function VisitorStats({
   pagePath,
-  pageLabel = 'Halaman Ini',
+  pageLabel,
   siteCode = 'mualskripsi',
   className = '',
 }: VisitorStatsProps) {
+  const { t } = useT();
+  const label = pageLabel ?? t('vs_this_page');
   const {
     visitors30d,
     visitorsLifetime,
@@ -91,7 +94,7 @@ export default function VisitorStats({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-serif font-black text-base md:text-lg">
-                Statistik Pengunjung
+                {t('vs_title')}
               </h3>
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -105,7 +108,7 @@ export default function VisitorStats({
           {lastUpdated && (
             <div className="hidden sm:flex items-center gap-1 text-[11px] font-mono text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-md border border-gray-200 dark:border-gray-700">
               <Clock size={12} />
-              <span>Update: {formatTime(lastUpdated)}</span>
+              <span>{t('vs_update')} {formatTime(lastUpdated)}</span>
             </div>
           )}
 
@@ -113,7 +116,7 @@ export default function VisitorStats({
             onClick={handleRefresh}
             disabled={loading || isRefreshing}
             className="p-1.5 rounded-lg border-2 border-black dark:border-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer disabled:opacity-50"
-            title="Muat ulang statistik"
+            title={t('vs_refresh')}
             aria-label="Refresh stats"
           >
             <RotateCw
@@ -127,7 +130,7 @@ export default function VisitorStats({
             target="_blank"
             rel="noopener noreferrer"
             className="p-1.5 rounded-lg border-2 border-black dark:border-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
-            title="Buka Dashboard GoatCounter"
+            title={t('vs_open_dash')}
             aria-label="Open GoatCounter dashboard"
           >
             <ExternalLink size={15} />
@@ -142,24 +145,24 @@ export default function VisitorStats({
             <AlertCircle size={18} className="text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
             <div>
               <p className="font-bold text-amber-900 dark:text-amber-200 mb-1">
-                Langkah Terakhir: Aktifkan Visitor Counter di GoatCounter
+                {t('vs_warn_title')}
               </p>
               <p className="text-amber-800/90 dark:text-amber-300 leading-relaxed mb-2">
-                GoatCounter mengembalikan pesan:{' '}
+                {t('vs_warn_msg')}{' '}
                 <em>"Need to enable the 'allow using the visitor counter' setting"</em>.
               </p>
               <ol className="list-decimal list-inside space-y-1 text-amber-800 dark:text-amber-300 mb-3 font-medium">
-                <li>Buka dashboard GoatCounter kamu di <strong>https://{siteCode}.goatcounter.com</strong></li>
-                <li>Masuk ke menu <strong>Settings</strong></li>
-                <li>Centang kotak <strong>"Allow adding visitor counts on your website"</strong></li>
-                <li>Klik tombol <strong>Save</strong></li>
+                <li>{t('vs_warn_s1')} <strong>https://{siteCode}.goatcounter.com</strong></li>
+                <li>{t('vs_warn_s2')} <strong>Settings</strong></li>
+                <li>{t('vs_warn_s3')} <strong>"Allow adding visitor counts on your website"</strong></li>
+                <li>{t('vs_warn_s4')} <strong>Save</strong></li>
               </ol>
               <button
                 onClick={handleRefresh}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-400 text-black font-black text-xs rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
               >
                 <RotateCw size={12} className={isRefreshing ? 'animate-spin' : ''} />
-                <span>Saya Sudah Centang, Cek Lagi</span>
+                <span>{t('vs_warn_recheck')}</span>
               </button>
             </div>
           </div>
@@ -177,7 +180,7 @@ export default function VisitorStats({
             onClick={handleRefresh}
             className="px-2.5 py-1 bg-white dark:bg-gray-800 font-bold text-xs border border-red-400 rounded cursor-pointer hover:bg-gray-50"
           >
-            Coba Lagi
+            {t('vs_retry')}
           </button>
         </div>
       )}
@@ -204,7 +207,7 @@ export default function VisitorStats({
           <div className="p-4 rounded-xl border-2 border-black dark:border-white bg-gradient-to-br from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-gray-800 shadow-[3px_3px_0px_0px_rgba(16,185,129,1)] flex flex-col justify-between">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[11px] font-black uppercase tracking-wider text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-300 dark:border-emerald-800">
-                30 Hari Terakhir
+                {t('vs_30d')}
               </span>
               <Users size={16} className="text-emerald-600 dark:text-emerald-400" />
             </div>
@@ -213,7 +216,7 @@ export default function VisitorStats({
                 <AnimatedNumber value={visitors30d} />
               </div>
               <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">
-                Pengunjung Unik
+                {t('vs_unique')}
               </p>
             </div>
           </div>
@@ -231,7 +234,7 @@ export default function VisitorStats({
                 <AnimatedNumber value={visitorsLifetime} />
               </div>
               <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">
-                Total Pengunjung Seumur Hidup
+                {t('vs_lifetime_sub')}
               </p>
             </div>
           </div>
@@ -240,7 +243,7 @@ export default function VisitorStats({
           <div className="p-4 rounded-xl border-2 border-black dark:border-white bg-gradient-to-br from-amber-50/50 to-white dark:from-amber-950/20 dark:to-gray-800 shadow-[3px_3px_0px_0px_rgba(245,158,11,1)] flex flex-col justify-between">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[11px] font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/70 px-2 py-0.5 rounded border border-amber-300 dark:border-amber-800">
-                {pageLabel}
+                {label}
               </span>
               <Eye size={16} className="text-amber-600 dark:text-amber-400" />
             </div>
@@ -249,7 +252,7 @@ export default function VisitorStats({
                 <AnimatedNumber value={pageviews} />
               </div>
               <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">
-                Total Tayangan Halaman (Views)
+                {t('vs_views_sub')}
               </p>
             </div>
           </div>
@@ -260,11 +263,11 @@ export default function VisitorStats({
       <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex flex-wrap items-center justify-between text-[11px] text-gray-500 dark:text-gray-400 gap-2">
         <div className="flex items-center gap-1.5">
           <Clock size={12} />
-          <span>cache data setiap ~4 jam</span>
+          <span>{t('vs_cache')}</span>
         </div>
         {lastUpdated && (
           <span className="sm:hidden font-mono">
-            Diperbarui: {formatTime(lastUpdated)}
+            {t('vs_updated')} {formatTime(lastUpdated)}
           </span>
         )}
       </div>
