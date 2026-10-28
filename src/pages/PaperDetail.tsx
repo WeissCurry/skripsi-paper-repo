@@ -4,16 +4,18 @@ import React, { Suspense, useState } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import GlossaryTerm from "../components/GlossaryTerm";
 import RequestThesisModal from "../components/RequestThesisModal";
+import { useT, UI, type Localized } from "../i18n/strings";
+import type { Lang } from "../i18n/LanguageContext";
 
 const components = {
   Glossary: GlossaryTerm,
 };
 
 interface PaperData {
-  title: string;
+  title: Localized;
   authors: string;
   institution: string;
-  date: string;
+  date: Localized;
   pdfUrl?: string;
   pdfDownloadName?: string;
   docsUrl?: string;
@@ -25,20 +27,20 @@ interface PaperData {
 const getPaperData = (slug: string): PaperData | null => {
   const data: Record<string, PaperData> = {
     "paper-skripsi": {
-      title: "Rancangan Arsitektur Manajemen Risiko dan Kepatuhan Syariah pada Staking Ethereum Menggunakan Pendekatan TOGAF ADM",
+      title: UI.home_thesis_title,
       authors: "Maulana Asykari Muhammad, Fitroh, Rinda Hesti Kusumaningtyas",
       institution: "UIN Syarif Hidayatullah Jakarta",
-      date: "Mei 2026",
+      date: UI.paper_date,
       requestThesis: true,
       docsUrl: "https://docs.google.com/document/d/1b82a7xmzJcRtoX7VOKTB-BXLAVfWLlwSiHxHAMicOrg/edit?usp=sharing",
       slidesUrl: "https://canva.link/61gja8sos0zt711",
       scholarUrl: "https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en",
     },
     "proposal-tugas-akhir": {
-      title: "Proposal: Rancangan Arsitektur Manajemen Risiko dan Kepatuhan Syariah pada Staking Ethereum",
+      title: UI.proposal_title,
       authors: "Maulana Asykari Muhammad",
       institution: "UIN Syarif Hidayatullah Jakarta",
-      date: "Mei 2026",
+      date: UI.paper_date,
       slidesUrl: "https://canva.link/61gja8sos0zt711",
       scholarUrl: "https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en",
     }
@@ -46,16 +48,42 @@ const getPaperData = (slug: string): PaperData | null => {
   return data[slug] || null;
 };
 
-// Declare components outside of render to avoid ESLint errors and performance issues
-const PaperContentMap: Record<string, React.LazyExoticComponent<React.ComponentType>> = {
-  "paper-skripsi": React.lazy(() => import("../content/paper-skripsi.mdx")),
-  "proposal-tugas-akhir": React.lazy(() => import("../content/proposal-tugas-akhir.mdx")),
+type MdxLoader = () => Promise<{ default: React.ComponentType }>;
+
+// Per-language MDX loaders. `id` is the canonical fallback; other locales are
+// added as their translated files land. A missing/failed locale import falls
+// back to Indonesian instead of throwing (see useMemo below).
+const PAPER_MDX: Record<string, { id: MdxLoader } & Partial<Record<Lang, MdxLoader>>> = {
+  "paper-skripsi": {
+    id: () => import("../content/paper-skripsi.mdx"),
+    en: () => import("../content/paper-skripsi.en.mdx"),
+  },
+  "proposal-tugas-akhir": {
+    id: () => import("../content/proposal-tugas-akhir.mdx"),
+    en: () => import("../content/proposal-tugas-akhir.en.mdx"),
+  },
 };
+
+type LazyContent = React.LazyExoticComponent<React.ComponentType>;
+
+// Precompute one lazy component per slug+language at module load (stable refs,
+// not created during render). A missing/failed locale import falls back to the
+// Indonesian manuscript instead of throwing.
+const PAPER_CONTENT: Record<string, Partial<Record<Lang, LazyContent>>> = {};
+for (const [slug, loaders] of Object.entries(PAPER_MDX)) {
+  const make = (lang: Lang): LazyContent =>
+    React.lazy(() => (loaders[lang] ?? loaders.id)().catch(() => loaders.id()));
+  PAPER_CONTENT[slug] = { id: make("id"), en: make("en"), de: make("de") };
+}
 
 export default function PaperDetail() {
   const { slug } = useParams();
+  const { t, p, lang } = useT();
   const paper = getPaperData(slug || "");
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+
+  // Pick the precomputed lazy component for the current slug + language.
+  const Content = slug ? (PAPER_CONTENT[slug]?.[lang] ?? PAPER_CONTENT[slug]?.id) : null;
 
   if (!paper) {
     return (
@@ -68,9 +96,6 @@ export default function PaperDetail() {
     );
   }
 
-  // Get the component from the map
-  const Content = slug ? PaperContentMap[slug] : null;
-
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:px-8 font-sans">
       {/* Header Article */}
@@ -79,10 +104,10 @@ export default function PaperDetail() {
           to="/"
           className="inline-flex items-center gap-2 font-black text-sm px-4 py-2 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg mb-6"
         >
-          &larr; <span>Kembali ke Beranda</span>
+          &larr; <span>{t('paper_back')}</span>
         </Link>
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-serif mb-6 leading-tight">
-          {paper.title}
+          {p(paper.title)}
         </h1>
 
         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 text-lg text-gray-700 dark:text-gray-300">
@@ -98,7 +123,7 @@ export default function PaperDetail() {
 
             <div className="flex items-center gap-2">
               <Calendar size={18} className="text-brand-emerald" />
-              {paper.date}
+              {p(paper.date)}
             </div>
           </div>
         </div>
@@ -144,7 +169,7 @@ export default function PaperDetail() {
                 className="flex items-center gap-3 bg-brand-emerald text-black font-black px-4 py-3 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
                 <Download size={20} />
-                <span>Unduh PDF Naskah</span>
+                <span>{t('act_dl_manuscript')}</span>
               </a>
             )}
 

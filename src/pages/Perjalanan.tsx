@@ -20,8 +20,10 @@ import {
   SURVIVE_PHOTOS,
   THE_MOST_IMPORTANT_PHOTO,
 } from "../data/perjalanan";
+import { useT } from "../i18n/strings";
 
 export default function Perjalanan() {
+  const { t, p } = useT();
   // Lightbox state
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
@@ -188,13 +190,13 @@ export default function Perjalanan() {
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8 font-sans pb-24">
       {/* Back Link */}
-      <div className="mb-6">
+      <div className="mb-8">
         <Link
           to="/"
           className="inline-flex items-center gap-2 font-black text-sm bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
         >
           <ArrowLeft size={16} />
-          <span>Kembali ke Beranda</span>
+          <span>{t('paper_back')}</span>
         </Link>
       </div>
 
@@ -205,15 +207,15 @@ export default function Perjalanan() {
 
         <div className="relative z-10 max-w-3xl">
           <div className="inline-flex items-center bg-brand-yellow text-black font-black text-xs md:text-sm px-3.5 py-1.5 border-2 border-black rounded-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-4">
-            <span>Jejak halusinasi</span>
+            <span>{t('pj_eyebrow')}</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-serif tracking-tight text-black dark:text-white leading-tight">
-            Perjalanan Ceklipci
+            {t('pj_title')}
           </h1>
 
           <p className="mt-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
-            Menyusuri setiap fase, proses revisi, dan momen krusial sejak penentuan dosen pembimbing hingga lembar pengesahan ditandatangani. Dokumentasi visual perjalanan tugas akhir di Sistem Informasi UIN Jakarta.
+            {t('pj_sub')}
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-black">
@@ -223,7 +225,7 @@ export default function Perjalanan() {
             </div>
             <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-gray-800 px-3 py-1.5 border-2 border-black dark:border-white rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
               <Award size={14} className="text-brand-emerald" />
-              <span>8 Tahapan Milestone</span>
+              <span>{t('pj_milestones_count')}</span>
             </div>
           </div>
         </div>
@@ -280,7 +282,7 @@ export default function Perjalanan() {
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <span className="inline-flex items-center gap-1.5 text-xs font-black font-mono bg-black text-white dark:bg-white dark:text-black px-2.5 py-1 rounded-md">
                           <Clock size={12} />
-                          {milestone.displayDate}
+                          {p(milestone.displayDate)}
                         </span>
 
                         {milestone.tag && (
@@ -288,20 +290,20 @@ export default function Perjalanan() {
                             className={`text-[11px] font-black px-2.5 py-0.5 border-2 border-black rounded-md ${milestone.tagColor || "bg-gray-100 text-black"
                               }`}
                           >
-                            {milestone.tag}
+                            {p(milestone.tag)}
                           </span>
                         )}
                       </div>
 
                       {/* Title */}
                       <h3 className="text-lg sm:text-xl font-black font-serif text-black dark:text-white mt-1">
-                        {milestone.title}
+                        {p(milestone.title)}
                       </h3>
 
                       {/* Description */}
                       {milestone.description && (
                         <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-                          {milestone.description}
+                          {p(milestone.description)}
                         </p>
                       )}
 
@@ -321,7 +323,7 @@ export default function Perjalanan() {
                               className="inline-flex items-center gap-2 text-xs font-black bg-brand-emerald text-black px-3.5 py-2 border-2 border-black rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-emerald-400 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
                             >
                               <Camera size={14} />
-                              <span>Lihat Dokumentasi ({milestone.photos.length} Foto)</span>
+                              <span>{t('pj_view_docs')} ({milestone.photos.length} {t('pj_photos')})</span>
                             </button>
 
                             <span className="text-[11px] text-gray-500 dark:text-gray-400 font-bold hidden sm:inline">
@@ -342,11 +344,11 @@ export default function Perjalanan() {
                                   key={pIdx}
                                   onClick={() => openLightbox(milestone.photos!, pIdx)}
                                   className="group/img relative flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl border-2 border-black dark:border-white overflow-hidden cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:scale-105 transition-transform"
-                                  title="Klik untuk perbesar foto"
+                                  title={t('pj_click_zoom')}
                                 >
                                   <img
                                     src={photo}
-                                    alt={`${milestone.title} dokumentasi ${pIdx + 1}`}
+                                    alt={`${p(milestone.title)} ${t('pj_doc')} ${pIdx + 1}`}
                                     className="w-full h-full object-cover"
                                     loading="lazy"
                                   />
@@ -384,13 +386,13 @@ export default function Perjalanan() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-black text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 px-4 py-3 border-2 border-black dark:border-white rounded-xl self-start md:self-auto shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-colors">
               <span>{SURVIVE_PHOTOS.length} Foto Dokumentasi</span>
               <span className="hidden sm:inline">•</span>
-              <span>Arahkan kursor untuk pause</span>
+              <span>{t('pj_hover_pause')}</span>
               {isSpecialPassing && (
                 <>
                   <span className="hidden sm:inline">•</span>
                   <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 animate-pulse font-black">
                     <Sparkles size={12} />
-                    <span>Mode Perlambat (2 Detik)</span>
+                    <span>{t('pj_slow_mode')}</span>
                   </span>
                 </>
               )}
@@ -411,7 +413,7 @@ export default function Perjalanan() {
                 >
                   <img
                     src={photo}
-                    alt={`Dokumentasi survive ${idx + 1}`}
+                    alt={`${t('pj_alt_survive')} ${idx + 1}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -434,7 +436,7 @@ export default function Perjalanan() {
                 >
                   <img
                     src={photo}
-                    alt={`Dokumentasi survive ${idx + 15}`}
+                    alt={`${t('pj_alt_survive')} ${idx + 15}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -465,7 +467,7 @@ export default function Perjalanan() {
                   >
                     <img
                       src={photo}
-                      alt={`Dokumentasi survive ${idx + 29}`}
+                      alt={`${t('pj_alt_survive')} ${idx + 29}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
                     />
@@ -496,7 +498,7 @@ export default function Perjalanan() {
                 >
                   <img
                     src={photo}
-                    alt={`Dokumentasi survive ${idx + 43}`}
+                    alt={`${t('pj_alt_survive')} ${idx + 43}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -519,7 +521,7 @@ export default function Perjalanan() {
                 >
                   <img
                     src={photo}
-                    alt={`Dokumentasi survive ${idx + 56}`}
+                    alt={`${t('pj_alt_survive')} ${idx + 56}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -556,7 +558,7 @@ export default function Perjalanan() {
             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded-2xl">
               <span className="bg-black/80 text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 backdrop-blur-sm">
                 <Maximize2 size={14} />
-                <span>Lihat Ukuran Penuh</span>
+                <span>{t('pj_view_full')}</span>
               </span>
             </div>
           </div>
@@ -568,7 +570,7 @@ export default function Perjalanan() {
               className="inline-flex items-center gap-3 font-black text-base md:text-lg bg-white dark:bg-gray-800 text-black dark:text-white px-7 py-3.5 border-[3px] border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all rounded-xl cursor-pointer"
             >
               <ArrowLeft size={20} />
-              <span>Kembali ke Beranda</span>
+              <span>{t('paper_back')}</span>
             </Link>
 
             <Link
@@ -576,7 +578,7 @@ export default function Perjalanan() {
               className="inline-flex items-center gap-3 font-black text-base md:text-lg bg-brand-emerald text-black px-7 py-3.5 border-[3px] border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all rounded-xl cursor-pointer"
             >
               <BookOpen size={20} />
-              <span>Kiat & Tips Skripsi</span>
+              <span>{t('tt_tips')}</span>
             </Link>
           </div>
         </div>
@@ -595,13 +597,13 @@ export default function Perjalanan() {
           {/* Top Bar: Counter & Close Button */}
           <div className="w-full flex items-center justify-between max-w-5xl z-50">
             <div className="text-white/80 font-mono text-xs sm:text-sm bg-white/10 px-3 py-1.5 rounded-full border border-white/20">
-              {lightboxImages.length > 1 ? `${currentIndex + 1} / ${lightboxImages.length}` : 'Dokumentasi'}
+              {lightboxImages.length > 1 ? `${currentIndex + 1} / ${lightboxImages.length}` : t('pj_documentation')}
             </div>
 
             <button
               onClick={() => setLightboxOpen(false)}
               className="p-2.5 sm:p-3 bg-white text-black border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-red-500 hover:text-white transition-all rounded-xl cursor-pointer"
-              aria-label="Tutup"
+              aria-label={t('act_close')}
             >
               <X size={22} className="sm:w-6 sm:h-6" />
             </button>
@@ -612,7 +614,7 @@ export default function Perjalanan() {
             <button
               onClick={handlePrevImage}
               className="hidden sm:flex absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-3.5 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald transition-all rounded-xl cursor-pointer z-50 active:translate-x-[2px] active:translate-y-[2px]"
-              aria-label="Foto Sebelumnya"
+              aria-label={t('pj_prev_photo')}
             >
               <ChevronLeft size={28} />
             </button>
@@ -622,7 +624,7 @@ export default function Perjalanan() {
           <div className="relative flex-1 w-full max-w-5xl flex items-center justify-center my-2 sm:my-4 min-h-0">
             <img
               src={lightboxImages[currentIndex]}
-              alt={`Dokumentasi ${currentIndex + 1}`}
+              alt={`${t('pj_documentation')} ${currentIndex + 1}`}
               className="max-w-full max-h-[68vh] sm:max-h-[78vh] object-contain border-2 border-white/20 shadow-2xl rounded-xl"
             />
           </div>
@@ -632,7 +634,7 @@ export default function Perjalanan() {
             <button
               onClick={handleNextImage}
               className="hidden sm:flex absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-3.5 bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald transition-all rounded-xl cursor-pointer z-50 active:translate-x-[2px] active:translate-y-[2px]"
-              aria-label="Foto Selanjutnya"
+              aria-label={t('pj_next_photo')}
             >
               <ChevronRight size={28} />
             </button>
@@ -644,7 +646,7 @@ export default function Perjalanan() {
               <button
                 onClick={handlePrevImage}
                 className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
-                aria-label="Foto Sebelumnya"
+                aria-label={t('pj_prev_photo')}
               >
                 <ChevronLeft size={18} />
                 <span>Prev</span>
@@ -657,7 +659,7 @@ export default function Perjalanan() {
               <button
                 onClick={handleNextImage}
                 className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
-                aria-label="Foto Selanjutnya"
+                aria-label={t('pj_next_photo')}
               >
                 <span>Next</span>
                 <ChevronRight size={18} />
@@ -668,7 +670,7 @@ export default function Perjalanan() {
           {/* Desktop Bottom Helper Text */}
           {lightboxImages.length > 1 && (
             <p className="hidden sm:block text-xs font-mono text-white/50 text-center pb-1">
-              Gunakan keyboard ← / → atau tombol di samping untuk navigasi
+              {t('pj_kbd_hint')}
             </p>
           )}
         </div>

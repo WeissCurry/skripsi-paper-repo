@@ -25,6 +25,7 @@ import {
 } from "../data/publications";
 import RequestThesisModal from "../components/RequestThesisModal";
 import VisitorStats from "../components/VisitorStats";
+import { useT } from "../i18n/strings";
 
 const getTagColor = (tag: OutputTag) => {
   switch (tag) {
@@ -46,6 +47,7 @@ const getTagColor = (tag: OutputTag) => {
 };
 
 export default function Home() {
+  const { t, p } = useT();
   const [selectedFilter, setSelectedFilter] = useState<'all' | OutputCategory>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedAbstracts, setExpandedAbstracts] = useState<Record<string, boolean>>({});
@@ -72,15 +74,15 @@ export default function Home() {
       if (!query) return matchesFilter;
 
       const matchesSearch =
-        pub.title.toLowerCase().includes(query) ||
-        pub.venue.toLowerCase().includes(query) ||
+        p(pub.title).toLowerCase().includes(query) ||
+        p(pub.venue).toLowerCase().includes(query) ||
         pub.tag.toLowerCase().includes(query) ||
         pub.authors.toLowerCase().includes(query) ||
         pub.keywords.some(k => k.toLowerCase().includes(query));
 
       return matchesFilter && matchesSearch;
     });
-  }, [selectedFilter, searchQuery]);
+  }, [selectedFilter, searchQuery, p]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:px-8 space-y-10">
@@ -104,10 +106,10 @@ export default function Home() {
         {/* Thesis Title */}
         <div className="bg-gray-50 dark:bg-gray-800/80 border-l-4 border-black dark:border-white p-4 mb-6 rounded-r-xl">
           <p className="text-xs font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
-            Judul Tugas Akhir / Skripsi
+            {t('home_thesis_label')}
           </p>
           <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug">
-            Rancangan Arsitektur Manajemen Risiko dan Kepatuhan Syariah pada Staking Ethereum Menggunakan Pendekatan TOGAF ADM
+            {t('home_thesis_title')}
           </p>
         </div>
 
@@ -118,7 +120,7 @@ export default function Home() {
             <div className="flex items-center gap-2 mb-2">
               {/* <UserCheck size={16} className="text-brand-emerald" /> */}
               <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-300">
-                Dosen Pembimbing
+                {t('home_advisors')}
               </span>
             </div>
             <ul className="space-y-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
@@ -138,7 +140,7 @@ export default function Home() {
             <div className="flex items-center gap-2 mb-2">
               {/* <UserCheck size={16} className="text-brand-blue" /> */}
               <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-300">
-                Dosen Penguji
+                {t('home_examiners')}
               </span>
             </div>
             <ul className="space-y-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
@@ -160,10 +162,10 @@ export default function Home() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl md:text-3xl font-black font-serif tracking-tight">
-              Output Skripsi & Publikasi
+              {t('home_outputs_title')}
             </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
-              Pilih kategori output untuk melihat publikasi karya ilmiah, prototipe sistem, atau slide presentasi.
+              {t('home_outputs_sub')}
             </p>
           </div>
 
@@ -174,7 +176,7 @@ export default function Home() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari judul, tag, kata kunci..."
+              placeholder={t('home_search_ph')}
               className="w-full bg-white dark:bg-gray-900 border-2 border-black dark:border-white pl-10 pr-4 py-2 font-medium text-sm rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] focus:outline-none focus:ring-2 focus:ring-brand-emerald"
             />
           </div>
@@ -183,9 +185,9 @@ export default function Home() {
         {/* Unified Category Filters */}
         <div className="flex flex-wrap items-center gap-2 md:gap-3">
           {([
-            { id: 'all' as const, label: `Semua (${counts.all})` },
-            { id: 'publikasi' as const, label: `Publikasi (${counts.publikasi})` },
-            { id: 'prototype' as const, label: `Prototipe (${counts.prototype})` },
+            { id: 'all' as const, label: `${t('f_all')} (${counts.all})` },
+            { id: 'publikasi' as const, label: `${t('f_publikasi')} (${counts.publikasi})` },
+            { id: 'prototype' as const, label: `${t('f_prototipe')} (${counts.prototype})` },
             { id: 'slides' as const, label: `Slides (${counts.slides})` },
           ]).map(filter => (
             <button
@@ -206,13 +208,13 @@ export default function Home() {
           {filteredPublications.length === 0 ? (
             <div className="brutal-box p-12 text-center bg-white dark:bg-gray-900 rounded-2xl">
               <p className="text-lg font-bold text-gray-600 dark:text-gray-400">
-                Tidak ada output yang cocok dengan kata kunci "{searchQuery}".
+                {t('home_no_results').replace('{q}', searchQuery)}
               </p>
               <button
                 onClick={() => { setSearchQuery(''); setSelectedFilter('all'); }}
                 className="mt-4 px-5 py-2.5 bg-brand-emerald text-black font-black border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
               >
-                Reset Pencarian
+                {t('home_reset')}
               </button>
             </div>
           ) : (
@@ -240,7 +242,7 @@ export default function Home() {
 
                         {/* Clean Venue / Format Text */}
                         <span className="text-xs font-bold px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-2 border-black dark:border-white rounded-md">
-                          {pub.venue}
+                          {p(pub.venue)}
                         </span>
                       </div>
 
@@ -249,21 +251,21 @@ export default function Home() {
                         {pub.status === 'published' && (
                           <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase px-3 py-1 bg-emerald-100 text-emerald-900 dark:bg-emerald-900/60 dark:text-emerald-200 border-2 border-emerald-800 rounded-md">
                             <CheckCircle2 size={14} className="text-emerald-700 dark:text-emerald-400" />
-                            {pub.statusLabel}
+                            {p(pub.statusLabel)}
                           </span>
                         )}
 
                         {pub.status === 'accepted' && (
                           <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase px-3 py-1 bg-amber-100 text-amber-900 dark:bg-amber-900/60 dark:text-amber-200 border-2 border-amber-800 rounded-md">
                             <Clock size={14} className="text-amber-700 dark:text-amber-400" />
-                            {pub.statusLabel}
+                            {p(pub.statusLabel)}
                           </span>
                         )}
 
                         {pub.status === 'coming_soon' && (
                           <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase px-3 py-1 bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-300 border-2 border-gray-600 rounded-md">
                             <Clock size={14} className="text-gray-600 dark:text-gray-400" />
-                            {pub.statusLabel}
+                            {p(pub.statusLabel)}
                           </span>
                         )}
                       </div>
@@ -271,15 +273,15 @@ export default function Home() {
 
                     {/* Title */}
                     <h3 className="text-xl md:text-2xl font-black font-serif tracking-tight leading-snug mb-3">
-                      {pub.title}
+                      {p(pub.title)}
                     </h3>
 
                     {/* Authors and Affiliation */}
                     {pub.authors && (
                       <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 flex flex-wrap items-center gap-x-4 gap-y-1">
-                        <span><strong>Penulis:</strong> {pub.authors}</span>
+                        <span><strong>{t('lbl_authors')}</strong> {pub.authors}</span>
                         <span>•</span>
-                        <span><strong>Tahun:</strong> {pub.year}</span>
+                        <span><strong>{t('lbl_year')}</strong> {pub.year}</span>
                         {pub.institution && (
                           <>
                             <span>•</span>
@@ -314,7 +316,7 @@ export default function Home() {
                           <ExternalLink size={15} />
                         </a>
                       </div>
-                    ) : pub.abstract === "Coming soon." ? (
+                    ) : p(pub.abstract) === "Coming soon." ? (
                       <div className="mb-6 bg-gray-50 dark:bg-gray-800/60 border-l-4 border-gray-400 dark:border-gray-600 p-4 rounded-r-xl">
                         <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 italic">
                           Coming soon.
@@ -324,22 +326,22 @@ export default function Home() {
                       <div className="mb-6 bg-gray-50 dark:bg-gray-800/60 border-l-4 border-black dark:border-white p-4 rounded-r-xl">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-400">
-                            Ringkasan / Deskripsi
+                            {t('lbl_summary')}
                           </span>
                           <button
                             onClick={() => toggleAbstract(pub.id)}
                             className="text-xs font-bold text-brand-emerald hover:underline flex items-center gap-1 cursor-pointer"
                           >
                             {isExpanded ? (
-                              <>Tutup <ChevronUp size={14} /></>
+                              <>{t('act_close')} <ChevronUp size={14} /></>
                             ) : (
-                              <>Baca Selengkapnya <ChevronDown size={14} /></>
+                              <>{t('act_readmore')} <ChevronDown size={14} /></>
                             )}
                           </button>
                         </div>
 
                         <p className={`text-sm text-gray-700 dark:text-gray-300 leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
-                          {pub.abstract}
+                          {p(pub.abstract)}
                         </p>
                       </div>
                     )}
@@ -347,7 +349,7 @@ export default function Home() {
                     {/* Keywords */}
                     {pub.keywords.length > 0 && (
                       <div className="flex flex-wrap items-center gap-1.5 mb-6">
-                        <span className="text-xs font-bold text-gray-500 mr-1">Kata Kunci:</span>
+                        <span className="text-xs font-bold text-gray-500 mr-1">{t('lbl_keywords')}</span>
                         {pub.keywords.map((kw, kIndex) => (
                           <span
                             key={kIndex}
@@ -370,7 +372,7 @@ export default function Home() {
                           className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl cursor-pointer"
                         >
                           <Download size={16} />
-                          <span>{pub.tag === 'Conference' ? 'Unduh Draft PDF' : 'Unduh PDF'}</span>
+                          <span>{pub.tag === 'Conference' ? t('act_dl_draft') : t('act_dl_pdf')}</span>
                         </button>
                       )}
                       {/* Interactive MDX Reader Link (For Skripsi) */}
@@ -380,7 +382,7 @@ export default function Home() {
                           className="flex items-center gap-2 bg-black text-white dark:bg-white dark:text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald hover:text-black dark:hover:bg-brand-emerald dark:hover:text-black transition-colors text-sm rounded-xl"
                         >
                           <BookOpen size={16} />
-                          <span>Baca Naskah (MDX)</span>
+                          <span>{t('act_read_mdx')}</span>
                         </Link>
                       )}
 
@@ -395,7 +397,7 @@ export default function Home() {
                           className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Download size={16} />
-                          <span>{pub.tag === 'Conference' ? 'Unduh Draft PDF' : 'Unduh PDF'}</span>
+                          <span>{pub.tag === 'Conference' ? t('act_dl_draft') : t('act_dl_pdf')}</span>
                         </a>
                       )}
 
@@ -421,7 +423,7 @@ export default function Home() {
                           className="flex items-center gap-2 bg-brand-blue text-white font-black px-5 py-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Laptop size={16} />
-                          <span>Buka Prototype Sistem</span>
+                          <span>{t('act_open_prototype')}</span>
                           <ExternalLink size={15} />
                         </a>
                       )}
@@ -435,7 +437,7 @@ export default function Home() {
                           className="flex items-center gap-2 bg-brand-yellow text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Presentation size={16} />
-                          <span>Buka Slide Presentasi</span>
+                          <span>{t('act_open_slides')}</span>
                           <ExternalLink size={15} />
                         </a>
                       )}
@@ -443,7 +445,7 @@ export default function Home() {
                       {/* Status indicator for manuscript coming soon */}
                       {pub.status === 'coming_soon' && (
                         <div className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-bold text-xs border border-gray-300 dark:border-gray-700 rounded-xl">
-                          <span>Naskah Sedang Dalam Proses Penulisan</span>
+                          <span>{t('status_in_progress')}</span>
                         </div>
                       )}
                     </div>
@@ -456,10 +458,10 @@ export default function Home() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-1.5 px-3 py-2 text-xs font-black border-2 border-black dark:border-white rounded-xl bg-brand-emerald text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
-                          title="Buka Sitasi di Google Scholar"
+                          title={t('tt_cite_scholar')}
                         >
                           <GraduationCap size={15} />
-                          <span>Cite di Scholar</span>
+                          <span>{t('act_cite_scholar')}</span>
                           <ExternalLink size={12} />
                         </a>
                       </div>
@@ -474,7 +476,7 @@ export default function Home() {
 
       {/* Site Visitor Stats */}
       <VisitorStats
-        pageLabel="Seluruh Situs"
+        pageLabel={t('vs_entire_site')}
       />
 
       {/* Modal Permintaan Naskah Skripsi */}

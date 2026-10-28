@@ -29,6 +29,7 @@ import {
   GOOGLE_DOC_URL,
 } from '../data/kiatSkripsi';
 import VisitorStats from '../components/VisitorStats';
+import { useT, UI } from '../i18n/strings';
 
 const GoogleDocsIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +42,7 @@ const GoogleDocsIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 type StageType = 'sempro' | 'semhas' | 'sidang' | 'distribusi';
 
 export default function KiatSkripsi() {
+  const { t, p } = useT();
   const [activeStage, setActiveStage] = useState<StageType>('sidang');
   const [expandedKk, setExpandedKk] = useState<string | null>('kk1');
   const [copiedChat, setCopiedChat] = useState(false);
@@ -61,7 +63,7 @@ export default function KiatSkripsi() {
   };
 
   const handleCopyChat = () => {
-    navigator.clipboard.writeText(TEMPLATE_CHAT);
+    navigator.clipboard.writeText(p(TEMPLATE_CHAT));
     setCopiedChat(true);
     setTimeout(() => setCopiedChat(false), 2500);
   };
@@ -69,29 +71,13 @@ export default function KiatSkripsi() {
   const getStageData = () => {
     switch (activeStage) {
       case 'sempro':
-        return {
-          title: 'Seminar Proposal (Sempro)',
-          badge: 'Tahap 1',
-          items: CHECKLIST_SEMPRO,
-        };
+        return { title: UI.ks_stage_sempro_title, badge: UI.ks_stage1, items: CHECKLIST_SEMPRO };
       case 'semhas':
-        return {
-          title: 'Seminar Hasil (Semhas)',
-          badge: 'Tahap 2',
-          items: CHECKLIST_SEMHAS,
-        };
+        return { title: UI.ks_stage_semhas_title, badge: UI.ks_stage2, items: CHECKLIST_SEMHAS };
       case 'sidang':
-        return {
-          title: 'Sidang Munaqasyah (Skripsi)',
-          badge: 'Tahap 3',
-          items: CHECKLIST_SIDANG,
-        };
+        return { title: UI.ks_stage_sidang_title, badge: UI.ks_stage3, items: CHECKLIST_SIDANG };
       case 'distribusi':
-        return {
-          title: 'Distribusi Tugas Akhir Pasca Sidang',
-          badge: 'Tahap Akhir',
-          items: CHECKLIST_DISTRIBUSI,
-        };
+        return { title: UI.ks_stage_distribusi_title, badge: UI.ks_stage_final, items: CHECKLIST_DISTRIBUSI };
     }
   };
 
@@ -111,7 +97,7 @@ export default function KiatSkripsi() {
           className="inline-flex items-center gap-2 font-black text-sm px-4 py-2 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
         >
           <ArrowLeft size={16} />
-          <span>Kembali ke Beranda</span>
+          <span>{t('paper_back')}</span>
         </Link>
 
         <div className="flex items-center gap-3">
@@ -122,7 +108,7 @@ export default function KiatSkripsi() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-black text-xs md:text-sm px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg cursor-pointer group"
-            title="Buka Dokumen Asli di Google Docs"
+            title={t('ks_tt_gdoc')}
           >
             <GoogleDocsIcon className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
             <span>Google Docs</span>
@@ -138,16 +124,16 @@ export default function KiatSkripsi() {
         <div className="flex flex-wrap items-center gap-2.5 mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-emerald text-black text-xs font-black uppercase tracking-wider rounded-md border-2 border-black">
             <BookOpen size={14} />
-            jembatan keledai
+            {t('ks_eyebrow')}
           </div>
         </div>
 
         <h1 className="text-3xl md:text-5xl font-serif font-black tracking-tight leading-tight mb-4">
-          Kiat-kiat Skripsi
+          {t('ks_title')}
         </h1>
 
         <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 max-w-3xl leading-relaxed mb-6">
-          Dokumen ini disusun sebagai wujud rasa terima kasih kepada seluruh pihak yang telah mendukung kelulusan skripsi. Di dalamnya terangkum arahan pemilihan Kelompok Keahlian (KK), checklist berkas dari Sempro hingga Wisuda, etika bimbingan, serta template chat praktis.
+          {t('ks_sub')}
         </p>
 
         {/* PROMINENT PRIMARY CALLOUT: BUKA GOOGLE DOCS */}
@@ -159,17 +145,15 @@ export default function KiatSkripsi() {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[11px] font-black uppercase tracking-wider bg-blue-600 text-white px-2 py-0.5 rounded">
-                  Poin Utama & Sumber Asli
+                  {t('ks_callout_badge')}
                 </span>
                 <span className="text-xs font-bold text-gray-500 dark:text-gray-400">
                   Real-time Update
                 </span>
               </div>
-              <h3 className="font-serif font-black text-lg md:text-xl text-blue-950 dark:text-blue-100">
-                Akses Dokumen Lengkap di Google Docs
-              </h3>
+              <h3 className="font-serif font-black text-lg md:text-xl text-blue-950 dark:text-blue-100">{t('ks_callout_title')}</h3>
               <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 mt-1 max-w-xl">
-                Seluruh panduan, tabel persyaratan lengkap, rincian format berkas, serta update berkala dikelola langsung pada dokumen Google Docs. Buka untuk membaca versi terlengkap!
+                {t('ks_callout_desc')}
               </p>
             </div>
           </div>
@@ -188,39 +172,29 @@ export default function KiatSkripsi() {
         {/* Quick Nav Anchors with Smooth Transitions */}
         <div className="pt-3 border-t-2 border-gray-100 dark:border-gray-800">
           <p className="text-[11px] font-black uppercase tracking-wider text-gray-400 mb-2">
-            Lompat ke Seksi:
+            {t('ks_jump')}
           </p>
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
             <a
               href="#kelompok-keahlian"
               className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
-            >
-              1. Pemilihan Dospem & KK
-            </a>
+            >{t('ks_nav1')}</a>
             <a
               href="#portal-jadwal"
               className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
-            >
-              2. Portal & Jadwal Sidang
-            </a>
+            >{t('ks_nav2')}</a>
             <a
               href="#checklist-dokumen"
               className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
-            >
-              3. Checklist Dokumen
-            </a>
+            >{t('ks_nav3')}</a>
             <a
               href="#tips-bimbingan"
               className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
-            >
-              4. Tips Bimbingan
-            </a>
+            >{t('ks_nav4')}</a>
             <a
               href="#template-chat"
               className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
-            >
-              5. Template Chat & Notes
-            </a>
+            >{t('ks_nav5')}</a>
           </div>
         </div>
       </section>
@@ -232,8 +206,8 @@ export default function KiatSkripsi() {
             1
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black">Pemilihan Dospem & Kelompok Keahlian (KK)</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Pilih rumpun keilmuan yang paling relevan dengan minat dan kemampuanmu</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-black">{t('ks_s1_title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s1_sub')}</p>
           </div>
         </div>
 
@@ -251,7 +225,7 @@ export default function KiatSkripsi() {
                       {kk.code}
                     </span>
                     <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      Kelompok Keahlian
+                      {t('ks_kk_label')}
                     </span>
                   </div>
 
@@ -260,17 +234,17 @@ export default function KiatSkripsi() {
                   </h3>
 
                   <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                    {kk.description}
+                    {p(kk.description)}
                   </p>
 
                   <div className="bg-gray-50 dark:bg-gray-800/60 p-3 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 mb-4">
                     <p className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-                      💡 <strong>Karakteristik:</strong> {kk.suitableFor}
+                      💡 <strong>{t('ks_characteristic')}</strong> {p(kk.suitableFor)}
                     </p>
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">Area Fokus:</p>
+                    <p className="text-xs font-black uppercase tracking-wider text-gray-500 mb-2">{t('ks_focus_area')}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {kk.topics.map((t, idx) => (
                         <span
@@ -290,7 +264,7 @@ export default function KiatSkripsi() {
                     onClick={() => setExpandedKk(isExpanded ? null : kk.id)}
                     className="w-full py-3 px-5 flex items-center justify-between font-bold text-xs hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left cursor-pointer group"
                   >
-                    <span>{isExpanded ? 'Sembunyikan Contoh Judul' : 'Lihat Contoh Judul Skripsi'}</span>
+                    <span>{isExpanded ? t('ks_hide_examples') : t('ks_show_examples')}</span>
                     <span className={`transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : 'rotate-0'}`}>
                       <ChevronDown size={16} className="text-gray-500 group-hover:text-black dark:group-hover:text-white" />
                     </span>
@@ -310,7 +284,7 @@ export default function KiatSkripsi() {
                             [{ex.category}]
                           </span>
                           <span className="font-medium text-gray-800 dark:text-gray-200">
-                            "{ex.title}"
+                            "{p(ex.title)}"
                           </span>
                         </div>
                       ))}
@@ -330,8 +304,8 @@ export default function KiatSkripsi() {
             2
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black">Portal Akses & Jadwal Pendaftaran</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Tautan administrasi resmi serta aturan pembukaan gelombang ujian</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-black">{t('ks_s2_title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s2_sub')}</p>
           </div>
         </div>
 
@@ -347,19 +321,19 @@ export default function KiatSkripsi() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-[11px] font-black uppercase px-2 py-0.5 bg-gray-100 dark:bg-gray-800 border border-black dark:border-white rounded">
-                    {portal.badge}
+                    {portal.badge && p(portal.badge)}
                   </span>
                   <ExternalLink size={16} className="text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="font-serif font-bold text-base md:text-lg mb-2 group-hover:text-brand-blue transition-colors">
-                  {portal.title}
+                  {p(portal.title)}
                 </h3>
                 <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                  {portal.description}
+                  {p(portal.description)}
                 </p>
               </div>
               <span className="font-mono text-xs font-bold text-brand-blue dark:text-blue-400 flex items-center gap-1.5">
-                Kunjungi Portal &rarr;
+                {t('ks_visit_portal')} &rarr;
               </span>
             </a>
           ))}
@@ -370,13 +344,13 @@ export default function KiatSkripsi() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Calendar size={18} className="text-amber-600 dark:text-amber-400" />
-              <h3 className="font-bold text-base md:text-lg font-serif">Aturan Sempro & Sidang Skripsi</h3>
+              <h3 className="font-bold text-base md:text-lg font-serif">{t('ks_rules_sempro')}</h3>
             </div>
             <ul className="space-y-2 text-xs md:text-sm text-gray-700 dark:text-gray-300">
               {JADWAL_INFO.semproSidang.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-amber-500 font-bold">•</span>
-                  <span>{item}</span>
+                  <span>{p(item)}</span>
                 </li>
               ))}
             </ul>
@@ -385,13 +359,13 @@ export default function KiatSkripsi() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <CheckCircle2 size={18} className="text-brand-emerald" />
-              <h3 className="font-bold text-base md:text-lg font-serif">Aturan Seminar Hasil (Semhas)</h3>
+              <h3 className="font-bold text-base md:text-lg font-serif">{t('ks_rules_semhas')}</h3>
             </div>
             <ul className="space-y-2 text-xs md:text-sm text-gray-700 dark:text-gray-300">
               {JADWAL_INFO.semhas.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-brand-emerald font-bold">•</span>
-                  <span>{item}</span>
+                  <span>{p(item)}</span>
                 </li>
               ))}
             </ul>
@@ -406,8 +380,8 @@ export default function KiatSkripsi() {
             3
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black">Checklist Dokumen Per Tahapan</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Daftar persyaratan berkas, format file, batas ukuran, dan ketentuan nama file</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-black">{t('ks_s3_title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s3_sub')}</p>
           </div>
         </div>
 
@@ -415,10 +389,10 @@ export default function KiatSkripsi() {
         <div className="flex flex-wrap gap-2.5 mb-6">
           {(
             [
-              { id: 'sempro', label: '1. Sempro', count: CHECKLIST_SEMPRO.length },
-              { id: 'semhas', label: '2. Semhas', count: CHECKLIST_SEMHAS.length },
-              { id: 'sidang', label: '3. Sidang Skripsi', count: CHECKLIST_SIDANG.length },
-              { id: 'distribusi', label: '4. Distribusi Skripsi', count: CHECKLIST_DISTRIBUSI.length },
+              { id: 'sempro', label: t('ks_tab_sempro'), count: CHECKLIST_SEMPRO.length },
+              { id: 'semhas', label: t('ks_tab_semhas'), count: CHECKLIST_SEMHAS.length },
+              { id: 'sidang', label: t('ks_tab_sidang'), count: CHECKLIST_SIDANG.length },
+              { id: 'distribusi', label: t('ks_tab_distribusi'), count: CHECKLIST_DISTRIBUSI.length },
             ] as const
           ).map((tab) => {
             const isActive = activeStage === tab.id;
@@ -436,7 +410,7 @@ export default function KiatSkripsi() {
                   className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${isActive ? 'bg-white/20 text-white dark:bg-black/20 dark:text-black' : 'bg-gray-200 dark:bg-gray-700'
                     }`}
                 >
-                  {tab.count} Dokumen
+                  {tab.count} {t('ks_documents')}
                 </span>
               </button>
             );
@@ -448,12 +422,12 @@ export default function KiatSkripsi() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-4 mb-4 border-b-2 border-gray-100 dark:border-gray-800">
             <div>
               <span className="text-xs font-black uppercase text-brand-blue tracking-wider">
-                {currentStageData.badge}
+                {p(currentStageData.badge)}
               </span>
-              <h3 className="text-xl md:text-2xl font-serif font-black">{currentStageData.title}</h3>
+              <h3 className="text-xl md:text-2xl font-serif font-black">{p(currentStageData.title)}</h3>
             </div>
             <p className="text-xs text-gray-500">
-              💡 Tip: Klik checkbox di bawah untuk menandai berkas yang sudah kamu siapkan.
+              {t('ks_tip_checkbox')}
             </p>
           </div>
 
@@ -462,10 +436,10 @@ export default function KiatSkripsi() {
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span className="text-xs font-black uppercase tracking-wider flex items-center gap-1.5">
                 <BookmarkCheck size={16} className="text-brand-emerald" />
-                Progres Kesiapan Berkas
+                {t('ks_progress')}
               </span>
               <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-white dark:bg-gray-900 border border-black/20 dark:border-white/20">
-                {completedCount} dari {totalCount} berkas siap ({progressPercentage}%)
+                {completedCount} {t('ks_ready_mid')} {totalCount} {t('ks_ready_tail')} ({progressPercentage}%)
               </span>
             </div>
             <div className="w-full h-3.5 bg-gray-200 dark:bg-gray-700 rounded-full border-2 border-black dark:border-white overflow-hidden p-0.5">
@@ -477,7 +451,7 @@ export default function KiatSkripsi() {
             {progressPercentage === 100 && (
               <p className="text-xs font-black text-emerald-600 dark:text-emerald-400 mt-2 flex items-center gap-1.5 animate-pulse">
                 <CheckCheck size={16} />
-                <span>Selamat! Seluruh berkas persyaratan tahap ini sudah lengkap kamu siapkan!</span>
+                <span>{t('ks_all_done')}</span>
               </p>
             )}
           </div>
@@ -507,7 +481,7 @@ export default function KiatSkripsi() {
                     <div>
                       <div className="flex flex-wrap items-center gap-2 mb-1">
                         <span className={`font-bold text-sm md:text-base ${isChecked ? 'line-through text-gray-500' : ''}`}>
-                          {doc.name}
+                          {p(doc.name)}
                         </span>
                         {doc.format !== '-' && (
                           <span className="text-[10px] font-mono px-2 py-0.5 bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600">
@@ -516,20 +490,20 @@ export default function KiatSkripsi() {
                         )}
                         {doc.maxSize !== '-' && (
                           <span className="text-[10px] font-mono px-2 py-0.5 bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 rounded">
-                            Maks. {doc.maxSize}
+                            {t('ks_max')} {doc.maxSize}
                           </span>
                         )}
                       </div>
 
                       {doc.notes && (
                         <p className="text-xs text-gray-600 dark:text-gray-400 mb-1.5">
-                          {doc.notes}
+                          {p(doc.notes)}
                         </p>
                       )}
 
                       {doc.fileNameRule && doc.fileNameRule !== '-' && (
                         <div className="inline-flex items-center gap-1.5 text-[11px] font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-gray-700 dark:text-gray-300">
-                          <span className="text-gray-400">Aturan nama:</span>
+                          <span className="text-gray-400">{t('ks_name_rule')}</span>
                           <strong className="text-black dark:text-white">{doc.fileNameRule}</strong>
                         </div>
                       )}
@@ -543,7 +517,7 @@ export default function KiatSkripsi() {
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-500 border-gray-300 dark:border-gray-600'
                         }`}
                     >
-                      {isChecked ? 'Siap / Terkumpul' : 'Belum'}
+                      {isChecked ? t('ks_ready') : t('ks_not_yet')}
                     </span>
                   </div>
                 </div>
@@ -560,8 +534,8 @@ export default function KiatSkripsi() {
             4
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black">Tips Praktis & Mindset Bimbingan</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Tiga prinsip utama yang terbukti menyelamatkan dari jeratan revisi berulang</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-black">{t('ks_s4_title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s4_sub')}</p>
           </div>
         </div>
 
@@ -576,19 +550,19 @@ export default function KiatSkripsi() {
               </div>
               <div className="relative z-10">
                 <span className="inline-block px-2.5 py-1 bg-black text-white text-xs font-mono font-bold rounded mb-3">
-                  Tips {tip.number}
+                  {t('ks_tips_label')} {tip.number}
                 </span>
                 <h3 className="font-serif font-black text-lg md:text-xl mb-3 leading-snug">
-                  {tip.title}
+                  {p(tip.title)}
                 </h3>
                 <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                  {tip.description}
+                  {p(tip.description)}
                 </p>
               </div>
 
               <div className="pt-3 border-t-2 border-dashed border-gray-200 dark:border-gray-800 relative z-10">
                 <span className="text-xs font-black text-brand-emerald">
-                  ⭐ {tip.highlight}
+                  ⭐ {p(tip.highlight)}
                 </span>
               </div>
             </div>
@@ -603,8 +577,8 @@ export default function KiatSkripsi() {
             5
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black">Template Chat Sopan & Notes Revisi</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Contoh komunikasi efektif dengan dosen pembimbing dan cara mendokumentasikan revisi</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-black">{t('ks_s5_title')}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s5_sub')}</p>
           </div>
         </div>
 
@@ -615,7 +589,7 @@ export default function KiatSkripsi() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <MessageSquare size={18} className="text-emerald-600" />
-                  <h3 className="font-serif font-bold text-lg">Template Chat WhatsApp Dospem</h3>
+                  <h3 className="font-serif font-bold text-lg">{t('ks_wa_title')}</h3>
                 </div>
                 <button
                   onClick={handleCopyChat}
@@ -624,28 +598,28 @@ export default function KiatSkripsi() {
                   {copiedChat ? (
                     <>
                       <Check size={14} />
-                      <span>Tersalin!</span>
+                      <span>{t('ks_copied')}</span>
                     </>
                   ) : (
                     <>
                       <Copy size={14} />
-                      <span>Salin Chat</span>
+                      <span>{t('ks_copy_chat')}</span>
                     </>
                   )}
                 </button>
               </div>
 
               <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                Format chat sopan untuk meminta jadwal bimbingan secara kolektif atau mandiri:
+                {t('ks_wa_desc')}
               </p>
 
               <pre className="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-xs font-mono whitespace-pre-wrap leading-relaxed text-gray-800 dark:text-gray-200 overflow-x-auto">
-                {TEMPLATE_CHAT}
+                {p(TEMPLATE_CHAT)}
               </pre>
             </div>
 
             <p className="text-[11px] text-gray-500 mt-4 italic">
-              💡 Selalu sesuaikan jam kirim pesan (pada jam kerja: 08.00–16.00 WIB) dan gunakan bahasa yang santun.
+              {t('ks_wa_note')}
             </p>
           </div>
 
@@ -654,12 +628,12 @@ export default function KiatSkripsi() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <FileText size={18} className="text-brand-blue" />
-                <h3 className="font-serif font-bold text-lg">Contoh Format Notes Revisi</h3>
+                <h3 className="font-serif font-bold text-lg">{t('ks_notes_title')}</h3>
               </div>
 
               <div className="bg-blue-50 dark:bg-blue-950/40 p-3 rounded-lg border border-blue-200 dark:border-blue-900 mb-4">
                 <span className="text-xs font-bold text-blue-800 dark:text-blue-300 block">
-                  Contoh Kasus: {CONTOH_NOTES_BIMBINGAN.topik}
+                  {t('ks_case')} {p(CONTOH_NOTES_BIMBINGAN.topik)}
                 </span>
               </div>
 
@@ -670,13 +644,13 @@ export default function KiatSkripsi() {
                     className="p-3.5 rounded-xl border-2 border-black/20 dark:border-white/20 bg-gray-50 dark:bg-gray-800/60 text-xs"
                   >
                     <span className="font-bold font-serif text-sm block mb-1 text-black dark:text-white">
-                      {item.bab}
+                      {p(item.bab)}
                     </span>
                     <p className="text-gray-700 dark:text-gray-300 mb-2">
-                      <strong className="text-amber-600 dark:text-amber-400">Poin Revisi:</strong> {item.poinRevisi}
+                      <strong className="text-amber-600 dark:text-amber-400">{t('ks_revision_point')}</strong> {p(item.poinRevisi)}
                     </p>
                     <p className="text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900 p-2.5 rounded border border-gray-200 dark:border-gray-700">
-                      <strong className="text-brand-emerald">Tindakan:</strong> {item.tindakan}
+                      <strong className="text-brand-emerald">{t('ks_action')}</strong> {p(item.tindakan)}
                     </p>
                   </div>
                 ))}
@@ -684,7 +658,7 @@ export default function KiatSkripsi() {
             </div>
 
             <p className="text-[11px] text-gray-500 mt-4 italic">
-              💡 Simpan file notes setiap bimbingan di Google Docs / Notion agar mudah ditinjau saat sidang nanti.
+              {t('ks_notes_note')}
             </p>
           </div>
         </div>
@@ -693,17 +667,17 @@ export default function KiatSkripsi() {
       {/* Visitor Stats Widget */}
       <VisitorStats
         pagePath="/kiat-skripsi"
-        pageLabel="Kiat Skripsi"
+        pageLabel={t('nav_tips')}
         className="mb-14"
       />
 
       {/* Bottom Big Banner & CTAs */}
       <section className="bg-gradient-to-r from-brand-emerald/20 via-brand-yellow/20 to-brand-blue/20 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-8 md:p-12 rounded-2xl text-center">
         <h2 className="text-2xl md:text-4xl font-serif font-black mb-4">
-          Semoga Dimudahkan dan Lancar Sampai Wisuda! 🎓
+          {t('ks_banner_title')}
         </h2>
         <p className="text-sm md:text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Skripsi adalah maraton, bukan sprint. Jangan ragu bertanya, jangan simpan kebingungan sendirian, dan nikmati setiap proses pembelajarannya.
+          {t('ks_banner_sub')}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4">
@@ -714,7 +688,7 @@ export default function KiatSkripsi() {
             className="inline-flex items-center gap-3 px-7 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-base rounded-xl border-[3px] border-black dark:border-white shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
           >
             <GoogleDocsIcon className="w-6 h-6 flex-shrink-0" />
-            <span>Buka Dokumen Lengkap di Google Docs</span>
+            <span>{t('ks_open_full_gdoc')}</span>
             <ExternalLink size={18} />
           </a>
 
@@ -724,7 +698,7 @@ export default function KiatSkripsi() {
             className="inline-flex items-center gap-2 px-6 py-3.5 bg-white dark:bg-gray-800 text-black dark:text-white font-black text-sm rounded-xl border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
           >
             <ArrowLeft size={18} />
-            <span>Kembali ke Beranda</span>
+            <span>{t('paper_back')}</span>
           </Link>
         </div>
       </section>
@@ -734,7 +708,7 @@ export default function KiatSkripsi() {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="fixed bottom-6 right-6 z-40 p-3 bg-brand-yellow text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] active:translate-y-[1px] transition-all rounded-full cursor-pointer group"
-          title="Kembali ke Atas"
+          title={t('ks_scroll_top')}
           aria-label="Scroll to top"
         >
           <ChevronUp size={20} strokeWidth={3} className="group-hover:-translate-y-0.5 transition-transform" />

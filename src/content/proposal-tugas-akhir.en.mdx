@@ -1,0 +1,99 @@
+---
+title: "An Architecture Design for Risk Management and Sharia Compliance in Ethereum Staking"
+authors: ["Maulana Asykari Muhammad"]
+date: "2026-05-07"
+tags: ["Thesis", "Blockchain", "TOGAF", "Shariah", "Risk Management"]
+abstract: "This study proposes an architectural solution to address the problems of Riba and Zulm in conventional Liquid Staking protocols through a Net Asset Value (NAV) operational model. Using the TOGAF ADM framework, the study transforms normative Sharia principles (such as Hifzul Mal and the prohibition of Gharar) into technical specifications on a smart contract. The main innovation lies in removing the manipulative Rebasing algorithm and replacing it with an organic, NAV-based asset valuation calculation. The design outcomes include a transparent business architecture, a Conceptual data model that mitigates the Inflation Attack through a decimal-offset mechanism, and an early-warning system (Emergency Pause) on the Risk Explorer dashboard. Implementing this architecture proves that blockchain technology can run in harmony with Islamic economic principles, delivering fair distribution of returns and maximum asset protection for Muslim investors in Indonesia."
+---
+
+# 1. Introduction
+
+Blockchain technology has transformed the global financial landscape, yet in Indonesia the adoption of Ethereum *staking* faces a twofold challenge: technical-financial risk and uncertainty over Sharia compliance. According to the Fatwa of the Majelis Tarjih of PP Muhammadiyah (2026), crypto assets are recognized as *Māl Mutaqawwam*, but *yield generation* practices that contain an element of interest remain prohibited.
+
+The core problem in conventional *Liquid Staking* protocols (such as Lido) is the use of the **Rebasing** algorithm. This mechanism automatically increases the user's token balance without any underlying exchange of value (<Glossary term="Underlying Asset" definition="The base asset that backs the value of a financial instrument or digital derivative.">underlying asset exchange</Glossary>), which substantially resembles the practice of **Riba Nasi'ah**. In addition, distributing penalties (*socialized penalty*) without regard to individual fault can give rise to **<Glossary term="Zulm" definition="Injustice or oppression; here, the disproportionate distribution of slashing penalties to blameless investors.">Zulm</Glossary>** (injustice).
+
+# 2. Methodology: TOGAF ADM
+
+This study adopts the **TOGAF ADM** framework (Preliminary through Phase D) to align strategic business objectives with the technology infrastructure.
+
+![TOGAF ADM Framework](/content/proposal-images/image18.png)
+*Figure: Applying the TOGAF ADM cycle in system design*
+
+1.  **Preliminary Phase**: Establishes the principle of *Hifzul Mal* (protection of wealth) and data transparency.
+2.  **Phase A (Architecture Vision)**: Sets the vision of an integrated risk-management system.
+3.  **Phase B (Business Architecture)**: Redesigns the staking workflow from the *Rebase* model to the *NAV* model.
+4.  **Phase C (Information Systems Architecture)**: Defines the smart contract data structure and application components.
+5.  **Phase D (Technology Architecture)**: Determines the validator node infrastructure and cloud environment.
+
+# 3. Proposed Architecture: The NAV Model
+
+## 3.1 Business Architecture (Phase B)
+The main proposed solution is the use of a **Net Asset Value (NAV)** model, much like a Sharia mutual-fund instrument.
+
+![BPMN NAV Initiation](/content/proposal-images/image35.png)
+*Figure: BPMN of the NAV- and Wakalah-contract-based initiation phase*
+
+In this model:
+*   **LST issuance**: The protocol computes the pool NAV at deposit time and mints a proof-of-ownership token (*Shares*).
+*   **Return distribution**: Rewards or penalties (*slashing*) from the Ethereum network accumulate into the pool, which automatically raises or lowers the token's exchange rate (NAV) **rather than increasing the token count**.
+
+![BPMN Reward & Penalty](/content/proposal-images/image36.png)
+*Figure: Organic return-distribution mechanism that eliminates Riba*
+
+## 3.2 Information Systems Architecture (Phase C)
+### 3.2.1 Conceptual Data Model
+The data model is designed to separate the Staker, Vault (Pool), and risk-metric entities.
+
+![Conceptual Data Model](/content/proposal-images/image38.png)
+*Figure: Data-structure design of the Sharia-compliance smart contract*
+
+Key components of the Data Entity:
+*   **Vault_Status (paused)**: Supports the *Emergency Pause* mechanism.
+*   **Exchange_Rate (convertToAssets)**: The core NAV calculation logic following the <Glossary term="ERC-4626" definition="An Ethereum token standard optimized for 'Yield-bearing Vaults' to achieve high interoperability.">ERC-4626</Glossary> standard.
+*   **Purification Data**: Records used to purify wealth from non-compliant returns.
+
+### 3.2.2 Application Component Diagram
+The application is divided into four main layers: User Interface, Off-Chain Services (Scoring Engine), On-Chain (Smart Contract), and Infrastructure.
+
+![Application Component Diagram](/content/proposal-images/image40.png)
+*Figure: Component structure of the risk-management application*
+
+# 4. Risk Management & Shariah Compliance
+
+## 4.1 Assessment Parameters & Veto Right
+The system uses a **Risk & Compliance Scoring Engine** to evaluate validators against 10 indicators.
+
+<div className="overflow-x-auto my-8">
+| Category | Indicator | Assessment Standard |
+| :--- | :--- | :--- |
+| **Compliance** | Contract Mechanism | Boolean Gatekeeper: Yes (Wakalah) = 0, No = 1 (VETO) |
+| | Potential <Glossary term="Riba" definition="An unlawful increase or excess taken in a debt transaction or an exchange of ribawi goods without a Sharia-justified counter-value.">Riba</Glossary> | Boolean Gatekeeper: No (NAV) = 0, Yes (Rebase) = 1 (VETO) |
+| **Operational** | Uptime | RAVER scale (Great = 1, Low = 4) |
+| **Technological**| Security Status | Verified & Audited = 1, Unverified = 3 |
+| **Financial** | Liquidity | Exit Queue (Safe < 2 days, Danger > 7 days) |
+</div>
+
+## 4.2 Attack Mitigation & Asset Protection
+*   **Emergency Pause**: If the *Scoring Engine* detects an anomaly in *Client Diversity* (centralization threat), the system automatically locks the *Vault* to protect assets.
+*   **<Glossary term="Inflation Attack" definition="An attack on a pool smart contract in which the attacker manipulates the exchange-rate ratio with a small early deposit to steal subsequent investors' funds.">Inflation Attack</Glossary> Mitigation**: A *decimal offset* mechanism prevents an attacker from manipulating the initial deposit, ensuring fairness for retail investors.
+
+# 5. Risk Explorer Interface
+
+The interface is designed to give the investor (*Muwakkil*) total transparency.
+
+![Risk Explorer UI](/content/proposal-images/image42.png)
+*Figure: Risk Explorer dashboard with a radar chart of 10 risk indicators*
+
+Key features:
+*   **NAV Calculator**: A transparency tool to view the actual, organic ETH-LST exchange rate.
+*   **Shariah Status Badge**: A compliance marker based on the system's automated audit results.
+
+![NAV Calculator UI](/content/proposal-images/image43.png)
+*Figure: Visualization of the NAV conversion calculator and queue-time estimate*
+
+# 6. Conclusion
+
+The proposed architecture with the **Net Asset Value (NAV)** model proves fundamentally capable of eliminating the critical points of **Riba** and **Zulm**. By replacing balance manipulation with organic growth in asset valuation, blockchain innovation can now run in harmony with Sharia principles. Using TOGAF ADM ensures that every technical aspect of the system stays within the corridor of wealth protection (*Hifzul Mal*) and fairness for all stakeholders.
+
+---
+*This document is a technical summary of the Final Project Proposal of Maulana Asykari Muhammad (11220930000058).*

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Home, Compass } from 'lucide-react';
+import { useT } from '../i18n/strings';
 
 export default function NotFound() {
   const navigate = useNavigate();
+  const { t } = useT();
   const [timeLeft, setTimeLeft] = useState(1.8);
 
   useEffect(() => {
@@ -34,21 +36,21 @@ export default function NotFound() {
         {/* 404 Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-yellow text-black border-2 border-black rounded-lg font-black text-xs uppercase tracking-wider mb-4 transform -rotate-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
           <Compass size={16} className="animate-spin" />
-          <span>404 — Halaman Tidak Ditemukan</span>
+          <span>{t('nf_badge')}</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-black font-serif tracking-tight text-gray-900 dark:text-white mb-3">
-          Tersesat di Luar Radar?
+          {t('nf_title')}
         </h1>
 
         <p className="text-sm text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">
-          Halaman yang Anda tuju tidak ditemukan atau telah dipindahkan. Sistem sedang mengalihkan Anda kembali ke beranda.
+          {t('nf_desc')}
         </p>
 
         {/* Countdown & Progress bar */}
         <div className="bg-gray-100 dark:bg-gray-800 border-2 border-black dark:border-white rounded-xl p-3.5 mb-6 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
           <div className="flex justify-between items-center text-xs font-bold mb-2">
-            <span className="text-gray-700 dark:text-gray-300">Otomatis dialihkan dalam:</span>
+            <span className="text-gray-700 dark:text-gray-300">{t('nf_redirect_in')}</span>
             <span className="font-mono text-brand-emerald dark:text-emerald-400 text-sm">
               {timeLeft.toFixed(1)}s
             </span>
@@ -68,13 +70,13 @@ export default function NotFound() {
             className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-brand-emerald text-black font-bold text-sm rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
           >
             <Home size={18} />
-            <span>Kembali ke Beranda Sekarang</span>
+            <span>{t('nf_home_now')}</span>
           </button>
         </div>
 
         {/* Mini footer */}
         <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800 text-[11px] font-mono text-gray-400">
-          MualSkripsi • Repositori Karya Ilmiah
+          MualSkripsi • {t('nf_footer')}
         </div>
       </div>
     </div>
