@@ -1,76 +1,96 @@
+import type { Localized } from "../i18n/strings";
+
 export interface Milestone {
   id: string;
-  title: string;
+  title: Localized;
   date: string;
-  displayDate: string;
-  description?: string;
+  displayDate: Localized;
+  description?: Localized;
   hasPhotos: boolean;
   photos?: string[];
-  tag?: string;
+  tag?: Localized;
   tagColor?: string;
 }
 
 export const MILESTONES: Milestone[] = [
   {
     id: "dospem",
-    title: "Dapat Dosen Pembimbing",
+    title: { id: "Dapat Dosen Pembimbing", en: "Got a Thesis Supervisor" },
     date: "2025-11-18",
-    displayDate: "18 Nov 2025",
-    description: "Awal mula perjalanan skripsi: penetapan dosen pembimbing tugas akhir.",
+    displayDate: { id: "18 Nov 2025", en: "18 Nov 2025" },
+    description: {
+      id: "Awal mula perjalanan skripsi: penetapan dosen pembimbing tugas akhir.",
+      en: "The start of the thesis journey: the appointment of the final-project supervisor.",
+    },
     hasPhotos: false,
-    tag: "Kickoff",
+    tag: { id: "Kickoff", en: "Kickoff" },
     tagColor: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
   },
   {
     id: "acc-judul",
-    title: "ACC Judul",
+    title: { id: "ACC Judul", en: "Title Approved" },
     date: "2025-12-19",
-    displayDate: "19 Des 2025",
-    description: "Persetujuan topik penelitian dan rumusan masalah utama skripsi.",
+    displayDate: { id: "19 Des 2025", en: "19 Dec 2025" },
+    description: {
+      id: "Persetujuan topik penelitian dan rumusan masalah utama skripsi.",
+      en: "Approval of the research topic and the thesis's main problem statement.",
+    },
     hasPhotos: false,
-    tag: "Persetujuan",
+    tag: { id: "Persetujuan", en: "Approval" },
     tagColor: "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300",
   },
   {
     id: "acc-sempro",
-    title: "ACC Seminar Proposal",
+    title: { id: "ACC Seminar Proposal", en: "Proposal Seminar Approved" },
     date: "2026-01-14",
-    displayDate: "14 Jan 2026",
-    description: "Proposal penelitian selesai direvisi dan disetujui untuk diseminarkan.",
+    displayDate: { id: "14 Jan 2026", en: "14 Jan 2026" },
+    description: {
+      id: "Proposal penelitian selesai direvisi dan disetujui untuk diseminarkan.",
+      en: "The research proposal was revised and approved to be presented at a seminar.",
+    },
     hasPhotos: false,
-    tag: "Approval",
+    tag: { id: "Approval", en: "Approval" },
     tagColor: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
   },
   {
     id: "sempro",
-    title: "Seminar Proposal",
+    title: { id: "Seminar Proposal", en: "Proposal Seminar" },
     date: "2026-03-11",
-    displayDate: "11 Mar 2026",
-    description: "Presentasi dan pengujian proposal penelitian di hadapan dosen penguji.",
+    displayDate: { id: "11 Mar 2026", en: "11 Mar 2026" },
+    description: {
+      id: "Presentasi dan pengujian proposal penelitian di hadapan dosen penguji.",
+      en: "Presenting and defending the research proposal before the examiners.",
+    },
     hasPhotos: true,
     photos: [
       "/Sempro/WhatsApp Image 2026-09-11 at 05.08.07.webp",
       "/Sempro/WhatsApp Image 2026-09-11 at 05.08.07 (1).webp",
     ],
-    tag: "Milestone Utama",
+    tag: { id: "Milestone Utama", en: "Key Milestone" },
     tagColor: "bg-brand-emerald text-black",
   },
   {
     id: "acc-semhas",
-    title: "ACC Seminar Hasil",
+    title: { id: "ACC Seminar Hasil", en: "Results Seminar Approved" },
     date: "2026-05-11",
-    displayDate: "11 Mei 2026",
-    description: "Rancang bangun sistem dan penulisan bab pembahasan disetujui dospem.",
+    displayDate: { id: "11 Mei 2026", en: "11 May 2026" },
+    description: {
+      id: "Rancang bangun sistem dan penulisan bab pembahasan disetujui dospem.",
+      en: "The system design and the discussion chapter were approved by the supervisor.",
+    },
     hasPhotos: false,
-    tag: "Approval",
+    tag: { id: "Approval", en: "Approval" },
     tagColor: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
   },
   {
     id: "semhas",
-    title: "Seminar Hasil",
+    title: { id: "Seminar Hasil", en: "Results Seminar" },
     date: "2026-05-18",
-    displayDate: "18 Mei 2026",
-    description: "Pemaparan hasil penelitian, demonstrasi prototipe, dan pengujian kelayakan.",
+    displayDate: { id: "18 Mei 2026", en: "18 May 2026" },
+    description: {
+      id: "Pemaparan hasil penelitian, demonstrasi prototipe, dan pengujian kelayakan.",
+      en: "Presenting the research results, a prototype demo, and a feasibility test.",
+    },
     hasPhotos: true,
     photos: [
       "/Semhas/WhatsApp Image 2026-09-11 at 05.10.21.webp",
@@ -78,15 +98,18 @@ export const MILESTONES: Milestone[] = [
       "/Semhas/WhatsApp Image 2026-09-11 at 05.10.22 (1).webp",
       "/Semhas/WhatsApp Image 2026-09-11 at 05.11.14.webp",
     ],
-    tag: "Milestone Utama",
+    tag: { id: "Milestone Utama", en: "Key Milestone" },
     tagColor: "bg-brand-emerald text-black",
   },
   {
     id: "sidang",
-    title: "Sidang Skripsi",
+    title: { id: "Sidang Skripsi", en: "Thesis Defense" },
     date: "2026-06-17",
-    displayDate: "17 Jun 2026",
-    description: "Ujian komprehensif tugas akhir dan pertanggungjawaban karya ilmiah.",
+    displayDate: { id: "17 Jun 2026", en: "17 Jun 2026" },
+    description: {
+      id: "Ujian komprehensif tugas akhir dan pertanggungjawaban karya ilmiah.",
+      en: "The comprehensive final-project examination and defense of the scholarly work.",
+    },
     hasPhotos: true,
     photos: [
       "/Sidang/ACC Sidang.webp",
@@ -95,17 +118,20 @@ export const MILESTONES: Milestone[] = [
       "/Sidang/WhatsApp Image 2026-09-11 at 05.13.32.webp",
       "/Sidang/WhatsApp Image 2026-09-11 at 05.13.32 (1).webp",
     ],
-    tag: "Puncak Perjuangan",
+    tag: { id: "Puncak Perjuangan", en: "Peak of the Struggle" },
     tagColor: "bg-brand-yellow text-black",
   },
   {
     id: "pengesahan",
-    title: "Tanda Tangan Pengesahan",
+    title: { id: "Tanda Tangan Pengesahan", en: "Approval Sheet Signed" },
     date: "2026-07-28",
-    displayDate: "28 Jul 2026",
-    description: "Penyelesaian revisi akhir dan penandatanganan lembar pengesahan kelulusan.",
+    displayDate: { id: "28 Jul 2026", en: "28 Jul 2026" },
+    description: {
+      id: "Penyelesaian revisi akhir dan penandatanganan lembar pengesahan kelulusan.",
+      en: "Completing the final revisions and signing the graduation approval sheet.",
+    },
     hasPhotos: false,
-    tag: "Selesai",
+    tag: { id: "Selesai", en: "Done" },
     tagColor: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
   },
 ];
