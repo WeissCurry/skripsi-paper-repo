@@ -331,9 +331,37 @@ export const UI = {
     id: "Tautan administrasi resmi serta aturan pembukaan gelombang ujian",
     en: "Official administration links and the rules for each exam-registration wave",
   },
-  ks_visit_portal: { id: "Kunjungi Portal", en: "Visit Portal" },
-  ks_rules_sempro: { id: "Aturan Sempro & Sidang Skripsi", en: "Proposal Seminar & Thesis Defense Rules" },
-  ks_rules_semhas: { id: "Aturan Seminar Hasil (Semhas)", en: "Results Seminar Rules" },
+  ks_visit_portal: { id: "Kunjungi Portal", en: "Visit Portal", de: "Portal besuchen" },
+  ks_announcement_badge: {
+    id: "Pengumuman Prodi",
+    en: "Department Notice",
+    de: "Mitteilung des Studiengangs",
+  },
+  ks_announcement_date: {
+    id: "Mulai Oktober 2026",
+    en: "Effective October 2026",
+    de: "Gültig ab Oktober 2026",
+  },
+  ks_announcement_title: {
+    id: "Pemisahan Jadwal Pendaftaran Sempro & Sidang Munaqosah",
+    en: "Separate Registration Schedules for Sempro & Munaqosah Defense",
+    de: "Getrennte Anmeldefristen für Sempro & Munaqosah-Verteidigung",
+  },
+  ks_announcement_desc: {
+    id: "Pendaftaran Sempro dibuka tanggal 1–7 dan Sidang Munaqosah tanggal 15–21 setiap bulannya. Penyesuaian ini diberlakukan karena pertambahan jumlah kelas dan padatnya jadwal empat dosen penguji; pelaksanaan ujian dapat berjarak lebih dari dua pekan setelah pendaftaran.",
+    en: "Sempro registration opens on the 1st–7th and Munaqosah defense on the 15th–21st each month. This policy accommodates larger cohort sizes and tight schedules for four examiners; exams may take place more than two weeks after registration.",
+    de: "Die Sempro-Anmeldung ist vom 1.–7. und die Munaqosah-Verteidigung vom 15.–21. jedes Monats geöffnet. Diese Trennung reagiert auf größere Jahrgangsgruppen und volle Terminkalender der vier Prüfer; Prüfungstermine können mehr als zwei Wochen nach der Anmeldung liegen.",
+  },
+  ks_rules_sempro: {
+    id: "Aturan Sempro & Sidang Munaqosah",
+    en: "Sempro & Munaqosah Defense Rules",
+    de: "Regeln für Sempro & Munaqosah-Verteidigung",
+  },
+  ks_rules_semhas: {
+    id: "Aturan Seminar Hasil (Semhas)",
+    en: "Results Seminar Rules",
+    de: "Regeln für das Ergebnis-Seminar (Semhas)",
+  },
   ks_s3_title: { id: "Checklist Dokumen Per Tahapan", en: "Document Checklist by Stage" },
   ks_s3_sub: {
     id: "Daftar persyaratan berkas, format file, batas ukuran, dan ketentuan nama file",
