@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { Download, ExternalLink, Calendar, MapPin, Presentation, GraduationCap, Mail } from "lucide-react";
+import { Download, ExternalLink, Calendar, MapPin, Presentation, GraduationCap, Mail, Briefcase } from "lucide-react";
 import React, { Suspense, useState } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import GlossaryTerm from "../components/GlossaryTerm";
@@ -215,6 +215,17 @@ export default function PaperDetail() {
             >
               <ExternalLink size={20} className="text-blue-600" />
               <span>Learn More</span>
+            </a>
+
+            <a
+              href="https://mualporto.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('nav_portfolio')}
+              className="flex items-center gap-3 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-4 py-3 border-[3px] border-black dark:border-white rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+            >
+              <Briefcase size={20} className="text-purple-600 dark:text-purple-400" />
+              <span>{t('nav_portfolio')}</span>
             </a>
           </div>
         </aside>

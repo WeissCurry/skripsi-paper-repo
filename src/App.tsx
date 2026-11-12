@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, GraduationCap } from 'lucide-react';
+import { Sun, Moon, Menu, X, GraduationCap, Briefcase } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 
 import ScrollToTop from './components/ScrollToTop';
@@ -130,6 +130,17 @@ function Layout({ children }: { children: React.ReactNode }) {
               <span>Scholar</span>
             </a>
 
+            <a
+              href="https://mualporto.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-2 font-bold text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-transparent text-gray-800 dark:text-gray-200"
+              title={t('tt_portfolio')}
+              aria-label={t('tt_portfolio')}
+            >
+              <span>{t('nav_portfolio')}</span>
+            </a>
+
             <div className="h-6 w-[2px] bg-gray-200 dark:bg-gray-700 mx-1"></div>
 
             <LanguageSwitcher />
@@ -228,6 +239,17 @@ function Layout({ children }: { children: React.ReactNode }) {
             >
               <span className="text-base">Google Scholar</span>
             </a>
+
+            <a
+              href="https://mualporto.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMenuOpen(false)}
+              className="p-3 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
+              aria-label={t('nav_portfolio')}
+            >
+              <span className="text-base">{t('nav_portfolio')}</span>
+            </a>
           </div>
         </div>
       </header>
@@ -268,6 +290,17 @@ function Layout({ children }: { children: React.ReactNode }) {
               aria-label="Google Scholar Profile"
             >
               <GraduationCap size={20} />
+            </a>
+
+            <a
+              href="https://mualporto.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
+              title={t('tt_portfolio')}
+              aria-label={t('tt_portfolio')}
+            >
+              <Briefcase size={20} />
             </a>
 
             <a

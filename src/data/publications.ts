@@ -30,6 +30,7 @@ export interface Publication {
 export const authorEmail = "maulanasykari@gmail.com";
 export const scholarProfileUrl = "https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en";
 export const linkedinProfileUrl = "https://www.linkedin.com/in/maulanasykari/";
+export const portfolioUrl = "https://mualporto.netlify.app";
 export const dashboardUrl = "https://skripsistaking.netlify.app/";
 export const slidesUrl = "https://canva.link/61gja8sos0zt711";
 

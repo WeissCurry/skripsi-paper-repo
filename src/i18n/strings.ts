@@ -45,6 +45,12 @@ export const UI = {
     en: "Google Scholar Profile",
     de: "Google-Scholar-Profil",
   },
+  nav_portfolio: { id: "Portofolio", en: "Portfolio", de: "Portfolio" },
+  tt_portfolio: {
+    id: "Portofolio",
+    en: "Portfolio",
+    de: "Portfolio",
+  },
   tt_dark: {
     id: "Ganti Mode Gelap",
     en: "Toggle Dark Mode",
