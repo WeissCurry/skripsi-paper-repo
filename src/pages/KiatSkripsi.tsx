@@ -93,23 +93,22 @@ export default function KiatSkripsi() {
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8 font-sans">
       {/* Top Breadcrumb / Back Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 font-black text-sm px-4 py-2 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
+          className="inline-flex items-center justify-center gap-2 font-black text-xs sm:text-sm px-3.5 sm:px-4 py-2 min-h-[44px] bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
         >
           <ArrowLeft size={16} />
           <span>{t('paper_back')}</span>
         </Link>
 
         <div className="flex items-center gap-3">
-
           {/* Primary Top Action: Google Docs */}
           <a
             href={GOOGLE_DOC_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-black text-xs md:text-sm px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg cursor-pointer group"
+            className="inline-flex items-center justify-center gap-2 font-black text-xs sm:text-sm px-3.5 sm:px-4 py-2 min-h-[44px] bg-blue-600 hover:bg-blue-700 text-white border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg cursor-pointer group"
             title={t('ks_tt_gdoc')}
           >
             <GoogleDocsIcon className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
@@ -120,7 +119,7 @@ export default function KiatSkripsi() {
       </div>
 
       {/* Hero Header */}
-      <section className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 md:p-10 rounded-2xl mb-12 relative overflow-hidden">
+      <section className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-4 sm:p-6 md:p-10 rounded-2xl mb-12 relative overflow-hidden">
         <div className="absolute -top-10 -right-10 w-48 h-48 bg-blue-500/15 dark:bg-blue-500/25 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-wrap items-center gap-2.5 mb-4">
@@ -130,7 +129,7 @@ export default function KiatSkripsi() {
           </div>
         </div>
 
-        <h1 className="text-3xl md:text-5xl font-serif font-black tracking-tight leading-tight mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-serif font-black tracking-tight leading-tight mb-4 break-words">
           {t('ks_title')}
         </h1>
 
@@ -179,23 +178,23 @@ export default function KiatSkripsi() {
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
             <a
               href="#kelompok-keahlian"
-              className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
+              className="min-h-[44px] inline-flex items-center text-xs font-bold px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
             >{t('ks_nav1')}</a>
             <a
               href="#portal-jadwal"
-              className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
+              className="min-h-[44px] inline-flex items-center text-xs font-bold px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
             >{t('ks_nav2')}</a>
             <a
               href="#checklist-dokumen"
-              className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
+              className="min-h-[44px] inline-flex items-center text-xs font-bold px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
             >{t('ks_nav3')}</a>
             <a
               href="#tips-bimbingan"
-              className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
+              className="min-h-[44px] inline-flex items-center text-xs font-bold px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
             >{t('ks_nav4')}</a>
             <a
               href="#template-chat"
-              className="text-xs font-bold px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
+              className="min-h-[44px] inline-flex items-center text-xs font-bold px-3 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black rounded-lg border border-black/20 dark:border-white/20 hover:border-black transition-all duration-200 whitespace-nowrap active:scale-95"
             >{t('ks_nav5')}</a>
           </div>
         </div>
@@ -204,12 +203,12 @@ export default function KiatSkripsi() {
       {/* SECTION 1: Pemilihan Dospem & Kelompok Keahlian */}
       <section id="kelompok-keahlian" className="mb-14 scroll-mt-24">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-9 h-9 rounded-lg bg-brand-emerald text-black font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+          <div className="w-9 h-9 rounded-lg bg-brand-emerald text-black font-black flex items-center justify-center border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex-shrink-0">
             1
           </div>
-          <div>
-            <h2 className="text-2xl md:text-3xl font-serif font-black">{t('ks_s1_title')}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s1_sub')}</p>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-black break-words">{t('ks_s1_title')}</h2>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{t('ks_s1_sub')}</p>
           </div>
         </div>
 
@@ -274,7 +273,7 @@ export default function KiatSkripsi() {
                 <div className="border-t-2 border-black dark:border-white bg-gray-50 dark:bg-gray-800/40">
                   <button
                     onClick={() => setExpandedKk(isExpanded ? null : kk.id)}
-                    className="w-full py-3 px-5 flex items-center justify-between font-bold text-xs hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left cursor-pointer group"
+                    className="w-full min-h-[44px] py-3 px-5 flex items-center justify-between font-bold text-xs hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left cursor-pointer group"
                   >
                     <span>{isExpanded ? t('ks_hide_examples') : t('ks_show_examples')}</span>
                     <span className={`transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : 'rotate-0'}`}>
@@ -365,10 +364,10 @@ export default function KiatSkripsi() {
                 {t('ks_announcement_date')}
               </span>
             </div>
-            <h3 className="font-serif font-black text-sm sm:text-base md:text-lg mb-1 leading-snug">
+            <h3 className="font-serif font-black text-sm sm:text-base md:text-lg text-black dark:text-white mb-1.5 break-words">
               {t('ks_announcement_title')}
             </h3>
-            <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-xs md:text-sm text-gray-700 dark:text-gray-300 leading-relaxed break-words">
               {t('ks_announcement_desc')}
             </p>
           </div>
@@ -435,7 +434,7 @@ export default function KiatSkripsi() {
               <button
                 key={tab.id}
                 onClick={() => setActiveStage(tab.id)}
-                className={`px-4 py-2.5 rounded-lg font-bold text-xs md:text-sm border-2 border-black dark:border-white transition-all flex items-center gap-2 cursor-pointer ${isActive
+                className={`min-h-[44px] px-3.5 sm:px-4 py-2.5 rounded-lg font-bold text-xs md:text-sm border-2 border-black dark:border-white transition-all flex items-center justify-center gap-2 cursor-pointer ${isActive
                   ? 'bg-black text-white dark:bg-white dark:text-black shadow-[3px_3px_0px_0px_rgba(16,185,129,1)]'
                   : 'bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]'
                   }`}
@@ -628,7 +627,7 @@ export default function KiatSkripsi() {
                 </div>
                 <button
                   onClick={handleCopyChat}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-emerald text-black font-bold text-xs rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 min-h-[44px] bg-brand-emerald text-black font-bold text-xs rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
                 >
                   {copiedChat ? (
                     <>
@@ -754,7 +753,7 @@ export default function KiatSkripsi() {
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 p-3 bg-brand-yellow text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] active:translate-y-[1px] transition-all rounded-full cursor-pointer group"
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 bg-brand-yellow text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] active:translate-y-[1px] transition-all rounded-full cursor-pointer group"
           title={t('ks_scroll_top')}
           aria-label="Scroll to top"
         >

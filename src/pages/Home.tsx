@@ -87,28 +87,28 @@ export default function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:px-8 space-y-10">
       {/* Hero Section */}
-      <section className="brutal-box p-6 md:p-10 bg-white dark:bg-gray-900 relative overflow-hidden">
+      <section className="brutal-box p-4 sm:p-6 md:p-10 bg-white dark:bg-gray-900 relative overflow-hidden">
         {/* Badges */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-4">
-          <span className="bg-brand-emerald text-black font-black text-xs uppercase px-3 py-1 border-2 border-black tracking-wider shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-md">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-4">
+          <span className="bg-brand-emerald text-black font-black text-xs uppercase px-2.5 sm:px-3 py-1 border-2 border-black tracking-wider shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-md">
             Skripsi 2026
           </span>
-          <span className="bg-brand-yellow text-black font-bold text-xs uppercase px-3 py-1 border-2 border-black tracking-wider shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-md">
+          <span className="bg-brand-yellow text-black font-bold text-xs uppercase px-2.5 sm:px-3 py-1 border-2 border-black tracking-wider shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-md break-words">
             UIN Syarif Hidayatullah Jakarta
           </span>
         </div>
 
         {/* Author Name */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-serif tracking-tight leading-tight mb-3">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-black font-serif tracking-tight leading-tight mb-3 break-words">
           Maulana Asykari Muhammad
         </h1>
 
         {/* Thesis Title */}
-        <div className="bg-gray-50 dark:bg-gray-800/80 border-l-4 border-black dark:border-white p-4 mb-6 rounded-r-xl">
+        <div className="bg-gray-50 dark:bg-gray-800/80 border-l-4 border-black dark:border-white p-3.5 sm:p-4 mb-6 rounded-r-xl">
           <p className="text-xs font-black uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
             {t('home_thesis_label')}
           </p>
-          <p className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug">
+          <p className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug break-words">
             {t('home_thesis_title')}
           </p>
         </div>
@@ -116,40 +116,40 @@ export default function Home() {
         {/* Academic Committee: Pembimbing & Penguji */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           {/* Pembimbing */}
-          <div className="p-4 border-2 border-black dark:border-white bg-white dark:bg-gray-800 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
+          <div className="p-3.5 sm:p-4 border-2 border-black dark:border-white bg-white dark:bg-gray-800 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center gap-2 mb-2">
               {/* <UserCheck size={16} className="text-brand-emerald" /> */}
               <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-300">
                 {t('home_advisors')}
               </span>
             </div>
-            <ul className="space-y-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+            <ul className="space-y-1.5 text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200">
               {advisors.map((adv, idx) => (
-                <li key={idx} className="flex items-center gap-2">
-                  <span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 border border-black/30 dark:border-white/30 text-gray-600 dark:text-gray-300 font-mono rounded">
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 border border-black/30 dark:border-white/30 text-gray-600 dark:text-gray-300 font-mono rounded flex-shrink-0 mt-0.5">
                     {adv.role}
                   </span>
-                  <span>{adv.name}</span>
+                  <span className="min-w-0 break-words">{adv.name}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Penguji */}
-          <div className="p-4 border-2 border-black dark:border-white bg-white dark:bg-gray-800 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
+          <div className="p-3.5 sm:p-4 border-2 border-black dark:border-white bg-white dark:bg-gray-800 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
             <div className="flex items-center gap-2 mb-2">
               {/* <UserCheck size={16} className="text-brand-blue" /> */}
               <span className="text-xs font-black uppercase tracking-wider text-gray-600 dark:text-gray-300">
                 {t('home_examiners')}
               </span>
             </div>
-            <ul className="space-y-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+            <ul className="space-y-1.5 text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200">
               {examiners.map((exm, idx) => (
-                <li key={idx} className="flex items-center gap-2">
-                  <span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 border border-black/30 dark:border-white/30 text-gray-600 dark:text-gray-300 font-mono rounded">
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 border border-black/30 dark:border-white/30 text-gray-600 dark:text-gray-300 font-mono rounded flex-shrink-0 mt-0.5">
                     {exm.role}
                   </span>
-                  <span>{exm.name}</span>
+                  <span className="min-w-0 break-words">{exm.name}</span>
                 </li>
               ))}
             </ul>
@@ -177,7 +177,7 @@ export default function Home() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('home_search_ph')}
-              className="w-full bg-white dark:bg-gray-900 border-2 border-black dark:border-white pl-10 pr-4 py-2 font-medium text-sm rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] focus:outline-none focus:ring-2 focus:ring-brand-emerald"
+              className="w-full min-h-[44px] bg-white dark:bg-gray-900 border-2 border-black dark:border-white pl-10 pr-4 py-2 font-medium text-sm rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] focus:outline-none focus:ring-2 focus:ring-brand-emerald"
             />
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function Home() {
             <button
               key={filter.id}
               onClick={() => setSelectedFilter(filter.id)}
-              className={`px-4 py-2 text-sm font-black border-2 border-black dark:border-white transition-all cursor-pointer rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] ${selectedFilter === filter.id
+              className={`min-h-[44px] px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-black border-2 border-black dark:border-white transition-all cursor-pointer rounded-xl flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] ${selectedFilter === filter.id
                 ? 'bg-black text-white dark:bg-white dark:text-black translate-x-[-1px] translate-y-[-1px]'
                 : 'bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
                 }`}
@@ -298,7 +298,7 @@ export default function Home() {
                           href={pub.externalUrl || dashboardUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-sm md:text-base font-bold text-brand-blue hover:underline break-all flex items-center gap-2"
+                          className="font-mono text-sm md:text-base font-bold text-brand-blue hover:underline break-all flex items-center gap-2 min-h-[44px]"
                         >
                           <span>https://skripsistaking.netlify.app/</span>
                           <ExternalLink size={15} />
@@ -310,7 +310,7 @@ export default function Home() {
                           href={pub.slidesUrl || slidesUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-mono text-sm md:text-base font-bold text-amber-600 hover:underline break-all flex items-center gap-2"
+                          className="font-mono text-sm md:text-base font-bold text-amber-600 hover:underline break-all flex items-center gap-2 min-h-[44px]"
                         >
                           <span>{slidesUrl}</span>
                           <ExternalLink size={15} />
@@ -330,7 +330,7 @@ export default function Home() {
                           </span>
                           <button
                             onClick={() => toggleAbstract(pub.id)}
-                            className="text-xs font-bold text-brand-emerald hover:underline flex items-center gap-1 cursor-pointer"
+                            className="text-xs font-bold text-brand-emerald hover:underline flex items-center gap-1 cursor-pointer min-h-[44px] py-2"
                           >
                             {isExpanded ? (
                               <>{t('act_close')} <ChevronUp size={14} /></>
@@ -369,7 +369,7 @@ export default function Home() {
                       {pub.requestThesis && (
                         <button
                           onClick={() => setIsRequestModalOpen(true)}
-                          className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl cursor-pointer"
+                          className="min-h-[44px] flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl cursor-pointer"
                         >
                           <Download size={16} />
                           <span>{pub.tag === 'Conference' ? t('act_dl_draft') : t('act_dl_pdf')}</span>
@@ -379,7 +379,7 @@ export default function Home() {
                       {pub.readerUrl && (
                         <Link
                           to={pub.readerUrl}
-                          className="flex items-center gap-2 bg-black text-white dark:bg-white dark:text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald hover:text-black dark:hover:bg-brand-emerald dark:hover:text-black transition-colors text-sm rounded-xl"
+                          className="min-h-[44px] flex items-center gap-2 bg-black text-white dark:bg-white dark:text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-brand-emerald hover:text-black dark:hover:bg-brand-emerald dark:hover:text-black transition-colors text-sm rounded-xl"
                         >
                           <BookOpen size={16} />
                           <span>{t('act_read_mdx')}</span>
@@ -394,7 +394,7 @@ export default function Home() {
                           download={pub.pdfDownloadName}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
+                          className="min-h-[44px] flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Download size={16} />
                           <span>{pub.tag === 'Conference' ? t('act_dl_draft') : t('act_dl_pdf')}</span>
@@ -407,7 +407,7 @@ export default function Home() {
                           href={pub.doiUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-black px-4 py-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm rounded-xl"
+                          className="min-h-[44px] flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-black px-4 py-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm rounded-xl"
                         >
                           <span>Link DOI</span>
                           <ExternalLink size={15} className="text-brand-blue" />
@@ -420,7 +420,7 @@ export default function Home() {
                           href={pub.externalUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-brand-blue text-white font-black px-5 py-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
+                          className="min-h-[44px] flex items-center gap-2 bg-brand-blue text-white font-black px-5 py-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Laptop size={16} />
                           <span>{t('act_open_prototype')}</span>
@@ -434,7 +434,7 @@ export default function Home() {
                           href={pub.slidesUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-brand-yellow text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
+                          className="min-h-[44px] flex items-center gap-2 bg-brand-yellow text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Presentation size={16} />
                           <span>{t('act_open_slides')}</span>
@@ -457,7 +457,7 @@ export default function Home() {
                           href={pub.scholarCitationUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 px-3 py-2 text-xs font-black border-2 border-black dark:border-white rounded-xl bg-brand-emerald text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
+                          className="min-h-[44px] flex items-center gap-1.5 px-3 py-2 text-xs font-black border-2 border-black dark:border-white rounded-xl bg-brand-emerald text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                           title={t('tt_cite_scholar')}
                         >
                           <GraduationCap size={15} />

@@ -193,7 +193,7 @@ export default function Perjalanan() {
       <div className="mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 font-black text-sm bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
+          className="inline-flex items-center gap-2 font-black text-sm bg-white dark:bg-gray-800 text-black dark:text-white px-4 py-2 min-h-[44px] border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg"
         >
           <ArrowLeft size={16} />
           <span>{t('paper_back')}</span>
@@ -201,7 +201,7 @@ export default function Perjalanan() {
       </div>
 
       {/* Header Banner */}
-      <section className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-6 md:p-10 rounded-2xl mb-12 relative overflow-hidden">
+      <section className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] p-4 sm:p-6 md:p-10 rounded-2xl mb-12 relative overflow-hidden">
         <div className="absolute top-0 right-0 translate-x-8 -translate-y-8 w-44 h-44 bg-brand-yellow/30 dark:bg-brand-yellow/10 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 -translate-x-8 translate-y-8 w-44 h-44 bg-brand-emerald/30 dark:bg-brand-emerald/10 rounded-full blur-2xl pointer-events-none" />
 
@@ -210,7 +210,7 @@ export default function Perjalanan() {
             <span>{t('pj_eyebrow')}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-serif tracking-tight text-black dark:text-white leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black font-serif tracking-tight text-black dark:text-white leading-tight break-words">
             {t('pj_title')}
           </h1>
 
@@ -320,7 +320,7 @@ export default function Perjalanan() {
                                   setActiveMilestoneId(milestone.id);
                                 }
                               }}
-                              className="inline-flex items-center gap-2 text-xs font-black bg-brand-emerald text-black px-3.5 py-2 border-2 border-black rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-emerald-400 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
+                              className="inline-flex items-center gap-2 text-xs font-black bg-brand-emerald text-black px-3.5 py-2 min-h-[44px] border-2 border-black rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-emerald-400 cursor-pointer active:translate-x-[1px] active:translate-y-[1px] transition-all"
                             >
                               <Camera size={14} />
                               <span>{t('pj_view_docs')} ({milestone.photos.length} {t('pj_photos')})</span>
@@ -602,7 +602,7 @@ export default function Perjalanan() {
 
             <button
               onClick={() => setLightboxOpen(false)}
-              className="p-2.5 sm:p-3 bg-white text-black border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-red-500 hover:text-white transition-all rounded-xl cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2.5 sm:p-3 bg-white text-black border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-red-500 hover:text-white transition-all rounded-xl cursor-pointer"
               aria-label={t('act_close')}
             >
               <X size={22} className="sm:w-6 sm:h-6" />
@@ -645,7 +645,7 @@ export default function Perjalanan() {
             <div className="w-full flex sm:hidden items-center justify-center gap-4 py-2 z-50">
               <button
                 onClick={handlePrevImage}
-                className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
+                className="min-h-[44px] flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
                 aria-label={t('pj_prev_photo')}
               >
                 <ChevronLeft size={18} />
@@ -658,7 +658,7 @@ export default function Perjalanan() {
 
               <button
                 onClick={handleNextImage}
-                className="flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
+                className="min-h-[44px] flex items-center gap-1.5 px-4 py-2.5 bg-white text-black font-black text-xs uppercase tracking-wider border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-xl cursor-pointer"
                 aria-label={t('pj_next_photo')}
               >
                 <span>Next</span>

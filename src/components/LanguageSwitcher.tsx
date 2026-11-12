@@ -29,14 +29,14 @@ export default function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1.5 p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 transition-all rounded-lg cursor-pointer"
+        className="flex items-center justify-center gap-1 sm:gap-1.5 min-w-[44px] min-h-[44px] px-2 sm:px-2.5 py-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 transition-all rounded-lg cursor-pointer"
         title={t("tt_lang")}
         aria-label={t("tt_lang")}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <Languages size={20} />
-        <span className="text-sm font-black uppercase leading-none">{current.code}</span>
+        <Languages size={18} />
+        <span className="text-xs sm:text-sm font-black uppercase leading-none">{current.code}</span>
       </button>
 
       <AnimatePresence>

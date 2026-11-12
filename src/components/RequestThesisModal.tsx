@@ -58,7 +58,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black border-2 border-black dark:border-white rounded-xl transition-colors cursor-pointer"
+          className="absolute top-4 right-4 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 bg-gray-100 dark:bg-gray-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black border-2 border-black dark:border-white rounded-xl transition-colors cursor-pointer"
           aria-label={t('rtm_close_dialog')}
         >
           <X size={20} />
@@ -107,7 +107,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href={mailtoLink}
-                className="flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
+                className="min-h-[44px] flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
               >
                 <Send size={16} />
                 <span>{t('rtm_open_email')}</span>
@@ -115,7 +115,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
 
               <button
                 onClick={() => copyToClipboard(authorEmail, 'email')}
-                className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
+                className="min-h-[44px] flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
               >
                 {copiedType === 'email' ? (
                   <>
@@ -157,7 +157,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
                 href={linkedinProfileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-blue-600 text-white font-black px-4 py-2.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
+                className="min-h-[44px] flex items-center gap-2 bg-blue-600 text-white font-black px-4 py-2.5 border-2 border-black rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-xs md:text-sm"
               >
                 <LinkedInIcon size={16} />
                 <span>{t('rtm_open_linkedin')}</span>
@@ -166,7 +166,7 @@ export default function RequestThesisModal({ isOpen, onClose }: RequestThesisMod
 
               <button
                 onClick={() => copyToClipboard(linkedInMessage, 'linkedin')}
-                className="flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
+                className="min-h-[44px] flex items-center gap-2 bg-white dark:bg-gray-800 text-black dark:text-white font-bold px-3.5 py-2.5 border-2 border-black dark:border-white rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100 dark:hover:bg-gray-700 text-xs cursor-pointer"
               >
                 {copiedType === 'linkedin' ? (
                   <>

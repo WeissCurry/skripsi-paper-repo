@@ -102,11 +102,11 @@ export default function PaperDetail() {
       <header className="mb-12 border-b-[3px] border-black dark:border-white pb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 font-black text-sm px-4 py-2 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg mb-6"
+          className="inline-flex items-center gap-2 font-black text-sm px-4 py-2 min-h-[44px] bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg mb-6"
         >
           &larr; <span>{t('paper_back')}</span>
         </Link>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-serif mb-6 leading-tight">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-serif mb-6 leading-tight break-words">
           {p(paper.title)}
         </h1>
 

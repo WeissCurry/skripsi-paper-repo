@@ -63,11 +63,11 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-background selection:bg-brand-emerald selection:text-white">
       <header className={`fixed left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50 transition-all duration-300 ${isScrolled ? 'top-2' : 'top-4'}`}>
-        <div className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] py-3 px-6 md:px-8 flex justify-between items-center rounded-2xl relative">
-          <div className="flex flex-col">
-            <h1 className="text-xl md:text-2xl font-black font-serif tracking-tight leading-none">
-              <Link to="/" className="hover:text-brand-emerald transition-colors flex items-center gap-2">
-                <span className="bg-black text-white px-2.5 py-0.5 rounded-md transform -rotate-1">Mual</span>
+        <div className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] py-2.5 px-3 sm:px-6 md:px-8 flex justify-between items-center rounded-2xl relative">
+          <div className="flex flex-col min-w-0 pr-1">
+            <h1 className="text-base sm:text-xl md:text-2xl font-black font-serif tracking-tight leading-none truncate">
+              <Link to="/" className="hover:text-brand-emerald transition-colors flex items-center gap-1.5 sm:gap-2 min-h-[44px]">
+                <span className="bg-black text-white px-1.5 sm:px-2.5 py-0.5 rounded-md transform -rotate-1 text-xs sm:text-base">Mual</span>
                 <span className="text-black dark:text-white">Skripsi</span>
               </Link>
             </h1>
@@ -156,23 +156,25 @@ function Layout({ children }: { children: React.ReactNode }) {
           </nav>
 
           {/* Mobile Actions */}
-          <div className="flex lg:hidden items-center gap-3">
+          <div className="flex lg:hidden items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
             <LanguageSwitcher />
 
             <button
               onClick={() => document.documentElement.classList.toggle('dark')}
-              className="p-2.5 border-2 border-black dark:border-white bg-white dark:bg-gray-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-2 border-black dark:border-white bg-white dark:bg-gray-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all rounded-lg cursor-pointer"
+              title={t('tt_dark')}
+              aria-label={t('tt_dark')}
             >
-              <Moon size={22} className="dark:hidden" />
-              <Sun size={22} className="hidden dark:block" />
+              <Moon size={20} className="dark:hidden" />
+              <Sun size={20} className="hidden dark:block" />
             </button>
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2.5 bg-brand-emerald text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-lg cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 bg-brand-emerald text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all rounded-lg cursor-pointer"
               aria-label="Toggle Menu"
             >
-              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
@@ -244,7 +246,6 @@ function Layout({ children }: { children: React.ReactNode }) {
               href="https://mualporto.netlify.app"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setIsMenuOpen(false)}
               className="p-3 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
               aria-label={t('nav_portfolio')}
             >
@@ -269,12 +270,12 @@ function Layout({ children }: { children: React.ReactNode }) {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap justify-center">
             <a
               href="https://www.linkedin.com/in/maulanasykari/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
               title="LinkedIn Profile"
               aria-label="LinkedIn Profile"
             >
@@ -285,7 +286,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               href="https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-brand-emerald hover:bg-emerald-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-brand-emerald hover:bg-emerald-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
               title="Google Scholar Profile"
               aria-label="Google Scholar Profile"
             >
@@ -296,7 +297,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               href="https://mualporto.netlify.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
               title={t('tt_portfolio')}
               aria-label={t('tt_portfolio')}
             >
@@ -307,7 +308,7 @@ function Layout({ children }: { children: React.ReactNode }) {
               href="https://github.com/WeissCurry/skripsi-paper-repo"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all rounded-lg cursor-pointer"
               title="GitHub Repository"
               aria-label="GitHub Repository"
             >

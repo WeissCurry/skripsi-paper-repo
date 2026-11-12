@@ -115,7 +115,7 @@ export default function VisitorStats({
           <button
             onClick={handleRefresh}
             disabled={loading || isRefreshing}
-            className="p-1.5 rounded-lg border-2 border-black dark:border-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer disabled:opacity-50"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg border-2 border-black dark:border-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer disabled:opacity-50"
             title={t('vs_refresh')}
             aria-label="Refresh stats"
           >
@@ -129,7 +129,7 @@ export default function VisitorStats({
             href={`https://${siteCode}.goatcounter.com`}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 rounded-lg border-2 border-black dark:border-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg border-2 border-black dark:border-white bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
             title={t('vs_open_dash')}
             aria-label="Open GoatCounter dashboard"
           >
