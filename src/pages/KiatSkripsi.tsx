@@ -29,6 +29,7 @@ import {
   GOOGLE_DOC_URL,
 } from '../data/kiatSkripsi';
 import VisitorStats from '../components/VisitorStats';
+import VennDiagramKK from '../components/VennDiagramKK';
 import { useT, UI } from '../i18n/strings';
 
 const GoogleDocsIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -210,6 +211,16 @@ export default function KiatSkripsi() {
             <p className="text-sm text-gray-600 dark:text-gray-400">{t('ks_s1_sub')}</p>
           </div>
         </div>
+
+        {/* Figure 1: Venn Diagram Pemetaan Dosen KK (IEEE Style) */}
+        <figure className="mb-8 p-3.5 sm:p-6 md:p-8 bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,1)]">
+          <div className="max-w-3xl mx-auto">
+            <VennDiagramKK />
+          </div>
+          <figcaption className="text-center font-serif text-xs md:text-sm text-gray-800 dark:text-gray-200 mt-4 tracking-normal">
+            {t('ks_fig_venn_caption')}
+          </figcaption>
+        </figure>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {KELOMPOK_KEAHLIAN.map((kk) => {

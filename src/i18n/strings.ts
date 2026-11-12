@@ -311,6 +311,21 @@ export const UI = {
   ks_focus_area: { id: "Area Fokus:", en: "Focus Areas:" },
   ks_hide_examples: { id: "Sembunyikan Contoh Judul", en: "Hide Example Titles" },
   ks_show_examples: { id: "Lihat Contoh Judul Skripsi", en: "View Example Thesis Titles" },
+  ks_fig_venn_caption: {
+    id: "Fig. 1. Pemetaan dosen berdasarkan Kelompok Keahlian (KK1, KK2, KK3).",
+    en: "Fig. 1. Mapping of faculty members by Expertise Group (KK1, KK2, KK3).",
+    de: "Abb. 1. Zuordnung der Dozenten nach Fachbereichsgruppen (KK1, KK2, KK3).",
+  },
+  ks_fig_venn_title: {
+    id: "Diagram Venn Kelompok Keahlian Dosen (KK1, KK2, KK3)",
+    en: "Venn Diagram of Lecturer Expertise Groups (KK1, KK2, KK3)",
+    de: "Venn-Diagramm der Dozenten-Fachbereichsgruppen (KK1, KK2, KK3)",
+  },
+  ks_venn_empty: {
+    id: "(kosong)",
+    en: "(empty)",
+    de: "(leer)",
+  },
   ks_s2_title: { id: "Portal Akses & Jadwal Pendaftaran", en: "Access Portals & Registration Schedule" },
   ks_s2_sub: {
     id: "Tautan administrasi resmi serta aturan pembukaan gelombang ujian",
