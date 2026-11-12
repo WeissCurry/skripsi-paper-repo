@@ -33,6 +33,9 @@ export interface PortalLink {
 export const GOOGLE_DOC_URL =
   'https://docs.google.com/document/d/1m3Lj-wmMqN1gHBjU7tB4TiLYkZZmg0AMFIthC6VzbA4/edit?tab=t.amby3fbg6alm';
 
+export const NOTES_TEMPLATE_DOC_URL =
+  'https://docs.google.com/document/d/1m3Lj-wmMqN1gHBjU7tB4TiLYkZZmg0AMFIthC6VzbA4/edit?tab=t.fthtwbdqmjki';
+
 export const PORTAL_LINKS: PortalLink[] = [
   {
     title: {

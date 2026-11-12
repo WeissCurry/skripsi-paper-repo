@@ -27,6 +27,7 @@ import {
   TEMPLATE_CHAT,
   CONTOH_NOTES_BIMBINGAN,
   GOOGLE_DOC_URL,
+  NOTES_TEMPLATE_DOC_URL,
 } from '../data/kiatSkripsi';
 import VisitorStats from '../components/VisitorStats';
 import VennDiagramKK from '../components/VennDiagramKK';
@@ -660,9 +661,21 @@ export default function KiatSkripsi() {
           {/* Contoh Notes Bimbingan */}
           <div className="bg-white dark:bg-gray-900 border-[3px] border-black dark:border-white rounded-2xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <FileText size={18} className="text-brand-blue" />
-                <h3 className="font-serif font-bold text-lg">{t('ks_notes_title')}</h3>
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <FileText size={18} className="text-brand-blue" />
+                  <h3 className="font-serif font-bold text-lg">{t('ks_notes_title')}</h3>
+                </div>
+                <a
+                  href={NOTES_TEMPLATE_DOC_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 min-h-[44px] bg-brand-blue hover:bg-blue-600 text-white font-bold text-xs sm:text-sm rounded-lg border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer w-full sm:w-auto"
+                >
+                  <GoogleDocsIcon className="w-4 h-4 flex-shrink-0" />
+                  <span>{t('ks_open_template_docs')}</span>
+                  <ExternalLink size={14} />
+                </a>
               </div>
 
               <div className="bg-blue-50 dark:bg-blue-950/40 p-3 rounded-lg border border-blue-200 dark:border-blue-900 mb-4">

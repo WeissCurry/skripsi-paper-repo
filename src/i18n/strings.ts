@@ -425,6 +425,11 @@ export const UI = {
     id: "💡 Simpan file notes setiap bimbingan di Google Docs / Notion agar mudah ditinjau saat sidang nanti.",
     en: "💡 Save your notes from each session in Google Docs / Notion so they're easy to review before the defense.",
   },
+  ks_open_template_docs: {
+    id: "Cek Template",
+    en: "Open Template",
+    de: "Vorlage öffnen",
+  },
   ks_banner_title: {
     id: "Semoga Dimudahkan dan Lancar Sampai Wisuda! 🎓",
     en: "May It Be Made Easy and Smooth All the Way to Graduation! 🎓",
