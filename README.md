@@ -26,7 +26,7 @@ Web ini dibangun tidak hanya sebagai etalase publikasi akademik, tetapi juga seb
 - **Daftar Publikasi Terindeks**: Menampilkan artikel jurnal ilmiah, manuskrip penelitian, prototipe sistem, dan slide presentasi lengkap dengan metadata, abstrak, kata kunci, serta tautan dokumen PDF.
 - **Filter & Pencarian Real-Time**: Pencarian instan berdasarkan judul, kategori output, penulis, nama konferensi/jurnal, dan kata kunci penelitian.
 - **Form Permohonan Naskah**: Modal interaktif berbasis *mailto generator* yang memudahkan akademisi atau peneliti meminta akses salinan lengkap skripsi secara etis dan terstruktur.
-- **Tautan Eksternal Terintegrasi**: Akses cepat ke Dashboard Web3 Staking Ethereum (`https://skripsistaking.netlify.app/`), Slide Presentasi Sidang Canva, dan Profil Google Scholar.
+- **Tautan Eksternal Terintegrasi**: Akses cepat ke Portofolio (`https://mualporto.netlify.app/`), Dashboard Web3 Staking Ethereum (`https://skripsistaking.netlify.app/`), Slide Presentasi Sidang Canva, Profil LinkedIn, dan Profil Google Scholar.
 
 ### 2. 📄 Pembaca Naskah Ilmiah Interaktif (`/paper/:slug`)
 - **Rendering Manuskrip Berbasis MDX**: Membaca artikel ilmiah lengkap dan proposal tugas akhir dengan tipografi artikel akademik yang nyaman dan responsif.
@@ -47,12 +47,13 @@ Web ini dibangun tidak hanya sebagai etalase publikasi akademik, tetapi juga seb
 - **Lightbox Preview Modal**: Klik foto manapun untuk melihat tampilan layar penuh (*fullscreen*) resolusi tinggi dengan kontrol navigasi keyboard (panah kiri/kanan/Esc).
 
 ### 5. 📚 Kiat & Tips Skripsi (`/kiat-skripsi`)
-- **Panduan Kelompok Keahlian (KK)**: Kupas tuntas karakteristik, area fokus, dan contoh judul skripsi untuk KK1 (*Digital Transformation*), KK2 (*IS & Management*), dan KK3 (*Information Processing*).
+- **Panduan Kelompok Keahlian (KK) & Diagram Venn Dosen (Fig. 1)**: Kupas tuntas karakteristik, area fokus, dan contoh judul skripsi untuk KK1 (*Digital Transformation*), KK2 (*IS & Management*), dan KK3 (*Information Processing*), dilengkapi visualisasi diagram Venn berbasis SVG standar IEEE (`<VennDiagramKK />`) beserta takarir *Fig. 1* untuk memetakan kepakaran dan irisan bidang keahlian dosen pembimbing.
+- **Callout Pengumuman Jadwal Pendaftaran**: Notifikasi penting mengenai jadwal berkala pendaftaran Seminar Proposal (tanggal 1–7) dan Sidang Munaqosah (tanggal 15–21) setiap bulannya mulai Oktober 2026.
 - **Portal Akses & Aturan Sidang**: Tautan langsung ke portal pendaftaran Layanan SI UIN Jakarta, E-Letter FST, serta informasi ujian bahasa TOEFL/TOAFL.
 - **Checklist Dokumen Interaktif**: Rekap berkas persyaratan untuk Sempro (6 dokumen), Semhas (8 dokumen), Sidang (14 dokumen), dan Distribusi Pasca Sidang (10 dokumen), lengkap dengan format, ukuran maksimal, aturan penamaan file, dan checkbox interaktif tersimpan lokal.
 - **Tips Bimbingan & Golden Rules**: Prinsip praktis agar bimbingan produktif dan terhindar dari revisi berulang.
-- **Template Chat & Notes Revisi**: Template chat WhatsApp sopan ke dosen pembimbing (dengan tombol *1-click copy*) serta format pencatatan revisi per bab.
-- **Link Dokumen Asli**: Akses langsung ke dokumen kerja Google Docs.
+- **Template Chat WhatsApp**: Template pesan sopan ke dosen pembimbing dengan tombol *1-click copy*.
+- **Tombol Template Notes Bimbingan Google Docs**: Akses cepat dengan satu klik untuk membuka template naskah catatan bimbingan dan log revisi resmi di Google Docs (tab baru).
 
 ### 6. 📊 Statistik Pengunjung Privasi-Aman (GoatCounter)
 - **Metrik Kunjungan Transparan**: Menampilkan statistik pengunjung 30 hari terakhir, total pengunjung seumur hidup (*lifetime*), dan jumlah tayangan (*pageviews*).
@@ -74,6 +75,7 @@ Aplikasi ini mengadopsi estetika **Neo-Brutalisme Modern**:
 - Palet warna kontras tinggi: *Brand Emerald* (`#10b981`), *Brand Yellow* (`#fde047`), dan *Brand Blue* (`#3b82f6`)
 - Tipografi kombinasi: *Merriweather* (serif elegan untuk judul karya) dan *Inter* (sans-serif modern untuk keterbacaan data)
 - Dukungan penuh mode gelap (*Dark Mode*) dengan toggle instan
+- **Desain Responsif Penuh & Aksesibilitas**: Tata letak fleksibel yang dioptimalkan untuk desktop, tablet, smartphone biasa, hingga perangkat layar lipat (*foldable*) dengan target sentuh ergonomis (minimal 44px).
 
 ---
 
@@ -114,6 +116,7 @@ skripsi-paper-repo/
 │   │   ├── PageLoader.tsx           # Indikator pemuatan halaman & metrik aset
 │   │   ├── RequestThesisModal.tsx   # Modal permohonan naskah lengkap via email
 │   │   ├── ScrollToTop.tsx          # Pengatur reset scroll pada navigasi rute
+│   │   ├── VennDiagramKK.tsx        # Diagram Venn SVG (IEEE style) pemetaan dosen per KK
 │   │   └── VisitorStats.tsx         # Widget statistik pengunjung GoatCounter
 │   ├── content/                # Naskah akademik berbasis MDX
 │   │   ├── paper-skripsi.mdx            # Naskah lengkap skripsi (Bahasa Indonesia)
@@ -147,7 +150,7 @@ skripsi-paper-repo/
 
 ### Prasyarat
 - Node.js versi 18 atau lebih tinggi
-- [pnpm](https://pnpm.io/) (disarankan) atau npm / yarn
+- [pnpm](https://pnpm.io/)
 
 ### Langkah Instalasi
 1. Clone repositori:
@@ -167,7 +170,12 @@ skripsi-paper-repo/
    ```
    Buka `http://localhost:5173` pada browser Anda.
 
-4. Build produksi & verifikasi tipe:
+4. Pemeriksaan linting & format kode:
+   ```bash
+   pnpm run lint
+   ```
+
+5. Build produksi & verifikasi tipe:
    ```bash
    pnpm run build
    ```
@@ -182,6 +190,7 @@ Program Studi Sistem Informasi, Fakultas Sains dan Teknologi
 Universitas Islam Negeri (UIN) Syarif Hidayatullah Jakarta
 
 - 🌐 **Live Website**: [mualskripsi.netlify.app](https://mualskripsi.netlify.app/)
+- 💼 **Portofolio**: [mualporto.netlify.app](https://mualporto.netlify.app/)
 - 💼 **LinkedIn**: [linkedin.com/in/maulanasykari](https://www.linkedin.com/in/maulanasykari/)
 - 🎓 **Google Scholar**: [Maulana Asykari Muhammad](https://scholar.google.com/citations?user=YKcLScoAAAAJ&hl=en)
 - 🐙 **GitHub**: [@WeissCurry](https://github.com/WeissCurry)
