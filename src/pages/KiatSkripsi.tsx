@@ -350,29 +350,6 @@ export default function KiatSkripsi() {
           ))}
         </div>
 
-        {/* Announcement Callout: Pemisahan Jadwal Pendaftaran */}
-        <div className="mb-6 bg-brand-yellow/15 dark:bg-brand-yellow/10 border-[3px] border-black dark:border-white p-3.5 sm:p-5 md:p-6 rounded-xl shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,1)] flex items-start gap-3 sm:gap-4">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-brand-yellow text-black rounded-lg border-2 border-black flex-shrink-0 mt-0.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-            <Calendar size={18} className="sm:w-5 sm:h-5" />
-          </div>
-          <div className="flex-grow min-w-0">
-            <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-wider bg-brand-yellow text-black border border-black px-2 py-0.5 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
-                {t('ks_announcement_badge')}
-              </span>
-              <span className="text-xs font-bold text-gray-600 dark:text-gray-400">
-                {t('ks_announcement_date')}
-              </span>
-            </div>
-            <h3 className="font-serif font-black text-sm sm:text-base md:text-lg text-black dark:text-white mb-1.5 break-words">
-              {t('ks_announcement_title')}
-            </h3>
-            <p className="text-xs md:text-sm text-gray-700 dark:text-gray-300 leading-relaxed break-words">
-              {t('ks_announcement_desc')}
-            </p>
-          </div>
-        </div>
-
         {/* Info Rules Box */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-brand-yellow/10 dark:bg-brand-yellow/5 border-[3px] border-black dark:border-white p-6 rounded-xl shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,1)]">
           <div>
@@ -384,7 +361,11 @@ export default function KiatSkripsi() {
               {JADWAL_INFO.semproSidang.map((item, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-amber-500 font-bold">•</span>
-                  <span>{p(item)}</span>
+                  <span>
+                    {p(item).split('**').map((part, j) =>
+                      j % 2 ? <strong key={j} className="text-black dark:text-white">{part}</strong> : part,
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>

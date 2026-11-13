@@ -231,34 +231,23 @@ export const KELOMPOK_KEAHLIAN: KelompokKeahlian[] = [
 export const JADWAL_INFO: { semproSidang: Localized[]; semhas: Localized[] } = {
   semproSidang: [
     {
-      id: 'Pendaftaran Sempro dibuka tanggal 1–7 setiap bulan (mulai Oktober 2026).',
-      en: 'Sempro registration is open on the 1st–7th of each month (starting October 2026).',
-      de: 'Sempro-Anmeldung: 1.–7. jedes Monats geöffnet (ab Oktober 2026).',
+      id: 'Pendaftaran dibuka setiap rentang tanggal **1–7** dan **15–21** setiap bulannya.',
+      en: 'Registration opens every month during the **1st–7th** and **15th–21st**.',
     },
     {
-      id: 'Pendaftaran Sidang Munaqosah dibuka tanggal 15–21 setiap bulan.',
-      en: 'Munaqosah defense registration is open on the 15th–21st of each month.',
-      de: 'Munaqosah-Verteidigung: Anmeldung vom 15.–21. jedes Monats geöffnet.',
+      id: 'Bisa **ditutup lebih cepat** di setiap **penghujung semester akademik**.',
+      en: 'It may **close earlier** toward the **end of each academic semester**.',
+      de: 'Kann zum **Ende des akademischen Semesters** **früher geschlossen werden**.',
     },
     {
-      id: 'Pelaksanaan ujian dapat dijadwalkan lebih dari 2 pekan setelah pendaftaran karena padatnya jadwal 4 dosen penguji.',
-      en: 'Exams may be scheduled more than 2 weeks after registration due to the busy schedules of the 4 examiners.',
-      de: 'Prüfungstermine können wegen der Termindichte der 4 Prüfer mehr als 2 Wochen nach der Anmeldung liegen.',
+      id: 'Dihadiri oleh **Dosen Pembimbing** dan **Dosen Penguji**.',
+      en: 'Attended by the **supervisors** and the **examiners**.',
+      de: 'Teilnahme durch **Betreuer** und **Prüfer**.',
     },
     {
-      id: 'Bisa ditutup lebih cepat di setiap penghujung semester akademik.',
-      en: 'It may close earlier toward the end of each academic semester.',
-      de: 'Kann zum Ende des akademischen Semesters früher geschlossen werden.',
-    },
-    {
-      id: 'Dihadiri oleh Dosen Pembimbing dan Dosen Penguji.',
-      en: 'Attended by the supervisors and the examiners.',
-      de: 'Teilnahme durch Betreuer und Prüfer.',
-    },
-    {
-      id: 'Jadwal dan ruangan/ruang daring ditentukan langsung oleh Program Studi.',
-      en: 'The schedule and the room / online room are set directly by the Program.',
-      de: 'Zeitplan und (Online-)Raum werden direkt vom Studiengang festgelegt.',
+      id: 'Jadwal dan ruangan/ruang daring ditentukan langsung oleh **Program Studi**.',
+      en: 'The schedule and the room / online room are set directly by the **Program**.',
+      de: 'Zeitplan und (Online-)Raum werden direkt vom **Studiengang** festgelegt.',
     },
   ],
   semhas: [
