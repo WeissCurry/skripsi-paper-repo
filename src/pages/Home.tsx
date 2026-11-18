@@ -33,7 +33,7 @@ const getTagColor = (tag: OutputTag) => {
       return 'bg-brand-blue text-white';
     case 'Journal':
       return 'bg-brand-emerald text-black';
-    case 'Conference':
+    case 'Proceedings':
       return 'bg-purple-300 text-black';
     case 'Manuscript':
       return 'bg-brand-yellow text-black';
@@ -372,7 +372,7 @@ export default function Home() {
                           className="min-h-[44px] flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl cursor-pointer"
                         >
                           <Download size={16} />
-                          <span>{pub.tag === 'Conference' ? t('act_dl_draft') : t('act_dl_pdf')}</span>
+                          <span>{t('act_dl_pdf')}</span>
                         </button>
                       )}
                       {/* Interactive MDX Reader Link (For Skripsi) */}
@@ -397,7 +397,7 @@ export default function Home() {
                           className="min-h-[44px] flex items-center gap-2 bg-brand-emerald text-black font-black px-4 py-2.5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all text-sm rounded-xl"
                         >
                           <Download size={16} />
-                          <span>{pub.tag === 'Conference' ? t('act_dl_draft') : t('act_dl_pdf')}</span>
+                          <span>{t('act_dl_pdf')}</span>
                         </a>
                       )}
 

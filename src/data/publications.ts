@@ -1,7 +1,7 @@
 import type { Localized } from "../i18n/strings";
 
 export type OutputCategory = 'publikasi' | 'prototype' | 'slides';
-export type OutputTag = 'Tugas Akhir' | 'Slides' | 'Prototype' | 'Journal' | 'Conference' | 'Manuscript';
+export type OutputTag = 'Tugas Akhir' | 'Slides' | 'Prototype' | 'Journal' | 'Proceedings' | 'Manuscript';
 
 export interface Publication {
   id: string;
@@ -101,7 +101,7 @@ export const publications: Publication[] = [
   {
     id: "conference-citsm",
     category: "publikasi",
-    tag: "Conference",
+    tag: "Proceedings",
     title: {
       id: "Prototype of Operational Security and Sharia Compliance Risk for Ethereum Staking",
       en: "Prototype of Operational Security and Sharia Compliance Risk for Ethereum Staking",
@@ -112,8 +112,8 @@ export const publications: Publication[] = [
       id: "14th International Conference on Cyber and IT Service Management (CITSM 2026)",
       en: "14th International Conference on Cyber and IT Service Management (CITSM 2026)",
     },
-    status: "accepted",
-    statusLabel: { id: "Accepted", en: "Accepted" },
+    status: "published",
+    statusLabel: { id: "Published", en: "Published" },
     year: "2026",
     abstract: {
       id: "Ethereum’s transition to Proof-of-Stake has expanded opportunities for users to participate in digital asset staking. However, different staking architectures expose users to distinct operational, technical, financial, and Sharia-related risks. This study develops a qualitative document-based comparative framework to assess Solo Staking and decentralized Liquid Staking through Lido Finance and to translate the findings into an interface-based risk disclosure design. The study was conducted in four phases: problem identification and criteria definition, evidence collection and architecture analysis, multidimensional risk assessment, and interface-based mitigation design. The analysis applied PIECES framework and Fishbone analysis to categorize the issues in the identified problems and to analyze the possible problems related to gharar, maysir, riba, dharar, and hifz al-mal using the parameters of Fiqh Muamalah. We then modeled the proposed user interactions and disclosure mechanisms using UML use case diagrams and interface prototypes. The results show that Solo Staking retains a one-to-one correspondence between validator duties and protocol rewards, but shifts the responsibility of node availability, key management, infrastructure upkeep and withdrawal management to individual validators. Lido Finance lowers the minimum capital and technical participation requirements and offers tokenized liquidity. But it introduces additional dependencies on smart contracts, validator operators, token accounting, secondary-market pricing, and DeFi composability. The Sharia implications of liquid staking depend on the contract structure and how it is used, especially when liquid staking tokens are used for lending, leverage, recursive-yield or speculative activities. From these findings, the proposed interface includes a contractual acknowledgment based on Wakalah bil Istithmar, information transparency about the transaction, indicators of risk, and a dashboard for monitoring risks called the Risk Explorer. This research postulates a comparative risk taxonomy and a conceptual interface framework to enhance disclosure, informed consent, operational risk awareness and Sharia-oriented governance in Ethereum staking.",
@@ -122,20 +122,21 @@ export const publications: Publication[] = [
     keywords: ["Ethereum Staking", "operational risk", "smart contract security", "Liquid Staking", "Islamic fintech"],
     pdfPath: "/Documents/Prototype of Operational Security and Sharia Compliance Risk for Ethereum Staking.pdf",
     pdfDownloadName: "CITSM - Prototype of Operational Security and Sharia Compliance Risk.pdf",
+    doiUrl: "https://doi.org/10.1109/CITSM71915.2026.11769395",
   },
   {
     id: "manuscript-sukuk-smart-contract",
     category: "publikasi",
     tag: "Manuscript",
     title: {
-      id: "Implementasi Smart Contract pada Prototipe Sukuk Ritel Terdesentralisasi Berbasis Staking",
-      en: "Smart Contract Implementation in a Staking-Based Decentralized Retail Sukuk Prototype",
+      id: "Role-based and multi-signature smart contract design for retail Sukuk lifecycle management on Ethereum",
+      en: "Role-based and multi-signature smart contract design for retail Sukuk lifecycle management on Ethereum",
     },
-    authors: "Fitroh,  Zainul Arham, Maulana Asykari Muhammad, Zahra Sabila Nugraha, Riyan Ainur Rahman",
+    authors: "Fitroh Fitroh, Zainul Arham, Maulana Asykari Muhammad, Zahra Sabila Nugraha, Riyan Ainur Rahman",
     institution: "UIN Syarif Hidayatullah Jakarta",
     venue: { id: "Draf Naskah Ilmiah", en: "Scientific Manuscript Draft" },
     status: "coming_soon",
-    statusLabel: { id: "Coming Soon", en: "Coming Soon" },
+    statusLabel: { id: "Under Review", en: "Under Review" },
     year: "Coming Soon",
     abstract: { id: "Coming soon.", en: "Coming soon." },
     keywords: ["Coming Soon"],
@@ -148,14 +149,16 @@ export const publications: Publication[] = [
       id: "Architecting Staking-Based Retail Sukuk: A CSVLOD Model Approach",
       en: "Architecting Staking-Based Retail Sukuk: A CSVLOD Model Approach",
     },
-    authors: "Fitroh,  Zainul Arham, Maulana Asykari Muhammad, Zahra Sabila Nugraha",
+    authors: "Fitroh, Zainul Arham, Maulana Asykari Muhammad, Zahra Sabila Nugraha, Riyan Ainur Rahman",
     institution: "UIN Syarif Hidayatullah Jakarta",
     venue: { id: "Draf Naskah Ilmiah", en: "Scientific Manuscript Draft" },
-    status: "coming_soon",
-    statusLabel: { id: "Coming Soon", en: "Coming Soon" },
+    status: "accepted",
+    statusLabel: { id: "Accepted", en: "Accepted" },
     year: "Coming Soon",
     abstract: { id: "Coming soon.", en: "Coming soon." },
     keywords: ["Coming Soon"],
+    pdfPath: "/Documents/Architecting Staking-Based Retail Sukuk- A CSVLOD Model Approach.pdf",
+    pdfDownloadName: "Architecting Staking-Based Retail Sukuk- A CSVLOD Model Approach.pdf",
   },
   {
     id: "prototype-system",

@@ -111,7 +111,6 @@ export const UI = {
   act_close: { id: "Tutup", en: "Close" },
   act_readmore: { id: "Baca Selengkapnya", en: "Read More" },
   lbl_keywords: { id: "Kata Kunci:", en: "Keywords:" },
-  act_dl_draft: { id: "Unduh Draft PDF", en: "Download Draft PDF" },
   act_dl_pdf: { id: "Unduh PDF", en: "Download PDF" },
   act_read_mdx: { id: "Baca Naskah (MDX)", en: "Read Manuscript (MDX)" },
   act_open_prototype: {
