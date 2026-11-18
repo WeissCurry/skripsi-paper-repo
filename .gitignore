@@ -47,3 +47,8 @@ tmp_docx_images/
 public/Documents/Maulana Asykari Muhammad_11220930000058_Skripsi Final.pdf
 
 .projectmem/
+
+.projectmem/events.jsonl
+.projectmem/watch.pid
+.projectmem/watch.log
+.projectmem/structure.json
